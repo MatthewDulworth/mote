@@ -65,3 +65,4 @@ crashlytics-build.properties
 !.vscode/launch.json
 !.vscode/extensions.json
 Assets/Plugins
+vscodeWorkspace.code-workspace
