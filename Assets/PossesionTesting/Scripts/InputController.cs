@@ -37,6 +37,31 @@ public class InputController : MonoBehaviour
    }
 
    // ------------------------------------------------------
+   // Public Methods
+   // ------------------------------------------------------
+   public int GetHorizontalDirection(){
+      int horizontal = none;
+      if(rightKeyHeld){
+         horizontal += right;
+      }
+      if(leftKeyHeld){
+         horizontal += left;
+      }
+      return horizontal;
+   }
+
+   public int getVerticalDirection(){
+      int vertical = none;
+      if(upKeyHeld){
+         vertical += up;
+      }
+      if(downKeyHeld){
+         vertical += down;
+      }
+      return vertical;
+   }
+
+   // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
    public bool UpKeyHeld{

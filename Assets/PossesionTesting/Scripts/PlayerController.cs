@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
    private InputController io;
    private PossessableObject currentPosseableObject;
    [SerializeField] private float movementSpeed;
+   [SerializeField] private float diagonalLimiter;
    
 
    // ------------------------------------------------------
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
    }
 
    void Update(){
-      HandleAction();
+      // HandleAction();
    }
 
    void FixedUpdate(){
@@ -44,30 +45,23 @@ public class PlayerController : MonoBehaviour
 
    private void PlayerMovement(){
 
-      float horizontal = io.NONE;
-      if(io.RightKeyHeld){
-         horizontal += io.RIGHT;
-      }
-      if(io.LeftKeyHeld){
-         horizontal += io.LEFT;
+      float horizontal = io.GetHorizontalDirection();
+      float vertical = io.getVerticalDirection();
+
+      if(horizontal != 0 && vertical !=0){
+         horizontal *= diagonalLimiter;
+         vertical *= diagonalLimiter;
       }
 
-      float vertical = io.NONE;
-      if(io.UpKeyHeld){
-         vertical += io.UP;
-      }
-      if(io.DownKeyHeld){
-         vertical += io.DOWN;
-      }
-
+      rb.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
    }
 
    private void HandleAction(){
-      if(currentPosseableObject !=null){
+      if(currentPosseableObject != null){
          currentPosseableObject.HandleAction();
       }
       else{
-         
+         // do any player actions here
       }
    }
 
