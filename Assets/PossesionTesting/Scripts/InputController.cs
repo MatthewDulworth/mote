@@ -26,7 +26,7 @@ public class InputController : MonoBehaviour
    private const int none = 0;
 
    // ------------------------------------------------------
-   // Mono
+   // Mono Methods
    // ------------------------------------------------------
    void Update() {
       upKeyHeld = Input.GetKey(UpKey);
@@ -64,34 +64,7 @@ public class InputController : MonoBehaviour
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
-   public bool UpKeyHeld{
-      get {return upKeyHeld;}
-   }
-   public bool DownKeyHeld{
-      get {return downKeyHeld;}
-   }
-   public bool LeftKeyHeld{
-      get {return leftKeyHeld;}
-   }
-   public bool RightKeyHeld{
-      get {return rightKeyHeld;}
-   }
    public bool ActionKeyPressed{
-      get {return actionKeyPressed;}
-   }
-   public int UP{
-      get {return up;}
-   }
-   public int DOWN{
-      get {return down;}
-   }
-   public int LEFT{
-      get {return left;}
-   }
-   public int RIGHT{
-      get {return right;}
-   }
-   public int NONE{
-      get {return none;}
+      get{return actionKeyPressed;}
    }
 }
