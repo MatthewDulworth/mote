@@ -44,10 +44,12 @@ public class PossessableObject : MonoBehaviour
    // ------------------------------------------------------
    public virtual void OnPossessedEnter(){
       // when the object gets possesed 
+      possessed = true;
    }
 
    public virtual void OnPossessedExit(){
       // when the object stops being possesed
+      possessed = false;
    }
 
    public virtual void HandleMovement(){
