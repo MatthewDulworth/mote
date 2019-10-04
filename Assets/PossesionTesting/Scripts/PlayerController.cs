@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
    }
 
    void Update(){
-      Debug.Log(WTF); // this is never true how in the absolute fuck
+      Debug.LogFormat("This should be true at somepoint: {0}",WTF); // this is never true how in the absolute fuck
       HandleAction();
    }
 
@@ -118,15 +118,16 @@ public class PlayerController : MonoBehaviour
    // ------------------------------------------------------
    public void PosObjInRange(PossessableObject posObj){
       // this method is called by a possessable object whenever it comes in range
+      Debug.Log("entering range");
       inRangeList.Add(posObj);
-      WTF = true;
+      WTF = true; // for debug purposes
       Debug.Log(inRangeList.Count); // BUG: should only print 1 in the test room, is always bigger
    }
 
    public void PosObjOutOfRange(PossessableObject posObj){
       // call this method by a possessable object whenever it leaves range
       inRangeList.Remove(posObj);
-      WTF = false;
-      Debug.Log(inRangeList.Count); // BUG: should only print 0 in the test room, is always bigger
+      WTF = false;   // for debug purposes
+      Debug.LogFormat("exiting range, intRangeList.Count: {0}", inRangeList.Count); // BUG: should only print 0 in the test room, is always bigger
    }
 }
