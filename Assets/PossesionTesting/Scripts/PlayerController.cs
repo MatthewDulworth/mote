@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
    [SerializeField] private float movementSpeed;
    [SerializeField] private float diagonalLimiter;
 
+   // for debugging purposes
    bool WTF;
    
 
@@ -70,7 +71,7 @@ public class PlayerController : MonoBehaviour
          Debug.Log("current not null");
       }
       else{
-         Debug.Log(inRangeList.Count); // even tho this says it is
+         Debug.Log(inRangeList.Count);
          // BUG: this is never greater than zero, I dont know why
          if(inRangeList.Count > 0){
             HandlePossesions();
@@ -119,13 +120,13 @@ public class PlayerController : MonoBehaviour
       // this method is called by a possessable object whenever it comes in range
       inRangeList.Add(posObj);
       WTF = true;
-      Debug.Log(inRangeList.Count); // BUG: should only print 1 in the test room, is alwaays bigger
+      Debug.Log(inRangeList.Count); // BUG: should only print 1 in the test room, is always bigger
    }
 
    public void PosObjOutOfRange(PossessableObject posObj){
       // call this method by a possessable object whenever it leaves range
       inRangeList.Remove(posObj);
       WTF = false;
-      Debug.Log(inRangeList.Count); // BUG: should only print 1 in the test room, is alwaays bigger
+      Debug.Log(inRangeList.Count); // BUG: should only print 0 in the test room, is always bigger
    }
 }
