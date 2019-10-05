@@ -55,10 +55,11 @@ public class Possessable : MonoBehaviour
    }
 
    public virtual void OnPossessionEnter(){
-      
+      gameObject.AddComponent<BoxCollider2D>();
    }
 
    public virtual void OnPossessionExit(){
+      Destroy(gameObject.GetComponent<BoxCollider2D>());
       rb.velocity = Vector2.zero;
    }
 
