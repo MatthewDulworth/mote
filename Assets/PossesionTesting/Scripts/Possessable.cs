@@ -11,6 +11,7 @@ public class Possessable : MonoBehaviour
    protected Rigidbody2D rb;
    protected SpriteRenderer sr;
    protected bool inRange;
+   
    [SerializeField] protected float possesionRange;
    [SerializeField] private float movementSpeed;
    [SerializeField] private float diagonalLimiter;
@@ -27,6 +28,22 @@ public class Possessable : MonoBehaviour
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
+   public virtual void HandleMovement(InputController io){
+      float horizontal = io.GetHorizontalDirection();
+      float vertical = io.getVerticalDirection();
+
+      if(horizontal != 0 && vertical !=0){
+         horizontal *= diagonalLimiter;
+         vertical *= diagonalLimiter;
+      }
+
+      rb.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
+   }
+
+   public virtual void HandleActions(InputController io){
+
+   }
+
    public virtual void OnEnterRange(){
       inRange = true;
       sr.color = new Color(1f,1f,1f,0.5f);
@@ -43,22 +60,6 @@ public class Possessable : MonoBehaviour
 
    public virtual void OnPossessionExit(){
       rb.velocity = Vector2.zero;
-   }
-
-   public virtual void HandleMovement(InputController io){
-      float horizontal = io.GetHorizontalDirection();
-      float vertical = io.getVerticalDirection();
-
-      if(horizontal != 0 && vertical !=0){
-         horizontal *= diagonalLimiter;
-         vertical *= diagonalLimiter;
-      }
-
-      rb.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
-   }
-
-   public virtual void HandleActions(InputController io){
-
    }
 
    // ------------------------------------------------------

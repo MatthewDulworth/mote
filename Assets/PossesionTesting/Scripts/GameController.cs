@@ -101,6 +101,10 @@ public class GameController : MonoBehaviour
       if(target != null){
          if(io.ActionKeyPressed){
             PossessObject(target);
+
+            foreach(Possessable obj in inRangeOfPlayerList){
+               obj.OnExitRange();
+            }
          }
       }
    }
@@ -112,7 +116,6 @@ public class GameController : MonoBehaviour
       }
       possessedObj = obj;
       possessedObj.OnPossessionEnter();
-      possessedObj.OnExitRange();
    }
 
    private void HandleUnpossessions(){

@@ -36,4 +36,8 @@ public class Player : MonoBehaviour
    public void StopMoving(){
       rb.velocity = Vector2.zero;
    }
+
+   public void MoveTo(Vector3 pos){
+      transform.position = pos;
+   }
 }
