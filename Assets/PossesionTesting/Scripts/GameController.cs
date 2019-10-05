@@ -59,10 +59,12 @@ public class GameController : MonoBehaviour
             if(PlayerInRangeOf(obj) && !obj.InRange){
                inRangeOfPlayerList.Add(obj);
                obj.OnEnterRange();
+               Debug.Log(inRangeOfPlayerList.Count);
             } 
             else if(!PlayerInRangeOf(obj) && obj.InRange){
                inRangeOfPlayerList.Remove(obj);
                obj.OnExitRange();
+               Debug.Log(inRangeOfPlayerList.Count);
             }
          }
       }
@@ -72,7 +74,7 @@ public class GameController : MonoBehaviour
       return Physics2D.OverlapCircle(obj.transform.position, obj.PossesionRange, playerLayer);
    }
 
-   private Possessable GetTargetedPossesable(){
+   private Possessable GetTargetedPossessable(){
       if(inRangeOfPlayerList.Count > 0){
 
          Possessable target = inRangeOfPlayerList[0];
@@ -97,20 +99,22 @@ public class GameController : MonoBehaviour
    }
 
    private void HandlePossessions(){
-      Possessable target = GetTargetedPossesable();
+      Possessable target = GetTargetedPossessable();
       if(target != null){
          if(io.ActionKeyPressed){
-            PossessObject(target);
 
             foreach(Possessable obj in inRangeOfPlayerList){
                obj.OnExitRange();
             }
+
+            PossessObject(target);
          }
       }
    }
 
    private void PossessObject(Possessable obj){
       player.StopMoving();
+      inRangeOfPlayerList.Clear();
       if(possessedObj != null){
          possessedObj.OnPossessionExit();
       }
