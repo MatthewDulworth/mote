@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   private PossessableObject currentPossessedObj;
+   private Possessable possessedObj;
    private List<Possessable> inRangeOfPlayerList;
    private List<Possessable> possessables;
 
@@ -31,27 +31,22 @@ public class GameController : MonoBehaviour
    void Update() {
       HandleRangeChecks();
 
-      if(currentPossessedObj != null){
-         // handle possessed actions
+      if(possessedObj != null){
+         possessedObj.HandleActions(io);
       }
       else{
-         player.HandleActions(io);
+         HandlePossessions();
       }
-
    }
 
    void FixedUpdate(){
-      if(currentPossessedObj != null){
-         // handle possessed movement
+      if(possessedObj != null){
+         possessedObj.HandleMovement(io);
       }
       else{
          player.HandleMovement(io);
       }
    }
-
-   // ------------------------------------------------------
-   // Public Methods
-   // ------------------------------------------------------
    
 
    // ------------------------------------------------------
@@ -59,14 +54,16 @@ public class GameController : MonoBehaviour
    // ------------------------------------------------------
    private void HandleRangeChecks(){
       foreach (Possessable obj in possessables) {
-         if(obj != currentPossessedObj){
+         if(obj != possessedObj){
             if(PlayerInRangeOf(obj) && !obj.InRange){
                inRangeOfPlayerList.Add(obj);
                obj.OnEnterRange();
+               Debug.Log(inRangeOfPlayerList.Count);
             } 
             else if(!PlayerInRangeOf(obj) && obj.InRange){
                inRangeOfPlayerList.Remove(obj);
                obj.OnExitRange();
+               Debug.Log(inRangeOfPlayerList.Count);
             }
          }
       }
@@ -76,7 +73,35 @@ public class GameController : MonoBehaviour
       return Physics2D.OverlapCircle(obj.transform.position, obj.PossesionRange, playerLayer);
    }
 
+   private Possessable GetTargetedPossesable(){
+      if(inRangeOfPlayerList.Count > 0){
+
+         Possessable target = inRangeOfPlayerList[0];
+         float minDistance = GetDistance(target);
+
+         foreach(Possessable obj in inRangeOfPlayerList){
+            float distance = GetDistance(obj);
+            if(distance < minDistance){
+               target = obj;
+               minDistance = distance;
+            }
+         }
+         return target;
+      } 
+      else {
+         return null;
+      }
+   }
+
    private float GetDistance(Possessable obj){
       return Mathf.Abs(player.transform.position.sqrMagnitude - obj.transform.position.sqrMagnitude);
+   }
+
+   private void HandlePossessions(){
+      if(GetTargetedPossesable() != null){
+         if(io.ActionKeyPressed){
+            Debug.Log("possessed");
+         }
+      }
    }
 }

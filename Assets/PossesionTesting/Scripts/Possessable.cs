@@ -12,15 +12,10 @@ public class Possessable : MonoBehaviour
    protected SpriteRenderer sr;
    protected bool inRange;
    [SerializeField] protected float possesionRange;
-   [SerializeField] protected GameController controller;
 
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
-   void Awake(){
-      
-   }
-
    void Start() {
       rb = GetComponent<Rigidbody2D>();
       sr = GetComponent<SpriteRenderer>();
@@ -30,18 +25,25 @@ public class Possessable : MonoBehaviour
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public void OnEnterRange(){
+   public virtual void OnEnterRange(){
       inRange = true;
       sr.color = new Color(1f,1f,1f,0.5f);
       Debug.Log("entered range");
    }
 
-   public void OnExitRange(){
+   public virtual void OnExitRange(){
       inRange = false;
       sr.color = new Color(1f,1f,1f,1f);
       Debug.Log("exited range");
    }
 
+   public virtual void HandleMovement(InputController io){
+
+   }
+
+   public virtual void HandleActions(InputController io){
+
+   }
 
    // ------------------------------------------------------
    // Getters
