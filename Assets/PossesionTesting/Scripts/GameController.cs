@@ -33,6 +33,7 @@ public class GameController : MonoBehaviour
 
       if(possessedObj != null){
          possessedObj.HandleActions(io);
+         HandleUnpossessions();
       }
       else{
          HandlePossessions();
@@ -58,12 +59,10 @@ public class GameController : MonoBehaviour
             if(PlayerInRangeOf(obj) && !obj.InRange){
                inRangeOfPlayerList.Add(obj);
                obj.OnEnterRange();
-               Debug.Log(inRangeOfPlayerList.Count);
             } 
             else if(!PlayerInRangeOf(obj) && obj.InRange){
                inRangeOfPlayerList.Remove(obj);
                obj.OnExitRange();
-               Debug.Log(inRangeOfPlayerList.Count);
             }
          }
       }
@@ -107,11 +106,23 @@ public class GameController : MonoBehaviour
    }
 
    private void PossessObject(Possessable obj){
+      player.StopMoving();
       if(possessedObj != null){
          possessedObj.OnPossessionExit();
       }
       possessedObj = obj;
       possessedObj.OnPossessionEnter();
       possessedObj.OnExitRange();
+   }
+
+   private void HandleUnpossessions(){
+      if(io.ActionKeyPressed){
+         UnpossessObject();
+      }
+   }
+
+   private void UnpossessObject(){
+      possessedObj.OnPossessionExit();
+      possessedObj = null;
    }
 }

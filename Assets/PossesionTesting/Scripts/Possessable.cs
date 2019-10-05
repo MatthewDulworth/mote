@@ -30,21 +30,19 @@ public class Possessable : MonoBehaviour
    public virtual void OnEnterRange(){
       inRange = true;
       sr.color = new Color(1f,1f,1f,0.5f);
-      Debug.Log("entered range");
    }
 
    public virtual void OnExitRange(){
       inRange = false;
       sr.color = new Color(1f,1f,1f,1f);
-      Debug.Log("exited range");
    }
 
    public virtual void OnPossessionEnter(){
-      Debug.Log("yeet");
+      
    }
 
    public virtual void OnPossessionExit(){
-      Debug.Log("feet");
+      rb.velocity = Vector2.zero;
    }
 
    public virtual void HandleMovement(InputController io){
