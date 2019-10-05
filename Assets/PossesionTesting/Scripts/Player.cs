@@ -32,8 +32,4 @@ public class Player : MonoBehaviour
 
       rb.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
    }
-
-   public void HandleActions(InputController io){
-      
-   }
 }

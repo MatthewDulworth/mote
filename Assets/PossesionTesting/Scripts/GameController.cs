@@ -53,8 +53,8 @@ public class GameController : MonoBehaviour
    // Private Methods
    // ------------------------------------------------------
    private void HandleRangeChecks(){
-      foreach (Possessable obj in possessables) {
-         if(obj != possessedObj){
+      if(possessedObj == null){
+         foreach (Possessable obj in possessables) {
             if(PlayerInRangeOf(obj) && !obj.InRange){
                inRangeOfPlayerList.Add(obj);
                obj.OnEnterRange();
@@ -98,10 +98,20 @@ public class GameController : MonoBehaviour
    }
 
    private void HandlePossessions(){
-      if(GetTargetedPossesable() != null){
+      Possessable target = GetTargetedPossesable();
+      if(target != null){
          if(io.ActionKeyPressed){
-            Debug.Log("possessed");
+            PossessObject(target);
          }
       }
+   }
+
+   private void PossessObject(Possessable obj){
+      if(possessedObj != null){
+         possessedObj.OnPossessionExit();
+      }
+      possessedObj = obj;
+      possessedObj.OnPossessionEnter();
+      possessedObj.OnExitRange();
    }
 }
