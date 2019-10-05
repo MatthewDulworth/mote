@@ -114,6 +114,8 @@ public class GameController : MonoBehaviour
 
    private void PossessObject(Possessable obj){
       player.StopMoving();
+      player.gameObject.SetActive(false);
+
       inRangeOfPlayerList.Clear();
       if(possessedObj != null){
          possessedObj.OnPossessionExit();
@@ -129,6 +131,9 @@ public class GameController : MonoBehaviour
    }
 
    private void UnpossessObject(){
+      player.gameObject.SetActive(true);
+      player.MoveTo(possessedObj.transform.position);
+
       possessedObj.OnPossessionExit();
       possessedObj = null;
    }
