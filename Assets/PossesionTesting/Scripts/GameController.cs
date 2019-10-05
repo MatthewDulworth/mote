@@ -28,6 +28,13 @@ public class GameController : MonoBehaviour
       }
    }
 
+   void OnGUI(){
+      GUIStyle style = new GUIStyle();
+      style.fontSize = 24;
+
+      GUI.Label(new Rect(100, 100, 400, 100), "WSAD for movement, Spacebar for possession/unpossesion.\nGreen Block is the player, blue blocks are things you can possess", style);
+   }
+
    void Update() {
       HandleRangeChecks();
 
@@ -59,12 +66,10 @@ public class GameController : MonoBehaviour
             if(PlayerInRangeOf(obj) && !obj.InRange){
                inRangeOfPlayerList.Add(obj);
                obj.OnEnterRange();
-               Debug.Log(inRangeOfPlayerList.Count);
             } 
             else if(!PlayerInRangeOf(obj) && obj.InRange){
                inRangeOfPlayerList.Remove(obj);
                obj.OnExitRange();
-               Debug.Log(inRangeOfPlayerList.Count);
             }
          }
       }
