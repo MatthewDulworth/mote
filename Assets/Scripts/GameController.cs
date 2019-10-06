@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
    }
 
    void Update() {
+
       HandleRangeChecks();
 
       if(possessedObj != null){

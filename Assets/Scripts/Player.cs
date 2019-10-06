@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    public void HandleMovement(InputController io){
       float horizontal = io.GetHorizontalDirection();
-      float vertical = io.getVerticalDirection();
+      float vertical = io.GetVerticalDirection();
 
       if(horizontal != 0 && vertical !=0){
          horizontal *= diagonalLimiter;

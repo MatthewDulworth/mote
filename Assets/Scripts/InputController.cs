@@ -7,18 +7,28 @@ public class InputController : MonoBehaviour
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   [SerializeField] private KeyCode UpKey;
-   [SerializeField] private KeyCode DownKey;
-   [SerializeField] private KeyCode LeftKey;
-   [SerializeField] private KeyCode RightKey;
-   [SerializeField] private KeyCode ActionKey;
+   public KeyCode UpKey;
+   public KeyCode DownKey;
+   public KeyCode LeftKey;
+   public KeyCode RightKey;
+   public KeyCode ActionKey;
 
    private bool upKeyHeld;
    private bool downKeyHeld;
    private bool leftKeyHeld;
    private bool rightKeyHeld;
+
    private bool actionKeyPressed;
    private bool upKeyPressed;
+
+   private bool leftMouseButtonDown;
+   private bool leftMouseButtonUp;
+   private bool leftMouseButtonHeld;
+
+   private bool rightMouseButtonDown;
+   private bool rightMouseButtonUp;
+   private bool rightMouseButtonHeld;
+   private Vector3 mousePosition;
 
    private const int right = 1;
    private const int left = -1;
@@ -34,8 +44,19 @@ public class InputController : MonoBehaviour
       downKeyHeld = Input.GetKey(DownKey);
       leftKeyHeld = Input.GetKey(LeftKey);
       rightKeyHeld = Input.GetKey(RightKey);
+
       actionKeyPressed = Input.GetKeyDown(ActionKey);
       upKeyPressed = Input.GetKeyDown(UpKey);
+
+      leftMouseButtonDown = Input.GetMouseButtonDown(0);
+      leftMouseButtonUp = Input.GetMouseButtonUp(0);
+      leftMouseButtonHeld = Input.GetMouseButton(0);
+
+      rightMouseButtonDown = Input.GetMouseButtonUp(1);
+      rightMouseButtonUp = Input.GetMouseButtonDown(1);
+      rightMouseButtonHeld = Input.GetMouseButton(1);
+
+      mousePosition = Input.mousePosition;
    }
 
    // ------------------------------------------------------
@@ -52,7 +73,7 @@ public class InputController : MonoBehaviour
       return horizontal;
    }
 
-   public int getVerticalDirection(){
+   public int GetVerticalDirection(){
       int vertical = none;
       if(upKeyHeld){
          vertical += up;
@@ -72,5 +93,33 @@ public class InputController : MonoBehaviour
 
    public bool UpKeyPressed{
       get{return upKeyPressed;}
+   }
+
+   public bool LeftMouseButtonHeld{
+      get{return leftMouseButtonHeld;}
+   }
+
+   public bool LeftMouseButtonUp{
+      get{return leftMouseButtonUp;}
+   }
+
+   public bool LeftMouseButtonDown{
+      get{return leftMouseButtonDown;}
+   }
+
+   public bool RightMouseButtonHeld{
+      get{return rightMouseButtonHeld;}
+   }
+
+   public bool RightMouseButtonUp{
+      get{return rightMouseButtonUp;}
+   }
+
+   public bool RightMouseButtonDown{
+      get{return rightMouseButtonDown;}
+   }
+
+   public Vector3 MousePosition{
+      get{return mousePosition;}
    }
 }
