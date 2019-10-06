@@ -13,8 +13,8 @@ public class Possessable : MonoBehaviour
    protected bool inRange;
    
    [SerializeField] protected float possesionRange;
-   [SerializeField] private float movementSpeed;
-   [SerializeField] private float diagonalLimiter;
+   [SerializeField] protected float movementSpeed;
+   [SerializeField] protected float diagonalLimiter;
 
    // ------------------------------------------------------
    // Mono Methods
