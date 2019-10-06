@@ -71,3 +71,6 @@ vscodeWorkspace.code-workspace
 
 # JetBrains Rider
 .idea
+
+# git attributes
+.gitattributes
