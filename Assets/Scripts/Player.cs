@@ -40,4 +40,8 @@ public class Player : MonoBehaviour
    public void MoveTo(Vector3 pos){
       transform.position = pos;
    }
+
+   public Rigidbody2D RB{
+      get{return rb;}
+   }
 }

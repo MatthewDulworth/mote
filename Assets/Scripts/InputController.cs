@@ -36,6 +36,8 @@ public class InputController : MonoBehaviour
    private const int down = -1;
    private const int none = 0;
 
+   private bool zFlag = false;
+
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
@@ -56,7 +58,8 @@ public class InputController : MonoBehaviour
       rightMouseButtonUp = Input.GetMouseButtonDown(1);
       rightMouseButtonHeld = Input.GetMouseButton(1);
 
-      mousePosition = Input.mousePosition;
+      mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+      mousePosition.z = 0;
    }
 
    // ------------------------------------------------------
@@ -82,6 +85,10 @@ public class InputController : MonoBehaviour
          vertical += down;
       }
       return vertical;
+   }
+
+   public float GetMouseDistanceFrom(Transform point){
+      return Vector2.Distance(point.position, mousePosition);
    }
 
    // ------------------------------------------------------

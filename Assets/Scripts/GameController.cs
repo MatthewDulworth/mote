@@ -136,11 +136,18 @@ public class GameController : MonoBehaviour
       }
    }
 
-   private void UnpossessObject(){
+   // ------------------------------------------------------
+   // Public Methods
+   // ------------------------------------------------------
+   public void UnpossessObject(){
       player.gameObject.SetActive(true);
       player.MoveTo(possessedObj.transform.position);
 
       possessedObj.OnPossessionExit();
       possessedObj = null;
+   }
+
+   public void AddForceToPlayer(Vector2 force){
+      player.RB.AddForce(force);
    }
 }
