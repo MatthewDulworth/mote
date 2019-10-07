@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833650593431879856}
   m_Layer: 10
-  m_Name: FootTransform
+  m_Name: GroundDetection
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -147,12 +147,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83e12531a3bd46f9b0c87d1f344bf55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possesionRange: 0.4
+  possesionRange: 0.5
   movementSpeed: 5
-  jumpCheckRadius: 0.15
-  jumpForce: 5
-  feetPos: {fileID: 1833650593431879856}
-  wallLayer:
+  JumpCheckRadius: 0.1
+  JumpForce: 5
+  GroundDetection: {fileID: 1833650593431879856}
+  WallLayer:
     serializedVersion: 2
     m_Bits: 256
 --- !u!61 &1833650593467225315

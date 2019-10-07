@@ -143,8 +143,7 @@ public class GameController : MonoBehaviour
    // ------------------------------------------------------
    private void HandleEnemyMovement(Transform target){
       foreach(Enemy enemy in enemies){
-         enemy.HandleMovement(target);
-         Debug.Log("yeet");
+         enemy.HandleAI(target);
       }
    }
 

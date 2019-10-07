@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class FloatingEnemy : Enemy
 {
+   // ------------------------------------------------------
+   // Member Vars
+   // ------------------------------------------------------
    private bool hasTarget = false;
 
-   public override void HandleMovement(Transform target){
+   // ------------------------------------------------------
+   // Public Methods
+   // ------------------------------------------------------
+   public override void HandleAI(Transform target){
       float distance = Vector2.Distance(transform.position, target.position);
 
       if(distance < sightRange){

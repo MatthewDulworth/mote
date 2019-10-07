@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   private Rigidbody2D rb;
+   protected Rigidbody2D rb;
    public float speed;
    public float sightRange;
    public float offsetFromPlayer;
@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public virtual void HandleMovement(Transform target){
+   public virtual void HandleAI(Transform target){
       
    }
 }

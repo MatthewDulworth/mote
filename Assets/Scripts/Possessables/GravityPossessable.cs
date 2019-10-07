@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class GravityPossessable : Possessable
 {
-   public float jumpCheckRadius;
-   public float jumpForce;
-   public Transform feetPos;
-   public LayerMask wallLayer;
+   public float JumpCheckRadius;
+   public float JumpForce;
+   public Transform GroundDetection;
+   public LayerMask WallLayer;
 
    public override void HandleMovement(InputController io){
       int horizontal = io.GetHorizontalDirection();
       rb.velocity = new Vector2(horizontal * movementSpeed, rb.velocity.y);
 
       if(IsGrounded() && io.UpKeyPressed){
-         rb.velocity = Vector2.up * jumpForce;
+         rb.velocity = Vector2.up * JumpForce;
       }
    }
 
    private bool IsGrounded(){
-      return Physics2D.OverlapCircle(feetPos.position, jumpCheckRadius, wallLayer);
+      return Physics2D.OverlapCircle(GroundDetection.position, JumpCheckRadius, WallLayer);
    }
 }
