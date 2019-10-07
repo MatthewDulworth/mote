@@ -12,9 +12,8 @@ public class Possessable : MonoBehaviour
    protected SpriteRenderer sr;
    protected bool inRange;
    
-   [SerializeField] protected float possesionRange;
-   [SerializeField] protected float movementSpeed;
-   [SerializeField] protected float diagonalLimiter;
+   public float possesionRange;
+   public float movementSpeed;
 
    // ------------------------------------------------------
    // Mono Methods
@@ -29,15 +28,7 @@ public class Possessable : MonoBehaviour
    // Public Methods
    // ------------------------------------------------------
    public virtual void HandleMovement(InputController io){
-      float horizontal = io.GetHorizontalDirection();
-      float vertical = io.GetVerticalDirection();
-
-      if(horizontal != 0 && vertical !=0){
-         horizontal *= diagonalLimiter;
-         vertical *= diagonalLimiter;
-      }
-
-      rb.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
+   
    }
 
    public virtual void HandleActions(InputController io){

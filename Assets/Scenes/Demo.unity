@@ -1144,6 +1144,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1833650593431879857, guid: f2a12d171eae54af6a2efff838deab5f,
+        type: 3}
+      propertyPath: m_Name
+      value: FootTransform
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2a12d171eae54af6a2efff838deab5f, type: 3}
 --- !u!1001 &3007675478746559123
@@ -1156,7 +1161,7 @@ PrefabInstance:
     - target: {fileID: 3007675478715021538, guid: b1ee33405cb1340dc96e395787eefda2,
         type: 3}
       propertyPath: m_Name
-      value: Possessable A
+      value: FloatingPossessable
       objectReference: {fileID: 0}
     - target: {fileID: 3007675478715021536, guid: b1ee33405cb1340dc96e395787eefda2,
         type: 3}
@@ -1304,7 +1309,7 @@ PrefabInstance:
     - target: {fileID: 4872807864475639975, guid: 2311cd1e15b0542dbb0e38969336e7c5,
         type: 3}
       propertyPath: m_Name
-      value: Can
+      value: LaunchPossessable
       objectReference: {fileID: 0}
     - target: {fileID: 4872807864475639968, guid: 2311cd1e15b0542dbb0e38969336e7c5,
         type: 3}
