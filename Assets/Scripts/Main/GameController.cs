@@ -10,10 +10,11 @@ public class GameController : MonoBehaviour
    private Possessable possessedObj;
    private List<Possessable> inRangeOfPlayerList;
    private List<Possessable> possessables;
+   private List<Enemy> enemies;
 
-   [SerializeField] private Player player;
-   [SerializeField] private InputController io;
-   [SerializeField] private LayerMask playerLayer;
+   public Player player;
+   public InputController io;
+   public LayerMask playerLayer;
 
    // ------------------------------------------------------
    // Mono Methods
@@ -21,18 +22,17 @@ public class GameController : MonoBehaviour
    void Start() {
       inRangeOfPlayerList = new List<Possessable>();
       possessables = new List<Possessable>();
-      Possessable[] pos = FindObjectsOfType<Possessable>();
+      enemies = new List<Enemy>();
 
+      Possessable[] pos = FindObjectsOfType<Possessable>();
       foreach(Possessable obj in pos){
          possessables.Add(obj);
       }
-   }
 
-   void OnGUI(){
-      GUIStyle style = new GUIStyle();
-      style.fontSize = 24;
-
-      GUI.Label(new Rect(100, 100, 400, 100), "WSAD for movement, Spacebar for possession/unpossesion.\nGreen Block is the player, blue blocks are things you can possess", style);
+      Enemy[] enem = FindObjectsOfType<Enemy>();
+      foreach(Enemy enemy in enem){
+         enemies.Add(enemy);
+      }
    }
 
    void Update() {
@@ -51,15 +51,17 @@ public class GameController : MonoBehaviour
    void FixedUpdate(){
       if(possessedObj != null){
          possessedObj.HandleMovement(io);
+         HandleEnemyMovement(possessedObj.transform);
       }
       else{
          player.HandleMovement(io);
+         HandleEnemyMovement(player.transform);
       }
    }
    
 
    // ------------------------------------------------------
-   // Private Methods
+   // Private Possesion Methods
    // ------------------------------------------------------
    private void HandleRangeChecks(){
       if(possessedObj == null){
@@ -133,6 +135,16 @@ public class GameController : MonoBehaviour
    private void HandleUnpossessions(){
       if(io.ActionKeyPressed){
          UnpossessObject();
+      }
+   }
+
+   // ------------------------------------------------------
+   // Private Enemy Methods
+   // ------------------------------------------------------
+   private void HandleEnemyMovement(Transform target){
+      foreach(Enemy enemy in enemies){
+         enemy.HandleMovement(target);
+         Debug.Log("yeet");
       }
    }
 

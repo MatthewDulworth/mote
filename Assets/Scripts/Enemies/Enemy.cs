@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
    // ------------------------------------------------------
    private Rigidbody2D rb;
    public float speed;
+   public float sightRange;
+   public float offsetFromPlayer;
 
    // ------------------------------------------------------
    // Mono Methods
@@ -20,7 +22,7 @@ public class Enemy : MonoBehaviour
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public void Follow(Transform target){
-      Vector3.MoveTowards(transform.position, target.position, speed);
+   public virtual void HandleMovement(Transform target){
+      
    }
 }

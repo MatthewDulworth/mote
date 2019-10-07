@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4872807864475639973}
   - component: {fileID: 4872807864475639972}
   m_Layer: 10
-  m_Name: Can
+  m_Name: LaunchPossessable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4872807864475639975}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.3615484, y: -1.6895118, z: 26.23498}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -144,8 +144,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possesionRange: 0.5
   movementSpeed: 0
-  diagonalLimiter: 0
   ClickRadius: 2
   LaunchForce: 400
   MaxLength: 2
-  Control: {fileID: 0}
