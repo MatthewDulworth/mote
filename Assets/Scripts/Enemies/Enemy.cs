@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
    // ------------------------------------------------------
    protected Rigidbody2D rb;
    public float speed;
-   public float sightRange;
+   public float viewRadius;
    public float offsetFromPlayer;
 
    // ------------------------------------------------------

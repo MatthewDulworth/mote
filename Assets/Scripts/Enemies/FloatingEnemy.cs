@@ -15,7 +15,7 @@ public class FloatingEnemy : Enemy
    public override void HandleAI(Transform target){
       float distance = Vector2.Distance(transform.position, target.position);
 
-      if(distance < sightRange){
+      if(distance < viewRadius){
          hasTarget = true;
       }
 
