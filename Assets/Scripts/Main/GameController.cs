@@ -12,9 +12,9 @@ public class GameController : MonoBehaviour
    private List<Possessable> possessables;
    private List<Enemy> enemies;
 
-   public Player player;
-   public InputController io;
-   public LayerMask playerLayer;
+   [SerializeField] private Player player;
+   [SerializeField] private InputController io;
+   [SerializeField] private LayerMask playerLayer;
 
    // ------------------------------------------------------
    // Mono Methods

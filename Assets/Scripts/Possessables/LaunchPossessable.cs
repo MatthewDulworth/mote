@@ -11,9 +11,9 @@ public class LaunchPossessable : Possessable
    private bool dragFlag = false;
    private GameController control;
 
-   public float ClickRadius;
-   public float LaunchForce;
-   public float MaxLength;
+   [SerializeField] private float ClickRadius;
+   [SerializeField] private float LaunchForce;
+   [SerializeField] private float MaxLength;
    
    void Awake(){
       control = FindObjectOfType<GameController>();

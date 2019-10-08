@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FloatingPossessable : Possessable
 {
-   public float diagonalLimiter;
+   [SerializeField] private float diagonalLimiter;
    
    public override void HandleMovement(InputController io){
       float horizontal = io.GetHorizontalDirection();

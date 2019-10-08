@@ -7,11 +7,11 @@ public class InputController : MonoBehaviour
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   public KeyCode UpKey;
-   public KeyCode DownKey;
-   public KeyCode LeftKey;
-   public KeyCode RightKey;
-   public KeyCode ActionKey;
+   [SerializeField] private KeyCode UpKey;
+   [SerializeField] private KeyCode DownKey;
+   [SerializeField] private KeyCode LeftKey;
+   [SerializeField] private KeyCode RightKey;
+   [SerializeField] private KeyCode ActionKey;
 
    private bool upKeyHeld;
    private bool downKeyHeld;
@@ -35,8 +35,6 @@ public class InputController : MonoBehaviour
    private const int up = 1;
    private const int down = -1;
    private const int none = 0;
-
-   private bool zFlag = false;
 
    // ------------------------------------------------------
    // Mono Methods

@@ -12,8 +12,8 @@ public class Possessable : MonoBehaviour
    protected SpriteRenderer sr;
    protected bool inRange;
    
-   public float possesionRange;
-   public float movementSpeed;
+   [SerializeField] protected float possesionRange;
+   [SerializeField] protected float movementSpeed;
 
    // ------------------------------------------------------
    // Mono Methods

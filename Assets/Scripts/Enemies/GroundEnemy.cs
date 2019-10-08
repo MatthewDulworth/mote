@@ -8,15 +8,12 @@ public class GroundEnemy : Enemy
    // Private Vars
    // ------------------------------------------------------
    private System.Action CurrentState;
+   private Transform target;
   
-   // ------------------------------------------------------
-   // Public Vars
-   // ------------------------------------------------------
-   public Transform GroundDetection;
-   public LayerMask WallLayer;
-   public int MovementDirection = 1;
-   public float ViewAngle;
-
+   [SerializeField] private Transform GroundDetection;
+   [SerializeField] private LayerMask WallLayer;
+   [SerializeField] private int MovementDirection = 1;
+   [SerializeField] private float ViewAngle;
 
    // ------------------------------------------------------
    // Mono Methods
@@ -37,7 +34,10 @@ public class GroundEnemy : Enemy
    // Public Methods
    // ------------------------------------------------------
    public override void HandleAI(Transform target){
-      
+      if(this.target != target){
+         this.target = target;
+      }
+      CurrentState();
    }
 
    // ------------------------------------------------------
@@ -82,6 +82,10 @@ public class GroundEnemy : Enemy
    // Private Methods
    // ------------------------------------------------------
    private bool PlayerSighted(){
+      if(Vector2.Distance(target.position, transform.position) < viewRadius){
+         // if player is within the angle
+         // return true
+      }
       return false;
    }
 

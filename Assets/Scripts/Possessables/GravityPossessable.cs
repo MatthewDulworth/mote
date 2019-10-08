@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GravityPossessable : Possessable
 {
-   public float JumpCheckRadius;
-   public float JumpForce;
-   public Transform GroundDetection;
-   public LayerMask WallLayer;
+   [SerializeField] private float JumpCheckRadius;
+   [SerializeField] private float JumpForce;
+   [SerializeField] private Transform GroundDetection;
+   [SerializeField] private LayerMask WallLayer;
 
    public override void HandleMovement(InputController io){
       int horizontal = io.GetHorizontalDirection();
