@@ -5,61 +5,96 @@ using UnityEngine;
 public class GroundEnemy : Enemy
 {
    // ------------------------------------------------------
-   // Member Vars
+   // Private Vars
    // ------------------------------------------------------
-   private State state = State.PATROL;
-   private int direction = 1;
-
+   private System.Action CurrentState;
+  
+   // ------------------------------------------------------
+   // Public Vars
+   // ------------------------------------------------------
    public Transform GroundDetection;
-   public float viewAngle;
+   public LayerMask WallLayer;
+   public int MovementDirection = 1;
+   public float ViewAngle;
 
-   public enum State{
-      PATROL,
-      PURSUE,
-      ATTACK
+
+   // ------------------------------------------------------
+   // Mono Methods
+   // ------------------------------------------------------
+   void Start(){
+      rb = GetComponent<Rigidbody2D>();
+
+      if(MovementDirection == -1){
+         Vector3 newScale = transform.localScale;
+         newScale.x *= -1;
+         transform.localScale = newScale;
+      }
+
+      CurrentState = Patrol;
    }
 
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
    public override void HandleAI(Transform target){
-      switch(state)
-      {
-         case State.PATROL:
-            Patrol();
-            break;
-         case State.PURSUE:
-            Pursue();
-            break;
-         case State.ATTACK:
-            Attack();
-            break;
-      }
+      
    }
 
    // ------------------------------------------------------
    // States
    // ------------------------------------------------------
    private void Patrol(){
-      rb.velocity = new Vector2(direction*speed, 0);
+      rb.velocity = new Vector2(MovementDirection*speed, 0);
 
-      RaycastHit2D groundInfo = Physics2D.Raycast(GroundDetection.position, Vector2.down, 2f);
-      RaycastHit2D wallInfo = Physics2D.Raycast(GroundDetection.position, GroundDetection.forward, 0.5f);
+      RaycastHit2D groundInfo = Physics2D.Raycast(GroundDetection.position, GroundDetection.right, 0.001f, WallLayer);
+      RaycastHit2D wallInfo = Physics2D.Raycast(GroundDetection.position, Vector2.down, 0.5f, WallLayer);
 
-      if(!groundInfo.collider || !wallInfo.collider){
-         direction *= -1;
+      if(groundInfo.collider != null || wallInfo.collider == null){
+         // flip direction vector
+         MovementDirection *= -1;
+
+         // flip object
          Vector3 newScale = transform.localScale;
          newScale.x *= -1;
-         transform.localScale = newScale; 
-      }
+         transform.localScale = newScale;
+      } 
 
+      if(PlayerSighted()){
+         ChangeState(Pursue);
+      }
    }
 
    private void Pursue(){
-
+      if(PlayerInRange() && Grounded()){
+         ChangeState(Attack);
+      }
    }
 
    private void Attack(){
+      if(PlayerSighted()){
+         ChangeState(Pursue);
+      } else {
+         ChangeState(Patrol);
+      }
+   }
 
+   // ------------------------------------------------------
+   // Private Methods
+   // ------------------------------------------------------
+   private bool PlayerSighted(){
+      return false;
+   }
+
+   private bool PlayerInRange(){
+      return false;
+   }
+
+   private bool Grounded(){
+      return false;
+   }
+
+   private void ChangeState(System.Action state){
+      CurrentState = state;
+      CurrentState();
    }
 }
