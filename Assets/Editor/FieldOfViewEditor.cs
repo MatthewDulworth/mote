@@ -9,10 +9,10 @@ public class FieldOfViewEditor : Editor {
       Handles.color = Color.white;
       Handles.DrawWireDisc(fov.transform.position, Vector3.back, fov.ViewRadius);
 
-      Handles.DrawLine(fov.transform.position, fov.transform.position + (Vector3)fov.GetVectorA());
-      Handles.DrawLine(fov.transform.position, fov.transform.position + (Vector3)fov.GetVectorB());
+      Handles.DrawLine(fov.transform.position, fov.transform.position + (Vector3)fov.VectorA());
+      Handles.DrawLine(fov.transform.position, fov.transform.position + (Vector3)fov.VectorB());
       
       Handles.color = Color.red;
-      Handles.DrawLine(fov.transform.position, fov.transform.position + (Vector3)fov.GetDirectionVector()); 
+      Handles.DrawLine(fov.transform.position, fov.transform.position + (Vector3)fov.DirectionVector()); 
    }
 }
