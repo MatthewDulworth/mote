@@ -14,5 +14,8 @@ public class FieldOfViewEditor : Editor {
       
       Handles.color = Color.red;
       Handles.DrawLine(fov.transform.position, fov.transform.position + (Vector3)fov.DirectionVector()); 
+
+      Handles.color = Color.green;
+      Handles.DrawWireDisc(fov.transform.position, Vector3.back, fov.Range);
    }
 }

@@ -8,11 +8,13 @@ public class FieldOfView : MonoBehaviour
    // Member Vars
    // ------------------------------------------------------
    private List<Transform> visibleTargets;
+   private List<Transform> targetsInRange;
 
-   [SerializeField] private int x_reflection = 1;
+   [SerializeField] private float range;
    [SerializeField] private float viewRadius;
    [SerializeField] [Range(0,360)] private float viewAngle;
    [SerializeField] [Range(0,360)] private float direction;
+   [SerializeField] private int x_reflection = 1;
    [SerializeField] private LayerMask targetLayer;
    [SerializeField] private LayerMask obstacleLayer;
 
@@ -21,6 +23,7 @@ public class FieldOfView : MonoBehaviour
    // ------------------------------------------------------
    void Start() {
       visibleTargets = new List<Transform>();
+      targetsInRange = new List<Transform>();
    }
 
    // ------------------------------------------------------
@@ -38,10 +41,21 @@ public class FieldOfView : MonoBehaviour
 
             if(!Physics2D.Raycast(this.transform.position, dirToTarget, distToTarget, obstacleLayer)){
                visibleTargets.Add(target.transform);
-               Debug.Log(target.transform.gameObject);
             }
          }
       }
+   }
+
+   public void FindTargetsInRange(){
+      foreach(Transform target in visibleTargets){
+         if(Vector2.Distance(target.position, this.transform.position) <= range){
+            targetsInRange.Add(target);
+         }
+      }
+   }
+
+   public bool TargetInRange(Transform target){
+      return targetsInRange.Contains(target);
    }
 
    // ------------------------------------------------------
@@ -90,6 +104,10 @@ public class FieldOfView : MonoBehaviour
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
+   public float Range {
+      get{return range;}
+   }
+
    public float ViewRadius {
       get{return viewRadius;}
    }
