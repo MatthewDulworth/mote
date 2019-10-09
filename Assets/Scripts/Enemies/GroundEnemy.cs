@@ -35,9 +35,6 @@ public class GroundEnemy : Enemy
    // Public Methods
    // ------------------------------------------------------
    public override void HandleAI(Transform target){
-      if(this.currentTarget != target){
-         this.currentTarget = target;
-      }
       CurrentState();
    }
 
@@ -45,6 +42,7 @@ public class GroundEnemy : Enemy
    // States
    // ------------------------------------------------------
    private void Patrol(){
+      Debug.Log("Patrol");
       rb.velocity = new Vector2(movementDirection*speed, 0);
 
       RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, groundDetection.right, 0.001f, wallLayer);
@@ -66,12 +64,17 @@ public class GroundEnemy : Enemy
    }
 
    private void Pursue(){
+      Debug.Log("Pursue");
       if(PlayerInRange() && Grounded()){
          ChangeState(Attack);
+      }
+      else if(!PlayerSighted()){
+         ChangeState(Patrol);
       }
    }
 
    private void Attack(){
+      Debug.Log("Attack");
       if(PlayerSighted()){
          ChangeState(Pursue);
       } else {
