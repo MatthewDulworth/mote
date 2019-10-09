@@ -8,7 +8,8 @@ public class FieldOfView : MonoBehaviour
    // Member Vars
    // ------------------------------------------------------
    private List<Transform> visibleTargets;
-   private int reflection;
+
+   [SerializeField] private int x_reflection = 1;
    [SerializeField] private float viewRadius;
    [SerializeField] [Range(0,360)] private float viewAngle;
    [SerializeField] [Range(0,360)] private float direction;
@@ -18,15 +19,14 @@ public class FieldOfView : MonoBehaviour
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
-   void Start(){
-      reflection = 1;
+   void Start() {
       visibleTargets = new List<Transform>();
    }
 
    // ------------------------------------------------------
    // Target Detection
    // ------------------------------------------------------
-   public void FindVisibleTargets(){
+   public void FindVisibleTargets() {
       visibleTargets.Clear();
       Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, viewRadius, targetLayer);
 
@@ -49,32 +49,52 @@ public class FieldOfView : MonoBehaviour
    // ------------------------------------------------------
    public Vector2 DirectionVector(){
       float angle = (direction - transform.eulerAngles.z) * Mathf.Deg2Rad;
-      return new Vector2(viewRadius * Mathf.Sin(angle) * reflection, viewRadius * Mathf.Cos(angle));
+      return new Vector2(viewRadius * Mathf.Sin(angle) * x_reflection, viewRadius * Mathf.Cos(angle));
    }
    public Vector2 VectorA(){
       float angle = (viewAngle + direction * 2 - transform.eulerAngles.z * 2) * Mathf.Deg2Rad / 2.0f;
-      return new Vector2(viewRadius * Mathf.Sin(angle) * reflection, viewRadius * Mathf.Cos(angle));
+      return new Vector2(viewRadius * Mathf.Sin(angle) * x_reflection, viewRadius * Mathf.Cos(angle));
    }
    public Vector2 VectorB(){
       float angle = (viewAngle - direction * 2 + transform.eulerAngles.z * 2) * Mathf.Deg2Rad / 2.0f;
-      return new Vector2(-viewRadius * Mathf.Sin(angle) * reflection, viewRadius * Mathf.Cos(angle));
+      return new Vector2(-viewRadius * Mathf.Sin(angle) * x_reflection, viewRadius * Mathf.Cos(angle));
    }
 
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public void ReflectOverXAxis(bool yes){
-      reflection = (yes) ? -1 : 1;
+   public void ReflectOverXAxis(bool yes) {
+      x_reflection = (yes) ? -1 : 1;
+   }
+
+   public Transform ClosestTarget() {
+      if(visibleTargets.Count <= 0) {
+         return null;
+      }
+      else {
+         Transform closestTarget = visibleTargets[0];
+         float minDist = Vector2.Distance(closestTarget.position, this.transform.position);
+
+         foreach(Transform target in visibleTargets){
+            float dist = Vector2.Distance(target.position, this.transform.position);
+
+            if(dist < minDist){
+               minDist = dist;
+               closestTarget = target;
+            }
+         }  
+         return closestTarget;
+      }
    }
 
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
-   public float ViewRadius{
+   public float ViewRadius {
       get{return viewRadius;}
    }
 
-   public float ViewAngle{
+   public float ViewAngle {
       get{return viewAngle;}
    }
 }
