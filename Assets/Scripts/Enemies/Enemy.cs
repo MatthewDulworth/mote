@@ -8,9 +8,8 @@ public class Enemy : MonoBehaviour
    // Member Vars
    // ------------------------------------------------------
    protected Rigidbody2D rb;
-   public float speed;
-   public float viewRadius;
-   public float offsetFromPlayer;
+   [SerializeField] protected float speed;
+   [SerializeField] protected float offsetFromPlayer;
 
    // ------------------------------------------------------
    // Mono Methods

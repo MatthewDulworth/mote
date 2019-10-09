@@ -5,23 +5,24 @@ using UnityEngine;
 public class GroundEnemy : Enemy
 {
    // ------------------------------------------------------
-   // Private Vars
+   // Member Vars
    // ------------------------------------------------------
+   private FieldOfView fov;
+   private Transform currentTarget;
    private System.Action CurrentState;
-   private Transform target;
-  
-   [SerializeField] private Transform GroundDetection;
-   [SerializeField] private LayerMask WallLayer;
-   [SerializeField] private int MovementDirection = 1;
-   [SerializeField] private float ViewAngle;
+   
+   [SerializeField] private Transform groundDetection;
+   [SerializeField] private LayerMask wallLayer;
+   [SerializeField] private int movementDirection = 1;
 
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
    void Start(){
       rb = GetComponent<Rigidbody2D>();
+      fov = GetComponent<FieldOfView>();
 
-      if(MovementDirection == -1){
+      if(movementDirection == -1){
          Vector3 newScale = transform.localScale;
          newScale.x *= -1;
          transform.localScale = newScale;
@@ -34,8 +35,8 @@ public class GroundEnemy : Enemy
    // Public Methods
    // ------------------------------------------------------
    public override void HandleAI(Transform target){
-      if(this.target != target){
-         this.target = target;
+      if(this.currentTarget != target){
+         this.currentTarget = target;
       }
       CurrentState();
    }
@@ -44,14 +45,14 @@ public class GroundEnemy : Enemy
    // States
    // ------------------------------------------------------
    private void Patrol(){
-      rb.velocity = new Vector2(MovementDirection*speed, 0);
+      rb.velocity = new Vector2(movementDirection*speed, 0);
 
-      RaycastHit2D groundInfo = Physics2D.Raycast(GroundDetection.position, GroundDetection.right, 0.001f, WallLayer);
-      RaycastHit2D wallInfo = Physics2D.Raycast(GroundDetection.position, Vector2.down, 0.5f, WallLayer);
+      RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, groundDetection.right, 0.001f, wallLayer);
+      RaycastHit2D wallInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, 0.5f, wallLayer);
 
       if(groundInfo.collider != null || wallInfo.collider == null){
          // flip direction vector
-         MovementDirection *= -1;
+         movementDirection *= -1;
 
          // flip object
          Vector3 newScale = transform.localScale;
@@ -82,10 +83,6 @@ public class GroundEnemy : Enemy
    // Private Methods
    // ------------------------------------------------------
    private bool PlayerSighted(){
-      if(Vector2.Distance(target.position, transform.position) < viewRadius){
-         // if player is within the angle
-         // return true
-      }
       return false;
    }
 

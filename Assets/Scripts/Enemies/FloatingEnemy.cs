@@ -8,6 +8,7 @@ public class FloatingEnemy : Enemy
    // Member Vars
    // ------------------------------------------------------
    private bool hasTarget = false;
+   [SerializeField] private float viewRadius;
 
    // ------------------------------------------------------
    // Public Methods
