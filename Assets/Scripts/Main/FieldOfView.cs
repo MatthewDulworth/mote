@@ -15,16 +15,10 @@ public class FieldOfView : MonoBehaviour
    [SerializeField] private LayerMask targetLayer;
    [SerializeField] private LayerMask obstacleLayer;
 
-
-   private int wait;
-   private bool yeet;
-
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
    void Start(){
-      wait = 0;
-      yeet = true;
       reflection = 1;
       visibleTargets = new List<Transform>();
    }
@@ -66,6 +60,9 @@ public class FieldOfView : MonoBehaviour
       return new Vector2(-viewRadius * Mathf.Sin(angle) * reflection, viewRadius * Mathf.Cos(angle));
    }
 
+   // ------------------------------------------------------
+   // Public Methods
+   // ------------------------------------------------------
    public void ReflectOverXAxis(bool yes){
       reflection = (yes) ? -1 : 1;
    }
