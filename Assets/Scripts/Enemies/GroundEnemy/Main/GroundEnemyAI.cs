@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PursueState : EnemyState
+public class GroundEnemyAI : Enemy
 {
-   public override void OnStateEnter(){}
-   public override void OnStateExit(){}
+   private StateMachine<GroundEnemyAI> machine;
+
+   public override void HandleAI(Transform target){}
    public override void OnFixedUpdate(){}
    public override void OnUpdate(){}
 }
