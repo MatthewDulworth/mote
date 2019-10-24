@@ -37,6 +37,7 @@ public class GameController : MonoBehaviour
 
    void Update() {
 
+      HandleEnemyUpdates();
       HandleRangeChecks();
 
       if(possessedObj != null){
@@ -49,13 +50,13 @@ public class GameController : MonoBehaviour
    }
 
    void FixedUpdate(){
+      HandleEnemyFixedUpdates();
+
       if(possessedObj != null){
          possessedObj.HandleMovement(io);
-         HandleEnemyMovement(possessedObj.transform);
       }
       else{
          player.HandleMovement(io);
-         HandleEnemyMovement(player.transform);
       }
    }
    
@@ -141,9 +142,15 @@ public class GameController : MonoBehaviour
    // ------------------------------------------------------
    // Private Enemy Methods
    // ------------------------------------------------------
-   private void HandleEnemyMovement(Transform target){
+   private void HandleEnemyUpdates(){
       foreach(Enemy enemy in enemies){
-         enemy.HandleAI(target);
+         enemy.OnUpdate();
+      }
+   }
+
+   private void HandleEnemyFixedUpdates(){
+      foreach(Enemy enemy in enemies){
+         enemy.OnFixedUpdate();
       }
    }
 

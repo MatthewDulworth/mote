@@ -7,9 +7,9 @@ public abstract class StateMachine<OwnerType>
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   private State<OwnerType> currentState;
-   private List<State<OwnerType>> states;
-   private OwnerType parent;
+   protected State<OwnerType> currentState;
+   protected List<State<OwnerType>> states;
+   protected OwnerType owner;
 
    // ------------------------------------------------------
    // Update

@@ -17,13 +17,14 @@ public abstract class Enemy : MonoBehaviour
    void Start(){
       rb = GetComponent<Rigidbody2D>();
       fov = GetComponent<FieldOfView>();
+
+      OnStart();
    }
 
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public abstract void HandleAI(Transform target);
-
    public abstract void OnFixedUpdate();
    public abstract void OnUpdate();
+   public virtual void OnStart(){}
 }

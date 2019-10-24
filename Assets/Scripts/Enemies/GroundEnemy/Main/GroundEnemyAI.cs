@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class GroundEnemyAI : Enemy
 {
+   // ------------------------------------------------------
+   // Member Vars
+   // ------------------------------------------------------
    private StateMachine<GroundEnemyAI> machine;
 
-   public override void HandleAI(Transform target){}
+   // ------------------------------------------------------
+   // Update
+   // ------------------------------------------------------
+   public override void OnStart(){
+      machine = new GE_StateMachine(this);
+   }
    public override void OnFixedUpdate(){}
    public override void OnUpdate(){}
 }
