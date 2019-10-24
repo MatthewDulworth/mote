@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class State<OwnerType>
 {
-   protected OwnerType parent;
+   protected OwnerType owner;
 
    public abstract void OnEnter();
    public abstract void OnExit();

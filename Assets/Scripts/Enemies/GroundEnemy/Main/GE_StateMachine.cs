@@ -17,9 +17,9 @@ public class GE_StateMachine : StateMachine<GroundEnemyAI>
    public GE_StateMachine(GroundEnemyAI owner){
       this.owner = owner;
 
-      states.Add(new PatrolState());
-      states.Add(new PursueState());
-      states.Add(new AttackState());
+      states.Add(new PatrolState(owner));
+      states.Add(new PursueState(owner));
+      states.Add(new AttackState(owner));
 
       ChangeState(PATROL);
    }
