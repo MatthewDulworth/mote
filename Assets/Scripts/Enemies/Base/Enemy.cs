@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
    protected Rigidbody2D rb;
    [SerializeField] protected float speed;
-   [SerializeField] protected float offsetFromPlayer;
 
    // ------------------------------------------------------
    // Mono Methods
@@ -21,7 +20,5 @@ public class Enemy : MonoBehaviour
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public virtual void HandleAI(Transform target){
-      
-   }
+   public abstract void HandleAI(Transform target);
 }
