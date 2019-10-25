@@ -4,12 +4,30 @@ using UnityEngine;
 
 public class AttackState : State<GroundEnemyAI>
 {
+   // ------------------------------------------------------
+   // Constructor
+   // ------------------------------------------------------
    public AttackState(GroundEnemyAI owner){
       this.owner = owner;
    }
 
-   public override void OnEnter(){}
-   public override void OnExit(){}
-   public override void OnUpdate(){}
-   public override void OnFixedUpdate(){}
+   // ------------------------------------------------------
+   // Updates
+   // ------------------------------------------------------
+   public override void OnUpdate(){
+
+   }
+   public override void OnFixedUpdate(){
+      
+   }
+
+   // ------------------------------------------------------
+   // State Changes
+   // ------------------------------------------------------
+   public override void OnEnter(){
+
+   }
+   public override void OnExit(){
+
+   }
 }

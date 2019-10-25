@@ -8,9 +8,10 @@ public abstract class Enemy : MonoBehaviour
    // Member Vars
    // ------------------------------------------------------
    protected Rigidbody2D rb;
-   [SerializeField] protected float speed;
-   [SerializeField] protected FieldOfView fov;
+   protected FieldOfView fov;
 
+   [SerializeField] protected float speed;
+   
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------

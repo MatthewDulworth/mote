@@ -14,11 +14,11 @@ public abstract class StateMachine<OwnerType>
    // ------------------------------------------------------
    // Update
    // ------------------------------------------------------
-   public void OnUpdate(){
+   public void OnStateUpdate(){
       currentState.OnUpdate();
    }
 
-   public void OnFixedUpdate(){
+   public void OnStateFixedUpdate(){
       currentState.OnFixedUpdate();
    }
 
