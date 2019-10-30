@@ -9,8 +9,9 @@ public class GroundEnemyAI : Enemy
    // ------------------------------------------------------
    private bool reflected;
    private Transform currentTarget;
+   private GroundDetector groundDetector;
    private StateMachine<GroundEnemyAI> machine;
-   private LayerMask wallLayer;
+   public int yeet;
 
    [SerializeField] private int movementDirection = 1;
 
@@ -18,6 +19,7 @@ public class GroundEnemyAI : Enemy
    // Mono Methods
    // ------------------------------------------------------
    public override void OnStart(){
+      groundDetector = GetComponent<GroundDetector>();
       machine = new GE_StateMachine(this);
       reflected = false;
 
@@ -27,6 +29,7 @@ public class GroundEnemyAI : Enemy
    }
 
    public override void OnFixedUpdate(){
+      groundDetector.DetectGround();
       machine.OnStateFixedUpdate();
    }
 
@@ -41,15 +44,15 @@ public class GroundEnemyAI : Enemy
       return (currentTarget != null);
    }
 
-   private bool TargetInRange(){
+   public bool TargetInRange(){
       return false;
    }
 
-   private bool OnGround(){
-      return false;
+   public bool OnGround(){
+      return groundDetector.OnGround;
    }
 
-   private void flip(){
+   public void flip(){
       movementDirection *= -1;
 
       Vector3 newScale = transform.localScale;
