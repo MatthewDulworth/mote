@@ -25,6 +25,11 @@ public class PursueState : State<GroundEnemyAI>
    // State Changes
    // ------------------------------------------------------
    public override void HandleStateChanges(){
-
+      if(!owner.AttackOnCooldown() && owner.TargetInRange() && owner.OnGround()){
+         machine.ChangeState(GE_StateMachine.ATTACK);
+      }
+      else if(!owner.TargetSighted()){
+         machine.ChangeState(GE_StateMachine.PATROL);
+      }
    }
 }

@@ -27,10 +27,10 @@ public class PatrolState : State<GroundEnemyAI>
    // ------------------------------------------------------
    public override void HandleStateChanges(){
       if(owner.TargetInRange() && owner.OnGround()){
-         
+         machine.ChangeState(GE_StateMachine.ATTACK);
       }
       else if(owner.TargetSighted()){
-
+         machine.ChangeState(GE_StateMachine.PURSUE);
       }
    }
 }

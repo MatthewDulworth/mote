@@ -8,10 +8,12 @@ public class GroundEnemyAI : Enemy
    // Member Vars
    // ------------------------------------------------------
    private bool reflected;
+   private float coolDownLeft = 0;
    private GroundDetector groundDetector;
    private StateMachine<GroundEnemyAI> machine;
 
    [SerializeField] private int movementDirection = 1;
+   [SerializeField] private float attackCooldownTime = 1.0f;
 
    // ------------------------------------------------------
    // Mono Methods
@@ -53,4 +55,23 @@ public class GroundEnemyAI : Enemy
       reflected = !reflected;
       fov.ReflectOverXAxis(reflected);
    }
+
+   public void stopMoving(){
+      rb.velocity = Vector3.zero;
+   }
+
+   public void HandleCooldown(){
+      if(AttackOnCooldown()){
+         coolDownLeft -= Time.deltaTime;
+      }
+   }
+
+   public void StartCoolDown(){
+      coolDownLeft = attackCooldownTime;
+   }
+
+   public bool AttackOnCooldown(){
+      return (coolDownLeft > 0);
+   }
 }
+

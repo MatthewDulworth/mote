@@ -7,9 +7,9 @@ public class GE_StateMachine : StateMachine<GroundEnemyAI>
    // ------------------------------------------------------
    // constants
    // ------------------------------------------------------
-   public const int PATROL = 0;
-   public const int PURSUE = 1;
-   public const int ATTACK = 2;
+   public static int PATROL = 0;
+   public static int PURSUE = 1;
+   public static int ATTACK = 2;
 
    // ------------------------------------------------------
    // constructor

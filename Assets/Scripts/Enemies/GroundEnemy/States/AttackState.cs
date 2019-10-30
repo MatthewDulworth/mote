@@ -26,6 +26,8 @@ public class AttackState : State<GroundEnemyAI>
    // State Changes
    // ------------------------------------------------------
    public override void HandleStateChanges(){
-
+      if(owner.OnGround()){
+         machine.ChangeState(GE_StateMachine.PATROL);
+      }
    }
 }

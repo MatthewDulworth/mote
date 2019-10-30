@@ -37,5 +37,7 @@ public abstract class StateMachine<OwnerType>
 
       currentState = states[index];
       currentState.OnEnter();
+
+      Debug.Log(currentState.GetType());
    }
 }
