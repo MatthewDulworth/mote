@@ -8,10 +8,8 @@ public class GroundEnemyAI : Enemy
    // Member Vars
    // ------------------------------------------------------
    private bool reflected;
-   private Transform currentTarget;
    private GroundDetector groundDetector;
    private StateMachine<GroundEnemyAI> machine;
-   public int yeet;
 
    [SerializeField] private int movementDirection = 1;
 
@@ -34,20 +32,13 @@ public class GroundEnemyAI : Enemy
    }
 
    public override void OnUpdate(){
+      HandleTargeting();
       machine.OnStateUpdate();
    }
 
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public bool TargetSighted(){
-      return (currentTarget != null);
-   }
-
-   public bool TargetInRange(){
-      return false;
-   }
-
    public bool OnGround(){
       return groundDetector.OnGround;
    }

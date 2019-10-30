@@ -54,6 +54,11 @@ public class FieldOfView : MonoBehaviour
       }
    }
 
+   public void FindTargets(){
+      FindVisibleTargets();
+      FindTargetsInRange();
+   }
+
    public bool TargetInRange(Transform target){
       return targetsInRange.Contains(target);
    }
@@ -82,6 +87,8 @@ public class FieldOfView : MonoBehaviour
    }
 
    public Transform ClosestTarget() {
+      FindTargets();
+
       if(visibleTargets.Count <= 0) {
          return null;
       }

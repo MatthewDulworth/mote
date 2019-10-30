@@ -9,6 +9,7 @@ public abstract class Enemy : MonoBehaviour
    // ------------------------------------------------------
    protected Rigidbody2D rb;
    protected FieldOfView fov;
+   protected Transform currentTarget;
 
    [SerializeField] protected float speed;
    
@@ -25,6 +26,18 @@ public abstract class Enemy : MonoBehaviour
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
+   public virtual bool TargetSighted(){
+      return (currentTarget != null);
+   }
+
+   public virtual bool TargetInRange(){
+      return fov.TargetInRange(currentTarget);
+   }
+
+   public virtual void HandleTargeting(){
+      currentTarget = fov.ClosestTarget();
+   }
+
    public abstract void OnFixedUpdate();
    public abstract void OnUpdate();
    public virtual void OnStart(){}

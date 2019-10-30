@@ -25,6 +25,6 @@ public class PatrolState : State<GroundEnemyAI>
    // State Changes
    // ------------------------------------------------------
    public override void HandleStateChanges(){
-
+      
    }
 }
