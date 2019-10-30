@@ -6,8 +6,9 @@ public abstract class State<OwnerType>
 {
    protected OwnerType owner;
 
-   public abstract void OnEnter();
-   public abstract void OnExit();
+   public virtual void OnEnter(){}
+   public virtual void OnExit(){}
    public abstract void OnUpdate();
    public abstract void OnFixedUpdate();
+   public abstract void HandleStateChanges();
 }
