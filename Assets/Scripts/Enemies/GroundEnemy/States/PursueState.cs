@@ -7,10 +7,10 @@ public class PursueState : State<GroundEnemyAI>
    // ------------------------------------------------------
    // Constructor
    // ------------------------------------------------------
-   public PursueState(GroundEnemyAI owner){
+   public PursueState(GroundEnemyAI owner, GE_StateMachine machine){
+      this.machine = machine;
       this.owner = owner;
    }
-
    // ------------------------------------------------------
    // Updates
    // ------------------------------------------------------

@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class State<OwnerType>
 {
    protected OwnerType owner;
+   protected StateMachine<OwnerType> machine;
 
    public virtual void OnEnter(){}
    public virtual void OnExit(){}

@@ -7,7 +7,8 @@ public class AttackState : State<GroundEnemyAI>
    // ------------------------------------------------------
    // Constructor
    // ------------------------------------------------------
-   public AttackState(GroundEnemyAI owner){
+   public AttackState(GroundEnemyAI owner, GE_StateMachine machine){
+      this.machine = machine;
       this.owner = owner;
    }
 

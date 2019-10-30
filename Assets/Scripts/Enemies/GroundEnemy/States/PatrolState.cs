@@ -7,7 +7,8 @@ public class PatrolState : State<GroundEnemyAI>
    // ------------------------------------------------------
    // Constructor
    // ------------------------------------------------------
-   public PatrolState(GroundEnemyAI owner){
+   public PatrolState(GroundEnemyAI owner, GE_StateMachine machine){
+      this.machine = machine;
       this.owner = owner;
    }
 
@@ -15,7 +16,7 @@ public class PatrolState : State<GroundEnemyAI>
    // Updates
    // ------------------------------------------------------
    public override void OnUpdate(){
-   
+      HandleStateChanges();
    }
    public override void OnFixedUpdate(){
       
@@ -25,6 +26,11 @@ public class PatrolState : State<GroundEnemyAI>
    // State Changes
    // ------------------------------------------------------
    public override void HandleStateChanges(){
-      
+      if(owner.TargetInRange() && owner.OnGround()){
+         
+      }
+      else if(owner.TargetSighted()){
+
+      }
    }
 }
