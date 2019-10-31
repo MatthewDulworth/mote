@@ -15,7 +15,11 @@ public abstract class StateMachine<OwnerType>
    // Update
    // ------------------------------------------------------
    public void OnStateUpdate(){
+      // DEBUG
+      Debug.LogFormat("CURRENT STATE: {0}", currentState.GetType());
+
       currentState.OnUpdate();
+      currentState.HandleStateChanges();
    }
 
    public void OnStateFixedUpdate(){
@@ -37,7 +41,5 @@ public abstract class StateMachine<OwnerType>
 
       currentState = states[index];
       currentState.OnEnter();
-
-      Debug.Log(currentState.GetType());
    }
 }

@@ -30,4 +30,8 @@ public class AttackState : State<GroundEnemyAI>
          machine.ChangeState(GE_StateMachine.PATROL);
       }
    }
+
+   public override void OnEnter(){
+      owner.StartCoolDown();
+   }
 }

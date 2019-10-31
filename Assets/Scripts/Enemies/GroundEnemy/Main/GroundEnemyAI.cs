@@ -34,11 +34,12 @@ public class GroundEnemyAI : Enemy
    }
 
    public override void OnUpdate(){
+      HandleTargeting();
+      HandleCooldown();
+
       // DEBUG
       Debug.LogFormat("current target: {0}", currentTarget);
-      Debug.LogFormat("current target in range: {0}", TargetInRange() );
 
-      HandleTargeting();
       machine.OnStateUpdate();
    }
 

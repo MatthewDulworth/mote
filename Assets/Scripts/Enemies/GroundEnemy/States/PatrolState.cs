@@ -16,7 +16,7 @@ public class PatrolState : State<GroundEnemyAI>
    // Updates
    // ------------------------------------------------------
    public override void OnUpdate(){
-      HandleStateChanges();
+      
    }
    public override void OnFixedUpdate(){
       
