@@ -34,6 +34,11 @@ public class PatrolState : State<GroundEnemyAI>
    // State Changes
    // ------------------------------------------------------
    public override void HandleStateChanges(){
-      
+      if(!owner.OnGround()){
+         machine.ChangeState(GE_StateMachine.FALL);
+      }
+      else if(owner.TargetSighted()){
+         machine.ChangeState(GE_StateMachine.PURSUE);
+      }
    }
 }

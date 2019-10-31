@@ -466,10 +466,10 @@ GameObject:
   - component: {fileID: 1605759559}
   - component: {fileID: 1605759560}
   - component: {fileID: 1605759563}
+  - component: {fileID: 1605759567}
   - component: {fileID: 1605759566}
   - component: {fileID: 1605759564}
   - component: {fileID: 1605759565}
-  - component: {fileID: 1605759567}
   m_Layer: 0
   m_Name: GroundEnemy
   m_TagString: Untagged
@@ -491,8 +491,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   movementDirection: 1
-  JumpForce: 1
-  attackCooldownTime: 3
+  jumpForce: 0
+  jumpAttackCoolDown: 1
 --- !u!114 &1605759560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d9c80a48c494793a64fa6746c4599f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 1.41
+  range: 0.3
   viewRadius: 2.55
   viewAngle: 275
   direction: 0
@@ -573,7 +573,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605759558}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.67, y: -0.9, z: 0}
+  m_LocalPosition: {x: 1.19, y: -0.74, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -673,11 +673,11 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 256
-  wallDetectionRange: 0.61
-  edgeDetectionRange: 0.35
-  edgeDetectionOffset: 0.46
+  wallDetectionRange: 0.36
+  edgeDetectionRange: 0.4
+  edgeDetectionOffset: 0.36
   x_reflection: 1
-  debugMode: 1
+  debugMode: 0
 --- !u!1 &1666635132
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,12 +727,12 @@ PrefabInstance:
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.55
+      value: -2.94
       objectReference: {fileID: 0}
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.69
+      value: 1.94
       objectReference: {fileID: 0}
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}

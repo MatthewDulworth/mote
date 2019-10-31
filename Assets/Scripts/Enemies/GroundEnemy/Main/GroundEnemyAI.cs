@@ -14,8 +14,8 @@ public class GroundEnemyAI : Enemy
    private StateMachine<GroundEnemyAI> machine;
 
    [SerializeField] private int movementDirection = 1;
-   [SerializeField] private float JumpForce;
-   [SerializeField] private float attackCooldownTime = 1.0f;
+   [SerializeField] private float jumpForce;
+   [SerializeField] private float jumpAttackCoolDown = 1.0f;
 
    // ------------------------------------------------------
    // Mono Methods
@@ -66,7 +66,7 @@ public class GroundEnemyAI : Enemy
    }
 
    public void ChangeVelocityScaled(float x, float y){
-      rb.velocity = new Vector2(x * movementDirection * speed, y * JumpForce);
+      rb.velocity = new Vector2(x * movementDirection * speed, y * jumpForce);
    }
 
    public void MoveToTargetX(){
@@ -105,8 +105,8 @@ public class GroundEnemyAI : Enemy
       return machine.GetStateName();
    }
 
-   public float AttackCooldownTime{
-      get{return attackCooldownTime;}
+   public float JumpAttackCoolDown{
+      get{return jumpAttackCoolDown;}
    }
 }
 

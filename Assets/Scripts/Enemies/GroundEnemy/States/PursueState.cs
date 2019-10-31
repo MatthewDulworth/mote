@@ -7,8 +7,8 @@ public class PursueState : State<GroundEnemyAI>
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   private float attackCoolDownTime;
-   private float coolDownLeft;
+   private float jumpAttackCoolDown;
+   private float jumpAttackCoolDownLeft;
 
    // ------------------------------------------------------
    // Constructor
@@ -23,7 +23,7 @@ public class PursueState : State<GroundEnemyAI>
    // Updates
    // ------------------------------------------------------
    public override void OnUpdate(){
-      HandleCooldown();
+      HandleJumpAttackCoolDown();
    }
    public override void OnFixedUpdate(){
       HandleMovement();
@@ -41,21 +41,17 @@ public class PursueState : State<GroundEnemyAI>
    }
 
    private void HandleAttacks(){
-
+      
    }
 
    private void JumpAttack(){
-
+      jumpAttackCoolDownLeft = jumpAttackCoolDown;
    }
 
-   private void HandleCooldown(){
-      if(coolDownLeft > 0.0f){
-         coolDownLeft -= Time.deltaTime;
+   private void HandleJumpAttackCoolDown(){
+      if(jumpAttackCoolDownLeft > 0.0f){
+         jumpAttackCoolDownLeft -= Time.deltaTime;
       }
-   }
-
-   public void StartCoolDown(){
-      coolDownLeft = attackCoolDownTime;
    }
 
 
@@ -63,11 +59,16 @@ public class PursueState : State<GroundEnemyAI>
    // State Changes
    // ------------------------------------------------------
    public override void HandleStateChanges(){
-      
+      if(!owner.OnGround()){
+         machine.ChangeState(GE_StateMachine.FALL);
+      }
+      else if(!owner.TargetSighted()){
+         machine.ChangeState(GE_StateMachine.PATROL);
+      }
    }
 
    public override void OnEnter(){
       owner.StopMoving();
-      attackCoolDownTime = owner.AttackCooldownTime;
+      jumpAttackCoolDown = owner.JumpAttackCoolDown;
    }
 }
