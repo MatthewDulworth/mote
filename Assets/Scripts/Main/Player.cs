@@ -8,18 +8,30 @@ public class Player : MonoBehaviour
    // Member Vars
    // ------------------------------------------------------
    private Rigidbody2D rb;
+   private PlayerHealth playerHealth;
+
    [SerializeField] private float movementSpeed;
    [SerializeField] private float diagonalLimiter;
+   
 
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
    void Start() {
+      playerHealth = gameObject.GetComponentInChildren<PlayerHealth>();
       rb = GetComponent<Rigidbody2D>();
    }
 
+   public void OnUpdate(){
+      Health.HandleRecovery();
+   }
+
+   public void PlayerDeath(){
+      Debug.Log("Player Killed!");
+   }
+
    // ------------------------------------------------------
-   // Player Methods
+   // Movement
    // ------------------------------------------------------
    public void HandleMovement(InputController io){
       float horizontal = io.GetHorizontalDirection();
@@ -41,7 +53,14 @@ public class Player : MonoBehaviour
       transform.position = pos;
    }
 
+   // ------------------------------------------------------
+   // Getters
+   // ------------------------------------------------------
    public Rigidbody2D RB{
       get{return rb;}
+   }
+
+   public PlayerHealth Health{
+      get{return playerHealth;}
    }
 }

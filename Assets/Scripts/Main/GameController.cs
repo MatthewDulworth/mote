@@ -36,9 +36,11 @@ public class GameController : MonoBehaviour
    }
 
    void Update() {
+      player.OnUpdate();
 
       HandleEnemyUpdates();
       HandleRangeChecks();
+      HandlePlayerDamageFromEnemies();
 
       if(possessedObj != null){
          possessedObj.HandleActions(io);
@@ -154,6 +156,13 @@ public class GameController : MonoBehaviour
       }
    }
 
+   private void HandlePlayerDamageFromEnemies(){
+      foreach(Enemy enemy in enemies){
+         if(enemy.Health.CollidingWithPlayer){
+            enemy.OnDamageCollisonPlayer(player);
+         }
+      }
+   }
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
