@@ -15,9 +15,6 @@ public abstract class StateMachine<OwnerType>
    // Update
    // ------------------------------------------------------
    public void OnStateUpdate(){
-      // DEBUG
-      Debug.LogFormat("CURRENT STATE: {0}", currentState.GetType());
-
       currentState.OnUpdate();
       currentState.HandleStateChanges();
    }
@@ -41,5 +38,12 @@ public abstract class StateMachine<OwnerType>
 
       currentState = states[index];
       currentState.OnEnter();
+   }
+
+   // ------------------------------------------------------
+   // Public Methods
+   // ------------------------------------------------------
+   public string GetStateName(){
+      return currentState.GetType().Name;
    }
 }

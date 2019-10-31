@@ -41,4 +41,6 @@ public abstract class Enemy : MonoBehaviour
    public abstract void OnFixedUpdate();
    public abstract void OnUpdate();
    public virtual void OnStart(){}
+
+   public abstract string GetCurrentStateName();
 }

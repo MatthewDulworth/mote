@@ -37,9 +37,6 @@ public class GroundEnemyAI : Enemy
       HandleTargeting();
       HandleCooldown();
 
-      // DEBUG
-      Debug.LogFormat("current target: {0}", currentTarget);
-
       machine.OnStateUpdate();
    }
 
@@ -77,6 +74,10 @@ public class GroundEnemyAI : Enemy
 
    public bool AttackOnCooldown(){
       return (coolDownLeft > 0) ? true : false;
+   }
+
+   public override string GetCurrentStateName(){
+      return machine.GetStateName();
    }
 }
 
