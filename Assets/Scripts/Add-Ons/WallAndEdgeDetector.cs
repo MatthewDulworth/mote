@@ -39,9 +39,10 @@ public class WallAndEdgeDetector : MonoBehaviour
 
    public void DetectEdges(){
       if(debugMode){
-         FindOrigins();
          Debug.LogFormat("Edge Detected: {0}", edgeDetected);
       }
+
+      FindOrigins();
 
       RaycastHit2D edgeDetector = Physics2D.Raycast(edgeDetectorOrigin, Vector2.down, wallDetectionRange, detectionLayer);
       edgeDetected = (edgeDetector.collider == null);

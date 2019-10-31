@@ -9,7 +9,7 @@ public class GE_StateMachine : StateMachine<GroundEnemyAI>
    // ------------------------------------------------------
    public static int PATROL = 0;
    public static int PURSUE = 1;
-   public static int ATTACK = 2;
+   public static int FALL = 2;
 
    // ------------------------------------------------------
    // constructor
@@ -21,7 +21,7 @@ public class GE_StateMachine : StateMachine<GroundEnemyAI>
 
       states.Add(new PatrolState(owner, this));
       states.Add(new PursueState(owner, this));
-      states.Add(new AttackState(owner, this));
+      states.Add(new FallState(owner, this));
 
       ChangeState(PATROL);
    }

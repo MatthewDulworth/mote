@@ -38,6 +38,14 @@ public abstract class Enemy : MonoBehaviour
       currentTarget = fov.ClosestTarget();
    }
 
+   public virtual void ChangeVelocityRaw(float x, float y){
+      rb.velocity = new Vector2(x ,y);
+   }
+
+   public virtual void MoveToPoint(Vector3 target){
+      rb.transform.position = Vector2.MoveTowards(transform.position, target, speed*Time.deltaTime);
+   }
+
    public abstract void OnFixedUpdate();
    public abstract void OnUpdate();
    public virtual void OnStart(){}

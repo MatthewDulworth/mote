@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackState : State<GroundEnemyAI>
+public class FallState : State<GroundEnemyAI>
 {
    // ------------------------------------------------------
    // Constructor
    // ------------------------------------------------------
-   public AttackState(GroundEnemyAI owner, GE_StateMachine machine){
+   public FallState(GroundEnemyAI owner, GE_StateMachine machine){
       this.machine = machine;
       this.owner = owner;
    }
@@ -32,6 +32,6 @@ public class AttackState : State<GroundEnemyAI>
    }
 
    public override void OnEnter(){
-      owner.StartCoolDown();
+      owner.StopMoving();
    }
 }

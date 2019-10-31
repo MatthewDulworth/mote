@@ -38,9 +38,10 @@ public class GroundDetector : MonoBehaviour
    // ------------------------------------------------------
    public void DetectGround(){
       if(DebugMode){
-         FindOrigins();
          Debug.LogFormat("On Ground: {0}", onGround);
       }
+
+      FindOrigins();
 
       RaycastHit2D leftDetector = Physics2D.Raycast(leftOrigin, Vector2.down, detectionRange, detectionLayer);
       RaycastHit2D rightDetector = Physics2D.Raycast(rightOrigin, Vector2.down, detectionRange, detectionLayer);

@@ -41,7 +41,6 @@ public class GroundEnemyAI : Enemy
 
    public override void OnUpdate(){
       HandleTargeting();
-      HandleCooldown();
 
       machine.OnStateUpdate();
    }
@@ -70,29 +69,21 @@ public class GroundEnemyAI : Enemy
       rb.velocity = new Vector2(x * movementDirection * speed, y * JumpForce);
    }
 
-   public void ChangeVelocityRaw(float x, float y){
-      rb.velocity = new Vector2(x ,y);
+   public void MoveToTargetX(){
+      if(currentTarget != null){
+         
+         Vector3 targetPosition = new Vector3(currentTarget.position.x, transform.position.y, transform.position.z);
+         transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed*Time.deltaTime);
+      }
+      else{
+         Debug.LogError("There is something wrong with your code, this shouldn't happen big boy.");
+      }
    }
-
   
    
-
    // ------------------------------------------------------
    // CoolDown
    // ------------------------------------------------------
-    public void HandleCooldown(){
-      if(AttackOnCooldown()){
-         coolDownLeft -= Time.deltaTime;
-      }
-   }
-
-   public bool AttackOnCooldown(){
-      return (coolDownLeft > 0) ? true : false;
-   }
-
-   public void StartCoolDown(){
-      coolDownLeft = attackCooldownTime;
-   }
 
 
    // ------------------------------------------------------
@@ -112,6 +103,10 @@ public class GroundEnemyAI : Enemy
 
    public override string GetCurrentStateName(){
       return machine.GetStateName();
+   }
+
+   public float AttackCooldownTime{
+      get{return attackCooldownTime;}
    }
 }
 
