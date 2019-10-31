@@ -41,10 +41,6 @@ public class GroundEnemyAI : Enemy
 
    public override void OnUpdate(){
       HandleTargeting();
-
-      Debug.LogFormat("FacingLeft: {0}", FacingLeft);
-      Debug.LogFormat("TargetDirection: {0}", TargetOnLeftOrRight());
-
       machine.OnStateUpdate();
    }
 

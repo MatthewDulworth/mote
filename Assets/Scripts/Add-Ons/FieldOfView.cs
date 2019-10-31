@@ -26,6 +26,13 @@ public class FieldOfView : MonoBehaviour
       targetsInRange = new List<Transform>();
    }
 
+   void OnValidate() {
+      range = Mathf.Max(range, 0);
+      viewRadius = Mathf.Max(viewRadius, 0);
+
+      range = Mathf.Min(range, viewRadius);
+ }
+
    // ------------------------------------------------------
    // Target Detection
    // ------------------------------------------------------
@@ -48,6 +55,7 @@ public class FieldOfView : MonoBehaviour
 
    public void FindTargetsInRange(){
       targetsInRange.Clear();
+
       foreach(Transform target in visibleTargets){
          if(Vector2.Distance(target.position, this.transform.position) <= range){
             targetsInRange.Add(target);
