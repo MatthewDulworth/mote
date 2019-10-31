@@ -10,9 +10,9 @@ public class EnemyEditor : Editor
       EnemyCustomEditorMono jankyVar = (EnemyCustomEditorMono)target;
       if(jankyVar.FindEnemy()){
 
-         Enemy enemy = jankyVar.enemy;
+         Enemy enemy = jankyVar.GetEnemy();
          
-         if(Application.isPlaying && jankyVar.DisplayState){
+         if(Application.isPlaying){
             GUIStyle style = new GUIStyle();
             style.normal.textColor = Color.white;
             style.fontSize = 18;

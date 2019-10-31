@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class EnemyCustomEditorMono : MonoBehaviour
 {
-   public bool DisplayState;
-   public Enemy enemy;
+   private Enemy enemy;
 
    public bool FindEnemy(){
       enemy = GetComponent<Enemy>();
       return (enemy != null);
+   }
+
+   public Enemy GetEnemy(){
+      return enemy;
    }
 }
