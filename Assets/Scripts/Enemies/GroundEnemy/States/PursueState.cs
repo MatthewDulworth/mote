@@ -45,8 +45,7 @@ public class PursueState : State<GroundEnemyAI>
       if(owner.TargetSighted() && !owner.TargetInRange()){
          owner.ChangeVelocityScaled(1,0);
       }
-
-      if(owner.TargetInRange()){
+      else if(owner.TargetInRange() || UnderneathTarget()){
          owner.StopMoving();
       }
    }
@@ -55,11 +54,19 @@ public class PursueState : State<GroundEnemyAI>
       if(owner.TargetInRange() && jumpAttackCoolDownLeft <= 0){
          JumpAttack();
       }
+      else if(UnderneathTarget() && jumpAttackCoolDownLeft <=0){
+         JumpUpAttack();
+      }
    }
 
    private void JumpAttack(){
       jumpAttackCoolDownLeft = jumpAttackCoolDown;
-      Debug.Log("yeet");
+      owner.ChangeVelocityRaw(owner.JumpSpeed * owner.MovementDirection / 2.0f, owner.JumpSpeed);
+   }
+
+   private void JumpUpAttack(){
+      jumpAttackCoolDownLeft = jumpAttackCoolDown;
+      owner.ChangeVelocityRaw(0, owner.JumpSpeed);
    }
 
    private void HandleJumpAttackCoolDown(){
@@ -68,6 +75,9 @@ public class PursueState : State<GroundEnemyAI>
       }
    }
 
+   private bool UnderneathTarget(){
+      return Mathf.Abs(owner.transform.position.x - owner.CurrentTarget.transform.position.x) <= 0.5;
+   }
 
    // ------------------------------------------------------
    // State Changes

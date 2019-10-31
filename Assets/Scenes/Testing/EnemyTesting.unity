@@ -491,8 +491,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   movementDirection: 1
-  jumpForce: 0
-  jumpAttackCoolDown: 1
+  jumpForce: 10
+  jumpAttackCoolDown: 0
 --- !u!114 &1605759560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,11 +505,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d9c80a48c494793a64fa6746c4599f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: -1.9
-  viewRadius: 5.26
+  range: 2.24
+  viewRadius: 4.43
   viewAngle: 275
   direction: 0
-  x_reflection: 1
+  facingRight: 1
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -674,7 +674,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   wallDetectionRange: 0.36
-  edgeDetectionRange: 0.4
+  edgeDetectionRange: 0.35
   edgeDetectionOffset: 0.36
   x_reflection: 1
   debugMode: 0
@@ -727,12 +727,12 @@ PrefabInstance:
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.42
+      value: -1.38
       objectReference: {fileID: 0}
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.79
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}

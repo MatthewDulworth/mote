@@ -32,6 +32,6 @@ public class FallState : State<GroundEnemyAI>
    }
 
    public override void OnEnter(){
-      owner.StopMoving();
+
    }
 }

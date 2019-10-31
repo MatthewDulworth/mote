@@ -119,5 +119,17 @@ public class GroundEnemyAI : Enemy
    public bool FacingLeft{
       get{return facingLeft;}
    }
+
+   public float JumpSpeed{
+      get{return jumpForce;}
+   }
+
+   public int MovementDirection{
+      get{return movementDirection;}
+   }
+
+   public Transform CurrentTarget{
+      get{return currentTarget;}
+   }
 }
 

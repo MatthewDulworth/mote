@@ -8,6 +8,7 @@ public abstract class StateMachine<OwnerType>
    // Member Vars
    // ------------------------------------------------------
    protected State<OwnerType> currentState;
+   protected State<OwnerType> previousState;
    protected List<State<OwnerType>> states;
    protected OwnerType owner;
 
@@ -35,6 +36,7 @@ public abstract class StateMachine<OwnerType>
       if(currentState != null){
          currentState.OnExit();
       }
+      previousState = currentState;
 
       currentState = states[index];
       currentState.OnEnter();
@@ -45,5 +47,17 @@ public abstract class StateMachine<OwnerType>
    // ------------------------------------------------------
    public string GetStateName(){
       return currentState.GetType().Name;
+   }
+
+   public State<OwnerType> GetState(int index){
+      return states[index];
+   }
+
+   public State<OwnerType> PreviousState{
+      get{return previousState;}
+   }
+
+   public State<OwnerType> CurrentState{
+      get{return currentState;}
    }
 }
