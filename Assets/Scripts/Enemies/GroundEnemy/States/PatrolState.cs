@@ -16,10 +16,19 @@ public class PatrolState : State<GroundEnemyAI>
    // Updates
    // ------------------------------------------------------
    public override void OnUpdate(){
-      
+      // nada
    }
    public override void OnFixedUpdate(){
-      
+      HandleMovement();
+   }
+
+   private void HandleMovement(){
+      Debug.Log("yeet");
+      owner.ChangeVelocityScaled(1,0);
+
+      if(owner.WallDetected() || owner.EdgeDetected()){
+         owner.FlipHorizontal();
+      }
    }
 
    // ------------------------------------------------------

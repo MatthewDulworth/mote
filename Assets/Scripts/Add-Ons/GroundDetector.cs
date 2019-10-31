@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class GroundDetector : MonoBehaviour
 {
+   // ------------------------------------------------------
+   // Member Vars
+   // ------------------------------------------------------
    private bool onGround;
    private BoxCollider2D boxCollider2D;
    private Vector3 leftOrigin;
    private Vector3 rightOrigin;
 
    [SerializeField] private LayerMask detectionLayer;
-   [SerializeField] private bool useObjectWidthAsOffset = true;
+   [SerializeField] private bool objectWidthAsOffset = true;
    [SerializeField] private float leftOffset;
    [SerializeField] private float rightOffset;
    [SerializeField] private float detectionRange = 0.5f;
    [SerializeField] private bool DebugMode = false;
 
 
+   // ------------------------------------------------------
+   // Init Methods
+   // ------------------------------------------------------
    void Start(){
       SetCollider();
       FindOrigins();
@@ -26,31 +32,39 @@ public class GroundDetector : MonoBehaviour
       boxCollider2D = GetComponent<BoxCollider2D>();
    }
 
+
+   // ------------------------------------------------------
+   // Public Methods
+   // ------------------------------------------------------
    public void DetectGround(){
       if(DebugMode){
          FindOrigins();
-         Debug.Log(onGround);
+         Debug.LogFormat("On Ground: {0}", onGround);
       }
 
       RaycastHit2D leftDetector = Physics2D.Raycast(leftOrigin, Vector2.down, detectionRange, detectionLayer);
       RaycastHit2D rightDetector = Physics2D.Raycast(rightOrigin, Vector2.down, detectionRange, detectionLayer);
-
 
       onGround = (leftDetector.collider != null || rightDetector.collider != null);
    }
 
    public void FindOrigins(){
 
-      if(useObjectWidthAsOffset){
+      if(objectWidthAsOffset){
          float offset = boxCollider2D.size.x;
 
          leftOffset = offset;
          rightOffset = offset;
       }
+
       leftOrigin = new Vector3(transform.position.x - leftOffset, transform.position.y, transform.position.z);
       rightOrigin = new Vector3(transform.position.x + rightOffset, transform.position.y, transform.position.z);
    }
 
+
+   // ------------------------------------------------------
+   // Getters
+   // ------------------------------------------------------
    public bool OnGround{
       get{return onGround;}
    }

@@ -10,26 +10,32 @@ public class GroundEnemyAI : Enemy
    private bool reflected;
    private float coolDownLeft = 0;
    private GroundDetector groundDetector;
+   private WallAndEdgeDetector wallAndEdgeDetector;
    private StateMachine<GroundEnemyAI> machine;
 
    [SerializeField] private int movementDirection = 1;
+   [SerializeField] private float JumpForce;
    [SerializeField] private float attackCooldownTime = 1.0f;
 
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
    public override void OnStart(){
+      wallAndEdgeDetector = GetComponent<WallAndEdgeDetector>();
       groundDetector = GetComponent<GroundDetector>();
       machine = new GE_StateMachine(this);
       reflected = false;
 
       if(movementDirection == -1){
-         flip();
+         FlipHorizontal();
       }
    }
 
    public override void OnFixedUpdate(){
       groundDetector.DetectGround();
+      wallAndEdgeDetector.DetectWalls();
+      wallAndEdgeDetector.DetectEdges();
+
       machine.OnStateFixedUpdate();
    }
 
@@ -40,14 +46,11 @@ public class GroundEnemyAI : Enemy
       machine.OnStateUpdate();
    }
 
-   // ------------------------------------------------------
-   // Public Methods
-   // ------------------------------------------------------
-   public bool OnGround(){
-      return groundDetector.OnGround;
-   }
 
-   public void flip(){
+   // ------------------------------------------------------
+   // Movement 
+   // ------------------------------------------------------
+   public void FlipHorizontal(){
       movementDirection *= -1;
 
       Vector3 newScale = transform.localScale;
@@ -56,24 +59,55 @@ public class GroundEnemyAI : Enemy
 
       reflected = !reflected;
       fov.ReflectOverXAxis(reflected);
+      wallAndEdgeDetector.ReflectOverXAxis(reflected);
    }
 
-   public void stopMoving(){
+   public void StopMoving(){
       rb.velocity = Vector3.zero;
    }
 
-   public void HandleCooldown(){
+   public void ChangeVelocityScaled(float x, float y){
+      rb.velocity = new Vector2(x * movementDirection * speed, y * JumpForce);
+   }
+
+   public void ChangeVelocityRaw(float x, float y){
+      rb.velocity = new Vector2(x ,y);
+   }
+
+  
+   
+
+   // ------------------------------------------------------
+   // CoolDown
+   // ------------------------------------------------------
+    public void HandleCooldown(){
       if(AttackOnCooldown()){
          coolDownLeft -= Time.deltaTime;
       }
+   }
+
+   public bool AttackOnCooldown(){
+      return (coolDownLeft > 0) ? true : false;
    }
 
    public void StartCoolDown(){
       coolDownLeft = attackCooldownTime;
    }
 
-   public bool AttackOnCooldown(){
-      return (coolDownLeft > 0) ? true : false;
+
+   // ------------------------------------------------------
+   // Public Methods
+   // ------------------------------------------------------
+   public bool OnGround(){
+      return groundDetector.OnGround;
+   }
+
+   public bool WallDetected(){
+      return wallAndEdgeDetector.WallDetected;
+   }
+
+   public bool EdgeDetected(){
+      return wallAndEdgeDetector.EdgeDetected;
    }
 
    public override string GetCurrentStateName(){
