@@ -34,6 +34,10 @@ public class GroundEnemyAI : Enemy
    }
 
    public override void OnUpdate(){
+      // DEBUG
+      Debug.LogFormat("current target: {0}", currentTarget);
+      Debug.LogFormat("current target in range: {0}", TargetInRange() );
+
       HandleTargeting();
       machine.OnStateUpdate();
    }
@@ -71,7 +75,7 @@ public class GroundEnemyAI : Enemy
    }
 
    public bool AttackOnCooldown(){
-      return (coolDownLeft > 0);
+      return (coolDownLeft > 0) ? true : false;
    }
 }
 

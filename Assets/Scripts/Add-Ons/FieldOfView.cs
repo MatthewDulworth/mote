@@ -47,6 +47,7 @@ public class FieldOfView : MonoBehaviour
    }
 
    public void FindTargetsInRange(){
+      targetsInRange.Clear();
       foreach(Transform target in visibleTargets){
          if(Vector2.Distance(target.position, this.transform.position) <= range){
             targetsInRange.Add(target);
@@ -88,6 +89,10 @@ public class FieldOfView : MonoBehaviour
 
    public Transform ClosestTarget() {
       FindTargets();
+
+      // DEBUG
+      Debug.LogFormat("sighted targets: {0}", visibleTargets.Count);
+      Debug.LogFormat("in range targets: {0}", targetsInRange.Count);
 
       if(visibleTargets.Count <= 0) {
          return null;

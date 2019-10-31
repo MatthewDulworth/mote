@@ -26,7 +26,7 @@ public class PatrolState : State<GroundEnemyAI>
    // State Changes
    // ------------------------------------------------------
    public override void HandleStateChanges(){
-      if(owner.TargetInRange() && owner.OnGround()){
+      if(owner.TargetInRange() && owner.OnGround() && !owner.AttackOnCooldown()){
          machine.ChangeState(GE_StateMachine.ATTACK);
       }
       else if(owner.TargetSighted()){

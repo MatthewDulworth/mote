@@ -573,8 +573,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  yeet: 42
   movementDirection: 1
+  attackCooldownTime: 1
 --- !u!114 &1605759560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,8 +587,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d9c80a48c494793a64fa6746c4599f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 3
-  viewRadius: 6
+  range: 1.41
+  viewRadius: 2.55
   viewAngle: 275
   direction: 0
   x_reflection: 1
@@ -655,7 +655,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605759558}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.97, y: 0.78, z: 0}
+  m_LocalPosition: {x: 2.71, y: -0.13, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -679,8 +679,8 @@ MonoBehaviour:
   useObjectWidthAsOffset: 1
   leftOffset: 0.32
   rightOffset: 0.32
-  detectionRange: -1.31
-  LiveDebugMode: 1
+  detectionRange: 0.35
+  DebugMode: 0
 --- !u!61 &1605759564
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -778,12 +778,12 @@ PrefabInstance:
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.33
+      value: -2.39
       objectReference: {fileID: 0}
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.26
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
