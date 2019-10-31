@@ -7,7 +7,7 @@ public class GroundEnemyAI : Enemy
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   private bool reflected;
+   private bool facingLeft;
    private float coolDownLeft = 0;
    private GroundDetector groundDetector;
    private WallAndEdgeDetector wallAndEdgeDetector;
@@ -24,7 +24,7 @@ public class GroundEnemyAI : Enemy
       wallAndEdgeDetector = GetComponent<WallAndEdgeDetector>();
       groundDetector = GetComponent<GroundDetector>();
       machine = new GE_StateMachine(this);
-      reflected = false;
+      facingLeft = false;
 
       if(movementDirection == -1){
          FlipHorizontal();
@@ -42,6 +42,9 @@ public class GroundEnemyAI : Enemy
    public override void OnUpdate(){
       HandleTargeting();
 
+      Debug.LogFormat("FacingLeft: {0}", FacingLeft);
+      Debug.LogFormat("TargetDirection: {0}", TargetOnLeftOrRight());
+
       machine.OnStateUpdate();
    }
 
@@ -56,9 +59,9 @@ public class GroundEnemyAI : Enemy
       newScale.x *= -1;
       transform.localScale = newScale;
 
-      reflected = !reflected;
-      fov.ReflectOverXAxis(reflected);
-      wallAndEdgeDetector.ReflectOverXAxis(reflected);
+      facingLeft = !facingLeft;
+      fov.ReflectOverXAxis(facingLeft);
+      wallAndEdgeDetector.ReflectOverXAxis(facingLeft);
    }
 
    public void StopMoving(){
@@ -79,15 +82,10 @@ public class GroundEnemyAI : Enemy
          Debug.LogError("There is something wrong with your code, this shouldn't happen big boy.");
       }
    }
-  
-   
-   // ------------------------------------------------------
-   // CoolDown
-   // ------------------------------------------------------
 
 
    // ------------------------------------------------------
-   // Public Methods
+   // Checks
    // ------------------------------------------------------
    public bool OnGround(){
       return groundDetector.OnGround;
@@ -101,12 +99,29 @@ public class GroundEnemyAI : Enemy
       return wallAndEdgeDetector.EdgeDetected;
    }
 
+   public int TargetOnLeftOrRight(){
+      if(TargetSighted()){
+         return fov.TargetOnLeftOrRight(currentTarget);
+      }
+      else{
+         return -100;
+      }
+   }
+
+
+   // ------------------------------------------------------
+   // Getters
+   // ------------------------------------------------------
    public override string GetCurrentStateName(){
       return machine.GetStateName();
    }
 
    public float JumpAttackCoolDown{
       get{return jumpAttackCoolDown;}
+   }
+
+   public bool FacingLeft{
+      get{return facingLeft;}
    }
 }
 

@@ -35,17 +35,38 @@ public class PursueState : State<GroundEnemyAI>
    // Private Methods
    // ------------------------------------------------------
    private void HandleMovement(){
-      if(owner.TargetSighted()){
-         owner.MoveToTargetX();
+
+      // // handle flipping 
+      // if(owner.FacingLeft && owner.TargetOnLeftOrRight() == 1){
+      //    Debug.LogFormat("FlippingRight, FacingLeft: {0}, Target: {1}", owner.FacingLeft, owner.TargetOnLeftOrRight());
+      
+      //    // if the enemy is facing to the left, but the target is on the right
+      //    owner.FlipHorizontal();
+      // }
+      // else if(!owner.FacingLeft && owner.TargetOnLeftOrRight() == -1){
+      //    Debug.LogFormat("FlippingLeft, FacingLeft: {0}, Target: {1}", owner.FacingLeft, owner.TargetOnLeftOrRight());
+      //    // if the enemy is facing to the right, but the target is on the left
+      //    owner.FlipHorizontal();
+      // }
+
+      // handle moving
+      if(owner.TargetSighted() && !owner.TargetInRange()){
+         owner.ChangeVelocityScaled(1,0);
+      }
+      else if(owner.TargetInRange()){
+         owner.StopMoving();
       }
    }
 
    private void HandleAttacks(){
-      
+      if(owner.TargetInRange() && jumpAttackCoolDownLeft <= 0){
+         JumpAttack();
+      }
    }
 
    private void JumpAttack(){
       jumpAttackCoolDownLeft = jumpAttackCoolDown;
+      Debug.Log("yeet");
    }
 
    private void HandleJumpAttackCoolDown(){

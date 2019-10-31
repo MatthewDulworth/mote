@@ -14,7 +14,7 @@ public class FieldOfView : MonoBehaviour
    [SerializeField] private float viewRadius;
    [SerializeField] [Range(0,360)] private float viewAngle;
    [SerializeField] [Range(0,360)] private float direction;
-   [SerializeField] private int x_reflection = 1;
+   [SerializeField] private int facingRight = 1;
    [SerializeField] private LayerMask targetLayer;
    [SerializeField] private LayerMask obstacleLayer;
 
@@ -69,22 +69,22 @@ public class FieldOfView : MonoBehaviour
    // ------------------------------------------------------
    public Vector2 DirectionVector(){
       float angle = (direction - transform.eulerAngles.z) * Mathf.Deg2Rad;
-      return new Vector2(viewRadius * Mathf.Sin(angle) * x_reflection, viewRadius * Mathf.Cos(angle));
+      return new Vector2(viewRadius * Mathf.Sin(angle) * facingRight, viewRadius * Mathf.Cos(angle));
    }
    public Vector2 VectorA(){
       float angle = (viewAngle + direction * 2 - transform.eulerAngles.z * 2) * Mathf.Deg2Rad / 2.0f;
-      return new Vector2(viewRadius * Mathf.Sin(angle) * x_reflection, viewRadius * Mathf.Cos(angle));
+      return new Vector2(viewRadius * Mathf.Sin(angle) * facingRight, viewRadius * Mathf.Cos(angle));
    }
    public Vector2 VectorB(){
       float angle = (viewAngle - direction * 2 + transform.eulerAngles.z * 2) * Mathf.Deg2Rad / 2.0f;
-      return new Vector2(-viewRadius * Mathf.Sin(angle) * x_reflection, viewRadius * Mathf.Cos(angle));
+      return new Vector2(-viewRadius * Mathf.Sin(angle) * facingRight, viewRadius * Mathf.Cos(angle));
    }
 
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
    public void ReflectOverXAxis(bool yes) {
-      x_reflection = (yes) ? -1 : 1;
+      facingRight = (yes) ? -1 : 1;
    }
 
    public Transform ClosestTarget() {
@@ -106,6 +106,21 @@ public class FieldOfView : MonoBehaviour
             }
          }  
          return closestTarget;
+      }
+   }
+
+   public int TargetOnLeftOrRight(Transform target){
+      Vector3 relativePoint = transform.InverseTransformPoint(target.position);
+
+      if(relativePoint.x < 0.0){
+         // not entirely sure why i need to multiply it by -facingRight for it to work but i do
+         return 1 * -facingRight;
+      }
+      else if(relativePoint.x > 0.0){
+         return -1 * -facingRight;
+      }
+      else {
+         return 0;
       }
    }
 
