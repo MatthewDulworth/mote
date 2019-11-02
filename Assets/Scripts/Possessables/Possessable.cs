@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Possessable : MonoBehaviour
+public abstract class Possessable : MonoBehaviour
 {
    // ------------------------------------------------------
    // Member Vars
@@ -11,6 +11,7 @@ public class Possessable : MonoBehaviour
    protected Rigidbody2D rb;
    protected SpriteRenderer sr;
    protected bool inRange;
+   protected bool isPossessed;
    
    [SerializeField] protected float possesionRange;
    [SerializeField] protected float movementSpeed;
@@ -27,13 +28,8 @@ public class Possessable : MonoBehaviour
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public virtual void HandleMovement(InputController io){
-   
-   }
-
-   public virtual void HandleActions(InputController io){
-
-   }
+   public abstract void HandleMovement(InputController io);
+   public abstract void HandleActions(InputController io);
 
    public virtual void OnEnterRange(){
       inRange = true;
@@ -46,6 +42,7 @@ public class Possessable : MonoBehaviour
    }
 
    public virtual void OnPossessionEnter(){
+
    }
 
    public virtual void OnPossessionExit(){

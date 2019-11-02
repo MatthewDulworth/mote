@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    private Rigidbody2D rb;
    private PlayerHealth playerHealth;
+   private Possession possession;
 
    [SerializeField] private float movementSpeed;
    [SerializeField] private float diagonalLimiter;
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
    // Mono Methods
    // ------------------------------------------------------
    void Start() {
+      possession = GetComponent<Possession>();
       playerHealth = gameObject.GetComponentInChildren<PlayerHealth>();
       rb = GetComponent<Rigidbody2D>();
    }
@@ -62,5 +64,9 @@ public class Player : MonoBehaviour
 
    public PlayerHealth Health{
       get{return playerHealth;}
+   }
+
+   public Possession Possession{
+      get{return Possession;}
    }
 }
