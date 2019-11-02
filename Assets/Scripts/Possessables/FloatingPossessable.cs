@@ -17,4 +17,8 @@ public class FloatingPossessable : Possessable
 
       rb.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
    }
+
+   public override void HandleActions(InputController io){
+      
+   }
 }
