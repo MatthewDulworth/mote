@@ -18,6 +18,10 @@ public class GravityPossessable : Possessable
       }
    }
 
+   public override void HandleActions(InputController io){
+      
+   }
+
    private bool IsGrounded(){
       return Physics2D.OverlapCircle(GroundDetection.position, JumpCheckRadius, WallLayer);
    }
