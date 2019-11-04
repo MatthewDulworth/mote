@@ -10,7 +10,7 @@ public class PossessionController : MonoBehaviour
    [SerializeField] private LayerMask targetLayer;
    [SerializeField] private LayerMask obstacleLayer;
 
-   private PossessableContainer target;
+   private PossessableContainer currentTarget;
    private PossessableContainer possessedContainer;
    private List<PossessableContainer> visiblePossessables;
    private List<PossessableContainer> possessables;
@@ -22,12 +22,12 @@ public class PossessionController : MonoBehaviour
    private class PossessableContainer
    {
       public Possessable Possessable {get; set;}
-      public bool InRange {get; set;}
+      public bool IsVisible {get; set;}
       public bool IsPossessed {get; set;}
 
       public PossessableContainer(Possessable p){
          this.Possessable = p;
-         this.InRange = false;
+         this.IsVisible = false;
          this.IsPossessed = false;
       }
    }
@@ -48,6 +48,7 @@ public class PossessionController : MonoBehaviour
    public void OnUpdate(Player player, InputController io){
       GetVisiblePossessables(player);
       GetTargetedPossessable(io);
+      OnPossessableVisible();
    }
 
    public void OnFixedUpdate(){
@@ -85,12 +86,28 @@ public class PossessionController : MonoBehaviour
       }
       Transform[] targets = t.ToArray();
 
-      Possessable possess = Targeting.GetClosestTarget(targets, io.MousePosition).GetComponent<Possessable>();
-      target = (possess != null) ? GetPossessableContainer(possess) : null;
+      Transform targetTransform = Targeting.GetClosestTarget(targets, io.MousePosition);
+      Possessable possess = (targetTransform != null) ? targetTransform.GetComponent<Possessable>() : null;
+      currentTarget = (possess != null) ? GetPossessableContainer(possess) : null;
    }
 
-   private void HandleTargetingGraphics(){
-      
+   private void OnPossessableVisible(){
+      foreach(PossessableContainer p in possessables){
+        if(IsVisible(p) && !p.IsVisible){
+           p.IsVisible = true;
+           p.Possessable.OnEnterRange();
+           Debug.LogFormat("{0} entering range", p.Possessable);
+        }
+        else if(!IsVisible(p) && p.IsVisible){
+           p.IsVisible = false;
+           p.Possessable.OnExitRange();
+           Debug.LogFormat("{0} exiting range", p.Possessable);
+        }
+      }
+   }
+
+   private void OnPossessableTarget(){
+
    }
 
 
@@ -136,6 +153,19 @@ public class PossessionController : MonoBehaviour
 
       return posCon;
    }
+
+   private bool IsVisible(PossessableContainer p){
+      return (visiblePossessables.Contains(p));
+   }
+
+   private bool IsTargeted(PossessableContainer p){
+      return (p == currentTarget);
+   }
+
+   private bool IsPossessed(PossessableContainer p){
+      return (p == possessedContainer);
+   }
+
 
    // ------------------------------------------------------
    // Getters

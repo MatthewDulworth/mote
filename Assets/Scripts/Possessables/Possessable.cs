@@ -41,6 +41,14 @@ public abstract class Possessable : MonoBehaviour
       sr.color = new Color(1f,1f,1f,1f);
    }
 
+   public virtual void OnTargetEnter(){
+
+   }
+
+   public virtual void OnTargetExit(){
+      
+   }
+
    public virtual void OnPossessionEnter(){
 
    }
