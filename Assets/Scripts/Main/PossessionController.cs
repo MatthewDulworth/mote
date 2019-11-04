@@ -50,8 +50,12 @@ public class PossessionController : MonoBehaviour
    public void OnUpdate(Player player, InputController io){
       GetVisiblePossessables(player);
       GetTargetedPossessable(io);
+      
       OnPossessableVisible();
       OnPossessableTargeted();
+
+      HandleUnpossessions(io);
+      HandlePossessions(io);
    }
 
    public void OnFixedUpdate(){
@@ -124,6 +128,22 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    // Possession
    // ------------------------------------------------------
+   private void HandlePossessions(InputController io){
+      if(currentTarget != null && possessedContainer == null){
+         if(io.LeftMouseButtonDown){
+            PossessObject(currentTarget);
+         }
+      }
+   }
+
+   private void HandleUnpossessions(InputController io){
+      if(possessedContainer != null){
+         if(io.ActionKeyPressed){
+            UnpossessObject();
+         }
+      }
+   }
+
    private void PossessObject(PossessableContainer posContainer){
       if(possessedContainer == null){
          possessedContainer = posContainer;
@@ -134,19 +154,11 @@ public class PossessionController : MonoBehaviour
       }
    }
 
-   private void Unpossess(){
+   private void UnpossessObject(){
       if(possessedContainer != null){
          possessedContainer.Possessable.OnPossessionExit();
       }
       possessedContainer = null;
-   }
-
-   private void HandlePossessions(){
-
-   }
-
-   private void HandleUnpossessions(){
-
    }
 
    // ------------------------------------------------------

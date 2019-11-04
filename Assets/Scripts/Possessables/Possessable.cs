@@ -42,18 +42,19 @@ public abstract class Possessable : MonoBehaviour
    }
 
    public virtual void OnTargetEnter(){
-
+      transform.localScale += new Vector3(1.1f, 1.1f, 1);
    }
 
    public virtual void OnTargetExit(){
-      
+      transform.localScale -= new Vector3(1.1f, 1.1f, 1);
    }
 
    public virtual void OnPossessionEnter(){
-
+      Debug.Log("yeet");
    }
 
    public virtual void OnPossessionExit(){
+      Debug.Log("yeet my meat");
       rb.velocity = Vector2.zero;
    }
 
