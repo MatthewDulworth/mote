@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
    private List<Possessable> possessables;
    private List<Enemy> enemies;
 
+   [SerializeField] private PossessionController possessionController;
    [SerializeField] private Player player;
    [SerializeField] private InputController io;
    [SerializeField] private LayerMask playerLayer;
@@ -37,6 +38,7 @@ public class GameController : MonoBehaviour
 
    void Update() {
       player.OnUpdate();
+      possessionController.OnUpdate(player, io);
 
       HandleEnemyUpdates();
       HandleRangeChecks();

@@ -9,8 +9,8 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    private Rigidbody2D rb;
    private PlayerHealth playerHealth;
-   private Possession possession;
-
+    
+   [SerializeField] private float range;
    [SerializeField] private float movementSpeed;
    [SerializeField] private float diagonalLimiter;
    
@@ -18,8 +18,13 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
+   void OnValidate(){
+      range = Mathf.Max(range, 0);
+      movementSpeed = Mathf.Max(movementSpeed, 0);
+      diagonalLimiter = Mathf.Max(diagonalLimiter, 0);
+   }
+
    void Start() {
-      possession = GetComponent<Possession>();
       playerHealth = gameObject.GetComponentInChildren<PlayerHealth>();
       rb = GetComponent<Rigidbody2D>();
    }
@@ -66,7 +71,7 @@ public class Player : MonoBehaviour
       get{return playerHealth;}
    }
 
-   public Possession Possession{
-      get{return Possession;}
+   public float Range{
+      get{return range;}
    }
 }
