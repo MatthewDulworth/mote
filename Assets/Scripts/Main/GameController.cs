@@ -36,11 +36,17 @@ public class GameController : MonoBehaviour
    }
 
    void Update() {
-      player.OnUpdate();
-      possessionController.OnUpdate(player, io);
-
       HandleEnemyUpdates();
       HandlePlayerDamageFromEnemies();
+
+      possessionController.OnUpdate(player, io);
+
+      if(possessionController.CurrentlyPossessing()){
+         possessionController.PossessedObject.OnUpdate(io);
+      } 
+      else {
+         player.OnUpdate();
+      }
    }
 
    void FixedUpdate(){
