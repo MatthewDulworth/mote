@@ -10,10 +10,7 @@ public abstract class Possessable : MonoBehaviour
    // ------------------------------------------------------
    protected Rigidbody2D rb;
    protected SpriteRenderer sr;
-   protected bool inRange;
-   protected bool isPossessed;
    
-   [SerializeField] protected float possesionRange;
    [SerializeField] protected float movementSpeed;
 
    // ------------------------------------------------------
@@ -22,7 +19,6 @@ public abstract class Possessable : MonoBehaviour
    void Start() {
       rb = GetComponent<Rigidbody2D>();
       sr = GetComponent<SpriteRenderer>();
-      inRange = false;
    }
 
    // ------------------------------------------------------
@@ -32,21 +28,19 @@ public abstract class Possessable : MonoBehaviour
    public abstract void HandleActions(InputController io);
 
    public virtual void OnEnterRange(){
-      inRange = true;
       sr.color = new Color(1f,1f,1f,0.5f);
    }
 
    public virtual void OnExitRange(){
-      inRange = false;
       sr.color = new Color(1f,1f,1f,1f);
    }
 
    public virtual void OnTargetEnter(){
-      transform.localScale += new Vector3(1.1f, 1.1f, 1);
+      transform.localScale += new Vector3(0.5f, 0.5f, 0);
    }
 
    public virtual void OnTargetExit(){
-      transform.localScale -= new Vector3(1.1f, 1.1f, 1);
+      transform.localScale -= new Vector3(0.5f, 0.5f, 0);
    }
 
    public virtual void OnPossessionEnter(){
@@ -56,16 +50,5 @@ public abstract class Possessable : MonoBehaviour
    public virtual void OnPossessionExit(){
       Debug.Log("yeet my meat");
       rb.velocity = Vector2.zero;
-   }
-
-   // ------------------------------------------------------
-   // Getters
-   // ------------------------------------------------------
-   public float PossesionRange {
-      get{return possesionRange;}
-   }
-
-   public bool InRange {
-      get{return inRange;}
    }
 }

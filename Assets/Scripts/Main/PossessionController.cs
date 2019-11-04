@@ -48,14 +48,19 @@ public class PossessionController : MonoBehaviour
    }
    
    public void OnUpdate(Player player, InputController io){
-      GetVisiblePossessables(player);
-      GetTargetedPossessable(io);
-      
-      OnPossessableVisible();
-      OnPossessableTargeted();
 
-      HandleUnpossessions(io);
-      HandlePossessions(io);
+      if(!CurrentlyPossessing()){
+         GetVisiblePossessables(player);
+         GetTargetedPossessable(io);
+
+         OnPossessableVisible();
+         OnPossessableTargeted();
+
+         HandlePossessions(io, player);
+      }
+      else {
+         HandleUnpossessions(io, player);
+      }
    }
 
    public void OnFixedUpdate(){
@@ -128,36 +133,42 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    // Possession
    // ------------------------------------------------------
-   private void HandlePossessions(InputController io){
-      if(currentTarget != null && possessedContainer == null){
-         if(io.LeftMouseButtonDown){
-            PossessObject(currentTarget);
+   private void HandlePossessions(InputController io, Player player){
+      if(io.LeftMouseButtonDown){
+         PossessObject(currentTarget);
+         player.gameObject.SetActive(false);
+
+         foreach(PossessableContainer p in possessables){
+         if(p.IsVisible){
+            p.IsVisible = false;
+            p.Possessable.OnExitRange();
          }
+         
+         if(p.IsTargeted){
+            p.IsTargeted = false;
+            p.Possessable.OnTargetExit();
+         }
+      }
       }
    }
 
-   private void HandleUnpossessions(InputController io){
-      if(possessedContainer != null){
-         if(io.ActionKeyPressed){
-            UnpossessObject();
-         }
+   private void HandleUnpossessions(InputController io, Player player){
+       if(io.ActionKeyPressed){
+         player.gameObject.SetActive(true);
+         player.transform.position = possessedContainer.Possessable.transform.position;
+         UnpossessObject();
       }
    }
 
    private void PossessObject(PossessableContainer posContainer){
-      if(possessedContainer == null){
-         possessedContainer = posContainer;
-         possessedContainer.Possessable.OnPossessionEnter();
-      }
-      else{
-         Debug.LogError("Cannot possess, already possessing an object");
-      }
+      possessedContainer = posContainer;
+      possessedContainer.IsPossessed = true;
+      possessedContainer.Possessable.OnPossessionEnter();
    }
 
    private void UnpossessObject(){
-      if(possessedContainer != null){
-         possessedContainer.Possessable.OnPossessionExit();
-      }
+      possessedContainer.IsPossessed = false;
+      possessedContainer.Possessable.OnPossessionExit();
       possessedContainer = null;
    }
 
@@ -186,6 +197,10 @@ public class PossessionController : MonoBehaviour
 
    private bool IsPossessed(PossessableContainer p){
       return (p == possessedContainer);
+   }
+
+   private bool CurrentlyPossessing(){
+      return (possessedContainer != null);
    }
 
 
