@@ -63,10 +63,6 @@ public class PossessionController : MonoBehaviour
       }
    }
 
-   public void OnFixedUpdate(){
-
-   }
-
 
    // ------------------------------------------------------
    // On Updates
@@ -139,16 +135,15 @@ public class PossessionController : MonoBehaviour
          player.gameObject.SetActive(false);
 
          foreach(PossessableContainer p in possessables){
-         if(p.IsVisible){
-            p.IsVisible = false;
-            p.Possessable.OnExitRange();
+            if(p.IsVisible){
+               p.IsVisible = false;
+               p.Possessable.OnExitRange();
+            }
+            if(p.IsTargeted){
+               p.IsTargeted = false;
+               p.Possessable.OnTargetExit();
+            }
          }
-         
-         if(p.IsTargeted){
-            p.IsTargeted = false;
-            p.Possessable.OnTargetExit();
-         }
-      }
       }
    }
 
@@ -171,6 +166,7 @@ public class PossessionController : MonoBehaviour
       possessedContainer.Possessable.OnPossessionExit();
       possessedContainer = null;
    }
+
 
    // ------------------------------------------------------
    // Private Methods
@@ -199,10 +195,22 @@ public class PossessionController : MonoBehaviour
       return (p == possessedContainer);
    }
 
-   private bool CurrentlyPossessing(){
+
+   // ------------------------------------------------------
+   // Public Methods
+   // ------------------------------------------------------
+   public bool CurrentlyPossessing(){
       return (possessedContainer != null);
    }
 
+   public void ForcedUnpossession(Player player){
+      player.gameObject.SetActive(true);
+      player.transform.position = possessedContainer.Possessable.transform.position;
+
+      possessedContainer.IsPossessed = false;
+      possessedContainer.Possessable.OnPossessionExit();
+      possessedContainer = null;
+   }
 
    // ------------------------------------------------------
    // Getters

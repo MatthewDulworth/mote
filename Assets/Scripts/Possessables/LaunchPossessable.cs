@@ -22,11 +22,11 @@ public class LaunchPossessable : Possessable
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public override void HandleMovement(InputController io){
+   public override void OnFixedUpdate(InputController io){
       // no movement
    }
 
-   public override void HandleActions(InputController io){
+   public override void OnUpdate(InputController io){
       if(io.GetMouseDistanceFrom(this.transform) < ClickRadius && !dragFlag){
          if(io.LeftMouseButtonDown){
             dragFlag = true;
@@ -36,7 +36,7 @@ public class LaunchPossessable : Possessable
       else if(io.LeftMouseButtonUp && dragFlag){
          dragFlag = false;
          LaunchCan(io.MousePosition);
-         control.UnpossessObject();
+         control.ForceUnpossession();
       }
    }
 

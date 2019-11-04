@@ -22,11 +22,14 @@ public abstract class Possessable : MonoBehaviour
    }
 
    // ------------------------------------------------------
-   // Public Methods
+   // Updates
    // ------------------------------------------------------
-   public abstract void HandleMovement(InputController io);
-   public abstract void HandleActions(InputController io);
+   public abstract void OnFixedUpdate(InputController io);
+   public abstract void OnUpdate(InputController io);
 
+   // ------------------------------------------------------
+   // Enter/Exit
+   // ------------------------------------------------------
    public virtual void OnEnterRange(){
       sr.color = new Color(1f,1f,1f,0.5f);
    }
@@ -44,11 +47,11 @@ public abstract class Possessable : MonoBehaviour
    }
 
    public virtual void OnPossessionEnter(){
-      Debug.Log("yeet");
+      Debug.LogFormat("Possessed {0}", this.gameObject);
    }
 
    public virtual void OnPossessionExit(){
-      Debug.Log("yeet my meat");
+      Debug.LogFormat("Unpoossessed {0}", this.gameObject);
       rb.velocity = Vector2.zero;
    }
 }

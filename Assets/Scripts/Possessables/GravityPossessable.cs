@@ -9,7 +9,7 @@ public class GravityPossessable : Possessable
    [SerializeField] private Transform GroundDetection;
    [SerializeField] private LayerMask WallLayer;
 
-   public override void HandleMovement(InputController io){
+   public override void OnFixedUpdate(InputController io){
       int horizontal = io.GetHorizontalDirection();
       rb.velocity = new Vector2(horizontal * movementSpeed, rb.velocity.y);
 
@@ -18,7 +18,7 @@ public class GravityPossessable : Possessable
       }
    }
 
-   public override void HandleActions(InputController io){
+   public override void OnUpdate(InputController io){
       
    }
 

@@ -7,8 +7,6 @@ public class GameController : MonoBehaviour
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   private Possessable possessedObj;
-   private List<Possessable> inRangeOfPlayerList;
    private List<Possessable> possessables;
    private List<Enemy> enemies;
 
@@ -21,7 +19,6 @@ public class GameController : MonoBehaviour
    // Mono Methods
    // ------------------------------------------------------
    void Start() {
-      inRangeOfPlayerList = new List<Possessable>();
       possessables = new List<Possessable>();
       enemies = new List<Enemy>();
 
@@ -43,65 +40,20 @@ public class GameController : MonoBehaviour
       possessionController.OnUpdate(player, io);
 
       HandleEnemyUpdates();
-      // HandleRangeChecks();
       HandlePlayerDamageFromEnemies();
-
-      if(possessedObj != null){
-         possessedObj.HandleActions(io);
-         // HandleUnpossessions();
-      }
-      else{
-         // HandlePossessions();
-      }
    }
 
    void FixedUpdate(){
       HandleEnemyFixedUpdates();
 
-      if(possessedObj != null){
-         possessedObj.HandleMovement(io);
+      if(possessionController.CurrentlyPossessing()){
+         possessionController.PossessedObject.OnFixedUpdate(io);
       }
-      else{
+      else {
          player.HandleMovement(io);
       }
    }
    
-
-   // ------------------------------------------------------
-   // Private Possesion Methods
-   // ------------------------------------------------------
-   // private void HandlePossessions(){
-   //    // Possessable target = GetTargetedPossessable();
-   //    if(target != null){
-   //       if(io.ActionKeyPressed){
-
-   //          foreach(Possessable obj in inRangeOfPlayerList){
-   //             obj.OnExitRange();
-   //          }
-
-   //          PossessObject(target);
-   //       }
-   //    }
-   // }
-
-   // private void PossessObject(Possessable obj){
-   //    player.StopMoving();
-   //    player.gameObject.SetActive(false);
-
-   //    inRangeOfPlayerList.Clear();
-   //    if(possessedObj != null){
-   //       possessedObj.OnPossessionExit();
-   //    }
-   //    possessedObj = obj;
-   //    possessedObj.OnPossessionEnter();
-   // }
-
-   // private void HandleUnpossessions(){
-   //    if(io.ActionKeyPressed){
-   //       UnpossessObject();
-   //    }
-   // }
-
    // ------------------------------------------------------
    // Private Enemy Methods
    // ------------------------------------------------------
@@ -124,18 +76,12 @@ public class GameController : MonoBehaviour
          }
       }
    }
+   
+   
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public void UnpossessObject(){
-      player.gameObject.SetActive(true);
-      player.SetPosition(possessedObj.transform.position);
-
-      possessedObj.OnPossessionExit();
-      possessedObj = null;
-   }
-
-   public void AddForceToPlayer(Vector2 force){
-      player.RB.AddForce(force);
+   public void ForceUnpossession(){
+      possessionController.ForcedUnpossession(player);
    }
 }
