@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
       rb.velocity = Vector2.zero;
    }
 
-   public void MoveTo(Vector3 pos){
+   public void SetPosition(Vector3 pos){
       transform.position = pos;
    }
 

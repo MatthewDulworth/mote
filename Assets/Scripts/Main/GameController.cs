@@ -34,6 +34,8 @@ public class GameController : MonoBehaviour
       foreach(Enemy enemy in enem){
          enemies.Add(enemy);
       }
+
+      possessionController.OnStart(possessables);
    }
 
    void Update() {
@@ -170,7 +172,7 @@ public class GameController : MonoBehaviour
    // ------------------------------------------------------
    public void UnpossessObject(){
       player.gameObject.SetActive(true);
-      player.MoveTo(possessedObj.transform.position);
+      player.SetPosition(possessedObj.transform.position);
 
       possessedObj.OnPossessionExit();
       possessedObj = null;
