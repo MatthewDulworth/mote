@@ -97,24 +97,8 @@ public class FieldOfView : MonoBehaviour
 
    public Transform ClosestTarget() {
       FindTargets();
-
-      if(visibleTargets.Count <= 0) {
-         return null;
-      }
-      else {
-         Transform closestTarget = visibleTargets[0];
-         float minDist = Vector2.Distance(closestTarget.position, this.transform.position);
-
-         foreach(Transform target in visibleTargets){
-            float dist = Vector2.Distance(target.position, this.transform.position);
-
-            if(dist < minDist){
-               minDist = dist;
-               closestTarget = target;
-            }
-         }  
-         return closestTarget;
-      }
+      Transform[] targets = visibleTargets.ToArray();
+      return Targeting.GetClosestTarget(targets, this.transform.position);
    }
 
    public int TargetOnLeftOrRight(Transform target){
