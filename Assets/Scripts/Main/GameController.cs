@@ -43,15 +43,15 @@ public class GameController : MonoBehaviour
       possessionController.OnUpdate(player, io);
 
       HandleEnemyUpdates();
-      HandleRangeChecks();
+      // HandleRangeChecks();
       HandlePlayerDamageFromEnemies();
 
       if(possessedObj != null){
          possessedObj.HandleActions(io);
-         HandleUnpossessions();
+         // HandleUnpossessions();
       }
       else{
-         HandlePossessions();
+         // HandlePossessions();
       }
    }
 
@@ -70,80 +70,37 @@ public class GameController : MonoBehaviour
    // ------------------------------------------------------
    // Private Possesion Methods
    // ------------------------------------------------------
-   private void HandleRangeChecks(){
-      if(possessedObj == null){
-         foreach (Possessable obj in possessables) {
-            if(PlayerInRangeOf(obj) && !obj.InRange){
-               inRangeOfPlayerList.Add(obj);
-               obj.OnEnterRange();
-            } 
-            else if(!PlayerInRangeOf(obj) && obj.InRange){
-               inRangeOfPlayerList.Remove(obj);
-               obj.OnExitRange();
-            }
-         }
-      }
-   }
+   // private void HandlePossessions(){
+   //    // Possessable target = GetTargetedPossessable();
+   //    if(target != null){
+   //       if(io.ActionKeyPressed){
 
-   private bool PlayerInRangeOf(Possessable obj){
-      return Physics2D.OverlapCircle(obj.transform.position, obj.PossesionRange, playerLayer);
-   }
+   //          foreach(Possessable obj in inRangeOfPlayerList){
+   //             obj.OnExitRange();
+   //          }
 
-   private Possessable GetTargetedPossessable(){
-      if(inRangeOfPlayerList.Count > 0){
+   //          PossessObject(target);
+   //       }
+   //    }
+   // }
 
-         Possessable target = inRangeOfPlayerList[0];
-         float minDistance = GetDistance(target);
+   // private void PossessObject(Possessable obj){
+   //    player.StopMoving();
+   //    player.gameObject.SetActive(false);
 
-         foreach(Possessable obj in inRangeOfPlayerList){
-            float distance = GetDistance(obj);
-            if(distance < minDistance){
-               target = obj;
-               minDistance = distance;
-            }
-         }
-         return target;
-      } 
-      else {
-         return null;
-      }
-   }
+   //    inRangeOfPlayerList.Clear();
+   //    if(possessedObj != null){
+   //       possessedObj.OnPossessionExit();
+   //    }
+   //    possessedObj = obj;
+   //    possessedObj.OnPossessionEnter();
+   // }
 
-   private float GetDistance(Possessable obj){
-      return Mathf.Abs(player.transform.position.sqrMagnitude - obj.transform.position.sqrMagnitude);
-   }
-
-   private void HandlePossessions(){
-      Possessable target = GetTargetedPossessable();
-      if(target != null){
-         if(io.ActionKeyPressed){
-
-            foreach(Possessable obj in inRangeOfPlayerList){
-               obj.OnExitRange();
-            }
-
-            PossessObject(target);
-         }
-      }
-   }
-
-   private void PossessObject(Possessable obj){
-      player.StopMoving();
-      player.gameObject.SetActive(false);
-
-      inRangeOfPlayerList.Clear();
-      if(possessedObj != null){
-         possessedObj.OnPossessionExit();
-      }
-      possessedObj = obj;
-      possessedObj.OnPossessionEnter();
-   }
-
-   private void HandleUnpossessions(){
-      if(io.ActionKeyPressed){
-         UnpossessObject();
-      }
-   }
+   // private void HandleUnpossessions(){
+   //    if(io.ActionKeyPressed){
+   //       UnpossessObject();
+   //    }
+   // }
 
    // ------------------------------------------------------
    // Private Enemy Methods

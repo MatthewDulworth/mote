@@ -24,11 +24,13 @@ public class PossessionController : MonoBehaviour
       public Possessable Possessable {get; set;}
       public bool IsVisible {get; set;}
       public bool IsPossessed {get; set;}
+      public bool IsTargeted {get; set;}
 
       public PossessableContainer(Possessable p){
          this.Possessable = p;
          this.IsVisible = false;
          this.IsPossessed = false;
+         this.IsTargeted = false;
       }
    }
 
@@ -49,6 +51,7 @@ public class PossessionController : MonoBehaviour
       GetVisiblePossessables(player);
       GetTargetedPossessable(io);
       OnPossessableVisible();
+      OnPossessableTargeted();
    }
 
    public void OnFixedUpdate(){
@@ -96,18 +99,25 @@ public class PossessionController : MonoBehaviour
         if(IsVisible(p) && !p.IsVisible){
            p.IsVisible = true;
            p.Possessable.OnEnterRange();
-           Debug.LogFormat("{0} entering range", p.Possessable);
         }
         else if(!IsVisible(p) && p.IsVisible){
            p.IsVisible = false;
            p.Possessable.OnExitRange();
-           Debug.LogFormat("{0} exiting range", p.Possessable);
         }
       }
    }
 
-   private void OnPossessableTarget(){
-
+   private void OnPossessableTargeted(){
+      foreach(PossessableContainer p in possessables){
+        if(IsTargeted(p) && !p.IsTargeted){
+           p.IsTargeted = true;
+           p.Possessable.OnTargetEnter();
+        }
+        else if(!IsTargeted(p) && p.IsTargeted){
+           p.IsTargeted = false;
+           p.Possessable.OnTargetExit();
+        }
+      }
    }
 
 
