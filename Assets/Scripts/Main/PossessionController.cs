@@ -84,6 +84,7 @@ public class PossessionController : MonoBehaviour
             }
          }
       }
+      Debug.Log(visiblePossessables.Count);
    }
 
    private void GetTargetedPossessable(InputController io){

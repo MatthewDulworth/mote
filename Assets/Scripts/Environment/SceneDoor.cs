@@ -9,19 +9,22 @@ public class SceneDoor : Possessable
    // ------------------------------------------------------
    private bool isOpen = false;
    private BoxCollider2D collid;
+   private GameController control;
 
    // ------------------------------------------------------
    // Methods
    // ------------------------------------------------------
    public override void Start(){
       base.Start();
+      control = FindObjectOfType<GameController>(); 
       collid = GetComponentInChildren<BoxCollider2D>();
    }
 
    public override void OnUpdate(InputController io){
-      if(io.ActionKeyPressed){
+      if(io.ActionKeyPressed && !isOpen){
          isOpen = true;
-         collid.gameObject.SetActive(false);
+         Destroy(transform.GetChild(0).gameObject);
+         control.ForceUnpossession();
       }
    }
    public override void OnFixedUpdate(InputController io){
