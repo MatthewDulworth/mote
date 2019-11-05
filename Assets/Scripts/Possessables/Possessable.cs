@@ -16,7 +16,7 @@ public abstract class Possessable : MonoBehaviour
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
-   void Start() {
+   public virtual void Start() {
       rb = GetComponent<Rigidbody2D>();
       sr = GetComponent<SpriteRenderer>();
    }
@@ -47,11 +47,10 @@ public abstract class Possessable : MonoBehaviour
    }
 
    public virtual void OnPossessionEnter(){
-      Debug.LogFormat("Possessed {0}", this.gameObject);
+      
    }
 
    public virtual void OnPossessionExit(){
-      Debug.LogFormat("Unpoossessed {0}", this.gameObject);
       rb.velocity = Vector2.zero;
    }
 }

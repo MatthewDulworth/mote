@@ -127,4 +127,12 @@ public class InputController : MonoBehaviour
    public Vector3 MousePosition{
       get{return mousePosition;}
    }
+
+   public bool PossessionKeyDown{
+      get{return LeftMouseButtonDown;}
+   }
+
+   public bool UnpossessionKeyDown{
+      get{return RightMouseButtonDown;}
+   }
 }

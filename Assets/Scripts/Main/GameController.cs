@@ -10,15 +10,20 @@ public class GameController : MonoBehaviour
    private List<Possessable> possessables;
    private List<Enemy> enemies;
 
-   [SerializeField] private PossessionController possessionController;
-   [SerializeField] private Player player;
-   [SerializeField] private InputController io;
+   private PossessionController possessionController;
+   private Player player;
+   private InputController io;
+
    [SerializeField] private LayerMask playerLayer;
 
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
    void Start() {
+      possessionController = FindObjectOfType<PossessionController>();
+      player = FindObjectOfType<Player>();
+      io = FindObjectOfType<InputController>();
+
       possessables = new List<Possessable>();
       enemies = new List<Enemy>();
 

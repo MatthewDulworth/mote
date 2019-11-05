@@ -130,7 +130,7 @@ public class PossessionController : MonoBehaviour
    // Possession
    // ------------------------------------------------------
    private void HandlePossessions(InputController io, Player player){
-      if(io.LeftMouseButtonDown){
+      if(io.PossessionKeyDown && currentTarget != null){
          PossessObject(currentTarget);
          player.gameObject.SetActive(false);
 
@@ -148,7 +148,7 @@ public class PossessionController : MonoBehaviour
    }
 
    private void HandleUnpossessions(InputController io, Player player){
-       if(io.ActionKeyPressed){
+       if(io.UnpossessionKeyDown){
          player.gameObject.SetActive(true);
          player.transform.position = possessedContainer.Possessable.transform.position;
          UnpossessObject();
