@@ -8,7 +8,7 @@ public class SceneDoor : Possessable
    // Member Vars
    // ------------------------------------------------------
    private bool isOpen = false;
-   private BoxCollider2D collid;
+   private BoxCollider2D collidesWithPlayer;
    private GameController control;
 
    // ------------------------------------------------------
@@ -17,7 +17,7 @@ public class SceneDoor : Possessable
    public override void Start(){
       base.Start();
       control = FindObjectOfType<GameController>(); 
-      collid = GetComponentInChildren<BoxCollider2D>();
+      collidesWithPlayer = GetComponentInChildren<BoxCollider2D>();
    }
 
    public override void OnUpdate(InputController io){

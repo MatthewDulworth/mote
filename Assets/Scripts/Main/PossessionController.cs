@@ -21,16 +21,33 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    private class PossessableContainer
    {
-      public Possessable Possessable {get; set;}
-      public bool IsVisible {get; set;}
-      public bool IsPossessed {get; set;}
-      public bool IsTargeted {get; set;}
+      public Possessable possessable;
+      public bool isVisible;
+      public bool isPossessed;
+      public bool isTargeted;
 
       public PossessableContainer(Possessable p){
          this.Possessable = p;
          this.IsVisible = false;
          this.IsPossessed = false;
          this.IsTargeted = false;
+      }
+
+      public Possessable Possessable {
+         get{return possessable;}
+         set{possessable = value;}
+      }
+      public bool IsVisible {
+         get{return isVisible;}
+         set{isVisible = value;}
+      }
+      public bool IsPossessed {
+         get{return isPossessed;}
+         set{isPossessed = value;}
+      }
+      public bool IsTargeted {
+         get{return isTargeted;}
+         set{isTargeted = value;}
       }
    }
 
@@ -84,7 +101,6 @@ public class PossessionController : MonoBehaviour
             }
          }
       }
-      Debug.Log(visiblePossessables.Count);
    }
 
    private void GetTargetedPossessable(InputController io){

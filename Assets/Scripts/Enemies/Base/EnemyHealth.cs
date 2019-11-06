@@ -10,7 +10,6 @@ public class EnemyHealth : MonoBehaviour
    private bool collidingWithPlayer;
 
    [SerializeField] private float maxHealth = 1;
-   [SerializeField] private float recoveryTime = 0;
 
    void Start(){
       parentEnemy = GetComponentInParent<Enemy>();

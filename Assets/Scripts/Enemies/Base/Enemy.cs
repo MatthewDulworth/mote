@@ -26,9 +26,17 @@ public abstract class Enemy : MonoBehaviour
       OnStart();
    }
 
+   public abstract void OnFixedUpdate();
+   public abstract void OnUpdate();
+   public virtual void OnStart(){}
+
    // ------------------------------------------------------
-   // Public Methods
+   // Targeting
    // ------------------------------------------------------
+   public virtual void HandleTargeting(){
+      currentTarget = fov.ClosestTarget();
+   }
+   
    public virtual bool TargetSighted(){
       return (currentTarget != null);
    }
@@ -37,10 +45,10 @@ public abstract class Enemy : MonoBehaviour
       return fov.TargetInRange(currentTarget);
    }
 
-   public virtual void HandleTargeting(){
-      currentTarget = fov.ClosestTarget();
-   }
 
+   // ------------------------------------------------------
+   // Movement
+   // ------------------------------------------------------
    public virtual void ChangeVelocityRaw(float x, float y){
       rb.velocity = new Vector2(x ,y);
    }
@@ -49,21 +57,12 @@ public abstract class Enemy : MonoBehaviour
       rb.transform.position = Vector2.MoveTowards(transform.position, target, speed*Time.deltaTime);
    }
 
-   public virtual void OnDamageCollisonPlayer(Player player){
-      player.Health.TakeDamage(damage);
-
-      if(player.Health.Depleted()){
-         player.PlayerDeath();
-      }
-   }
-
+   // ------------------------------------------------------
+   // Getters
+   // ------------------------------------------------------
    public EnemyHealth Health{
       get{return enemyHealth;}
    }
-
-   public abstract void OnFixedUpdate();
-   public abstract void OnUpdate();
-   public virtual void OnStart(){}
 
    public abstract string GetCurrentStateName();
 }

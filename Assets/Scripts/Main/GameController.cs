@@ -9,10 +9,11 @@ public class GameController : MonoBehaviour
    // ------------------------------------------------------
    private List<Possessable> possessables;
    private List<Enemy> enemies;
-
-   private PossessionController possessionController;
    private Player player;
+
+   private PossessionController possessControl;
    private InputController io;
+   private HealthController healthController;
 
    [SerializeField] private LayerMask playerLayer;
 
@@ -20,9 +21,10 @@ public class GameController : MonoBehaviour
    // Mono Methods
    // ------------------------------------------------------
    void Start() {
-      possessionController = FindObjectOfType<PossessionController>();
+      possessControl = FindObjectOfType<PossessionController>();
       player = FindObjectOfType<Player>();
       io = FindObjectOfType<InputController>();
+      healthController = FindObjectOfType<HealthController>();
 
       possessables = new List<Possessable>();
       enemies = new List<Enemy>();
@@ -37,17 +39,17 @@ public class GameController : MonoBehaviour
          enemies.Add(enemy);
       }
 
-      possessionController.OnStart(possessables);
+      possessControl.OnStart(possessables);
    }
 
    void Update() {
+      possessControl.OnUpdate(player, io);
+
       HandleEnemyUpdates();
-      HandlePlayerDamageFromEnemies();
+      healthController.OnUpdate(player, null, enemies);
 
-      possessionController.OnUpdate(player, io);
-
-      if(possessionController.CurrentlyPossessing()){
-         possessionController.PossessedObject.OnUpdate(io);
+      if(possessControl.CurrentlyPossessing()){
+         possessControl.PossessedObject.OnUpdate(io);
       } 
       else {
          player.OnUpdate();
@@ -57,8 +59,8 @@ public class GameController : MonoBehaviour
    void FixedUpdate(){
       HandleEnemyFixedUpdates();
 
-      if(possessionController.CurrentlyPossessing()){
-         possessionController.PossessedObject.OnFixedUpdate(io);
+      if(possessControl.CurrentlyPossessing()){
+         possessControl.PossessedObject.OnFixedUpdate(io);
       }
       else {
          player.HandleMovement(io);
@@ -79,20 +81,12 @@ public class GameController : MonoBehaviour
          enemy.OnFixedUpdate();
       }
    }
-
-   private void HandlePlayerDamageFromEnemies(){
-      foreach(Enemy enemy in enemies){
-         if(enemy.Health.CollidingWithPlayer){
-            enemy.OnDamageCollisonPlayer(player);
-         }
-      }
-   }
    
    
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
    public void ForceUnpossession(){
-      possessionController.ForcedUnpossession(player);
+      possessControl.ForcedUnpossession(player);
    }
 }

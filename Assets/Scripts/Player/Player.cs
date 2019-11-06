@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
    // Member Vars
    // ------------------------------------------------------
    private Rigidbody2D rb;
-   private PlayerHealth playerHealth;
+   private BoxCollider2D hitbox;
     
    [SerializeField] private float range;
    [SerializeField] private float movementSpeed;
@@ -25,16 +25,12 @@ public class Player : MonoBehaviour
    }
 
    void Start() {
-      playerHealth = gameObject.GetComponentInChildren<PlayerHealth>();
+      hitbox = gameObject.GetComponentInChildren<BoxCollider2D>();
       rb = GetComponent<Rigidbody2D>();
    }
 
    public void OnUpdate(){
-      Health.HandleRecovery();
-   }
-
-   public void PlayerDeath(){
-      Debug.Log("Player Killed!");
+      
    }
 
    // ------------------------------------------------------
@@ -67,11 +63,11 @@ public class Player : MonoBehaviour
       get{return rb;}
    }
 
-   public PlayerHealth Health{
-      get{return playerHealth;}
-   }
-
    public float Range{
       get{return range;}
+   }
+
+   public BoxCollider2D HitBox{
+      get{return hitbox;}
    }
 }
