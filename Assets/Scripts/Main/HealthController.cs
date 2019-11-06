@@ -20,7 +20,6 @@ public class HealthController : MonoBehaviour
    }
 
    public void OnUpdate(Player player, Possessable possessedObject, List<Enemy> enemies){
-      Debug.Log("yeet");
       HandleEnemyContactDamage(possessedObject, enemies);
    }
 

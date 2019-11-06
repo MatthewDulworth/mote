@@ -62,6 +62,8 @@ public class PossessionController : MonoBehaviour
       foreach(Possessable p in pos){
          possessables.Add(new PossessableContainer(p));
       }
+
+
    }
    
    public void OnUpdate(Player player, InputController io){
@@ -232,7 +234,12 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
-   public Possessable PossessedObject{
-      get{return possessedContainer.Possessable;}
+   public Possessable PossessedObject(){
+      if(possessedContainer == null){
+         return null;
+      }
+      else{
+         return possessedContainer.Possessable;
+      }
    }
 }

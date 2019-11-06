@@ -44,12 +44,12 @@ public class GameController : MonoBehaviour
 
    void Update() {
       possessControl.OnUpdate(player, io);
-
+      
       HandleEnemyUpdates();
-      healthController.OnUpdate(player, null, enemies);
+      healthController.OnUpdate(player, possessControl.PossessedObject(), enemies);
 
       if(possessControl.CurrentlyPossessing()){
-         possessControl.PossessedObject.OnUpdate(io);
+         possessControl.PossessedObject().OnUpdate(io);
       } 
       else {
          player.OnUpdate();
@@ -60,7 +60,7 @@ public class GameController : MonoBehaviour
       HandleEnemyFixedUpdates();
 
       if(possessControl.CurrentlyPossessing()){
-         possessControl.PossessedObject.OnFixedUpdate(io);
+         possessControl.PossessedObject().OnFixedUpdate(io);
       }
       else {
          player.HandleMovement(io);
