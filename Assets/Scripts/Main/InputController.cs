@@ -11,15 +11,21 @@ public class InputController : MonoBehaviour
    [SerializeField] private KeyCode DownKey;
    [SerializeField] private KeyCode LeftKey;
    [SerializeField] private KeyCode RightKey;
-   [SerializeField] private KeyCode ActionKey;
+   [SerializeField] private KeyCode UnpossessionKey;
+   [SerializeField] private int PossessionKey;
+   [SerializeField] private int ActionKey;
 
    private bool upKeyHeld;
    private bool downKeyHeld;
    private bool leftKeyHeld;
    private bool rightKeyHeld;
+   private bool upKeyPressed;
 
    private bool actionKeyPressed;
-   private bool upKeyPressed;
+   private bool actionKeyReleased;
+   private bool possesionKeyPressed;
+   private bool possesionKeyReleased;
+   private bool unpossessionKeyPressed;
 
    private bool leftMouseButtonDown;
    private bool leftMouseButtonUp;
@@ -39,15 +45,54 @@ public class InputController : MonoBehaviour
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
+   void OnValidate(){
+      if(ActionKey < 0) ActionKey = 0;
+      if(ActionKey > 1) ActionKey = 1;
+
+      if(PossessionKey < 0) PossessionKey = 0;
+      if(PossessionKey > 1) PossessionKey = 1;
+
+      if(ActionKey == 1 && PossessionKey == 1) ActionKey = 0;
+      if(ActionKey == 0 && PossessionKey == 0) ActionKey = 1;
+   }
+
    void Update() {
+      GetMovementKeyValues();
+      GetActionKeyValues();
+      GetMouseKeyValues();
+
+      if(ActionKeyPressed){
+         Debug.Log("action down");
+      }
+      if(ActionKeyReleased){
+         Debug.Log("action up");
+      }
+      if(PossessionKeyPressed){
+         Debug.Log("possession down");
+      }
+      if(PossessionKeyReleased){
+         Debug.Log("possession up");
+      }
+   }
+
+   public void GetMovementKeyValues(){
       upKeyHeld = Input.GetKey(UpKey);
       downKeyHeld = Input.GetKey(DownKey);
       leftKeyHeld = Input.GetKey(LeftKey);
       rightKeyHeld = Input.GetKey(RightKey);
 
-      actionKeyPressed = Input.GetKeyDown(ActionKey);
       upKeyPressed = Input.GetKeyDown(UpKey);
+   }
 
+   public void GetActionKeyValues(){
+      actionKeyPressed = Input.GetMouseButtonDown(ActionKey);
+      actionKeyReleased = Input.GetMouseButtonUp(ActionKey);
+      possesionKeyPressed = Input.GetMouseButtonDown(PossessionKey);
+      possesionKeyReleased = Input.GetMouseButtonUp(PossessionKey);
+      unpossessionKeyPressed = Input.GetKeyDown(UnpossessionKey);
+   }
+
+   public void GetMouseKeyValues(){
       leftMouseButtonDown = Input.GetMouseButtonDown(0);
       leftMouseButtonUp = Input.GetMouseButtonUp(0);
       leftMouseButtonHeld = Input.GetMouseButton(0);
@@ -90,49 +135,38 @@ public class InputController : MonoBehaviour
    }
 
    // ------------------------------------------------------
-   // Getters
+   // Movement Keys
+   // ------------------------------------------------------
+   public bool UpKeyPressed{
+      get{return upKeyPressed;}
+   }
+
+   // ------------------------------------------------------
+   // Action Keys
    // ------------------------------------------------------
    public bool ActionKeyPressed{
       get{return actionKeyPressed;}
    }
 
-   public bool UpKeyPressed{
-      get{return upKeyPressed;}
+   public bool ActionKeyReleased{
+      get{return actionKeyReleased;}
    }
 
-   public bool LeftMouseButtonHeld{
-      get{return leftMouseButtonHeld;}
+   public bool PossessionKeyPressed{
+      get{return possesionKeyPressed;}
    }
 
-   public bool LeftMouseButtonUp{
-      get{return leftMouseButtonUp;}
+   public bool PossessionKeyReleased{
+      get{return possesionKeyReleased;}
    }
 
-   public bool LeftMouseButtonDown{
-      get{return leftMouseButtonDown;}
+   public bool UnpossessionKeyPressed{
+      get{return unpossessionKeyPressed;}
    }
-
-   public bool RightMouseButtonHeld{
-      get{return rightMouseButtonHeld;}
-   }
-
-   public bool RightMouseButtonUp{
-      get{return rightMouseButtonUp;}
-   }
-
-   public bool RightMouseButtonDown{
-      get{return rightMouseButtonDown;}
-   }
-
+   // ------------------------------------------------------
+   // Mouse
+   // ------------------------------------------------------
    public Vector3 MousePosition{
       get{return mousePosition;}
-   }
-
-   public bool PossessionKeyDown{
-      get{return LeftMouseButtonDown;}
-   }
-
-   public bool UnpossessionKeyDown{
-      get{return RightMouseButtonDown;}
    }
 }

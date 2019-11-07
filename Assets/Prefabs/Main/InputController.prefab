@@ -47,4 +47,6 @@ MonoBehaviour:
   DownKey: 115
   LeftKey: 97
   RightKey: 100
-  ActionKey: 32
+  PossessionKey: 323
+  UnpossessionKey: 304
+  ActionKey: 324

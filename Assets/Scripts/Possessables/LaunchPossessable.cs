@@ -28,12 +28,12 @@ public class LaunchPossessable : Possessable
 
    public override void OnUpdate(InputController io){
       if(io.GetMouseDistanceFrom(this.transform) < ClickRadius && !dragFlag){
-         if(io.LeftMouseButtonDown){
+         if(io.ActionKeyPressed){
             dragFlag = true;
             startPos = io.MousePosition;
          }
       }
-      else if(io.LeftMouseButtonUp && dragFlag){
+      else if(io.ActionKeyReleased && dragFlag){
          dragFlag = false;
          LaunchCan(io.MousePosition);
          control.ForceUnpossession();
