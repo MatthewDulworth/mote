@@ -9,18 +9,20 @@ public class HealthController : MonoBehaviour
    // Member Vars
    // ------------------------------------------------------
    [SerializeField] private float recoveryTime;
-   private float recoveryTimeLeft = 0.0f;
+   private float recoveryTimeLeft;
    private GameController control;
 
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
    public void OnStart(){
+      recoveryTimeLeft = 0.0f;
       control = FindObjectOfType<GameController>();
    }
 
    public void OnUpdate(Player player, Possessable possessedObject, List<Enemy> enemies){
       HandleEnemyContactDamage(possessedObject, enemies);
+      HandlePlayerRecovery();
    }
 
    // ------------------------------------------------------
@@ -29,7 +31,7 @@ public class HealthController : MonoBehaviour
    private void HandleEnemyContactDamage(Possessable possessedObject, List<Enemy> enemies){
       foreach(Enemy enemy in enemies){
          if(enemy.Health.CollidingWithPlayer && !IsRecovering()){
-            
+
             if(possessedObject != null){
                OnPossessedHit(possessedObject);
             } 
@@ -39,6 +41,9 @@ public class HealthController : MonoBehaviour
 
             StartRecovery();
          }
+         if(IsRecovering()){
+            Debug.Log("recovering");
+         }
       }
    }
 
@@ -46,7 +51,7 @@ public class HealthController : MonoBehaviour
    // Recovery
    // ------------------------------------------------------
    private void HandlePlayerRecovery(){
-      if(recoveryTimeLeft > 0.0f){
+      if(IsRecovering()){
          recoveryTimeLeft -= Time.deltaTime;
       }
    }
@@ -64,6 +69,7 @@ public class HealthController : MonoBehaviour
    // OnHit
    // ------------------------------------------------------
    private void OnPossessedHit(Possessable possessedObject){
+      Debug.Log("hit");
       control.ForceUnpossession();
    }
 
@@ -73,8 +79,8 @@ public class HealthController : MonoBehaviour
    }
 
    private IEnumerator ReloadLevel(){
-      Debug.Log("restarting level in 3 seconds");
-      yield return new WaitForSeconds(3);
+      Debug.Log("restarting level in 1 second");
+      yield return new WaitForSeconds(1);
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
    }
 }

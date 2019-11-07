@@ -19,7 +19,7 @@ TagManager:
   - Possessables
   - Enemies
   - 
-  - DamageLayer
+  - HitBox
   - 
   - 
   - 

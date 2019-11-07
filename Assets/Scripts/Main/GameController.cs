@@ -40,11 +40,12 @@ public class GameController : MonoBehaviour
       }
 
       possessControl.OnStart(possessables);
+      healthController.OnStart();
    }
 
    void Update() {
       possessControl.OnUpdate(player, io);
-      
+
       HandleEnemyUpdates();
       healthController.OnUpdate(player, possessControl.PossessedObject(), enemies);
 
