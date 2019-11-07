@@ -9,14 +9,14 @@ public class PossessableDoor : Possessable
    // ------------------------------------------------------
    private bool isClosed;
    private bool isLocked;
-   private BoxCollider2D door;
+   private DoorCollider doorCollider;
 
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
    public override void Start(){
       base.Start();
-
+      doorCollider = GetComponentInChildren<DoorCollider>();
    }
 
    public override void OnUpdate(InputController io){
@@ -26,7 +26,7 @@ public class PossessableDoor : Possessable
    }
 
    public override void OnFixedUpdate(InputController io){
-
+      // nada
    }
    
 
@@ -43,10 +43,12 @@ public class PossessableDoor : Possessable
 
    private void OpenDoor(){
       isClosed = false;
+      doorCollider.SetActive(false);
    }
 
    private void CloseDoor(){
       isClosed = true;
+      doorCollider.SetActive(true);
    }
 
    private void LockDoor(){
