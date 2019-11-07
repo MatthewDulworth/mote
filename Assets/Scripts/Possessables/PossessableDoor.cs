@@ -43,12 +43,10 @@ public class PossessableDoor : Possessable
 
    private void OpenDoor(){
       isClosed = false;
-      Debug.Log("Door Open");
    }
 
    private void CloseDoor(){
       isClosed = true;
-      Debug.Log("Door Closed");
    }
 
    private void LockDoor(){

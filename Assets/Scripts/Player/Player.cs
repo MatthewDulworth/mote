@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
    // Member Vars
    // ------------------------------------------------------
    private Rigidbody2D rb;
-   private BoxCollider2D hitbox;
+   private HitBox hitbox;
     
    [SerializeField] private float range;
    [SerializeField] private float movementSpeed;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
    }
 
    void Start() {
-      hitbox = gameObject.GetComponentInChildren<BoxCollider2D>();
+      hitbox = gameObject.GetComponentInChildren<HitBox>();
       rb = GetComponent<Rigidbody2D>();
    }
 
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
       get{return range;}
    }
 
-   public BoxCollider2D HitBox{
+   public HitBox HitBox{
       get{return hitbox;}
    }
 }
