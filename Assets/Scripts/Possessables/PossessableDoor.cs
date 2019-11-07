@@ -2,17 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PossessableDoor : MonoBehaviour
+public class PossessableDoor : Possessable
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   // ------------------------------------------------------
+   // Member Vars
+   // ------------------------------------------------------
+   private bool isClosed;
+   private bool isLocked;
+   private BoxCollider2D door;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   // ------------------------------------------------------
+   // Mono Methods
+   // ------------------------------------------------------
+   public override void Start(){
+      base.Start();
+
+   }
+
+   public override void OnUpdate(InputController io){
+      if(io.ActionKeyPressed && !isLocked){
+         ToggleDoorOpen();
+      }
+   }
+
+   public override void OnFixedUpdate(InputController io){
+
+   }
+   
+
+   // ------------------------------------------------------
+   // Private Methods
+   // ------------------------------------------------------
+   private void ToggleDoorOpen(){
+      if(isClosed) {
+         OpenDoor();
+      } else { 
+         CloseDoor();
+      }
+   }
+
+   private void OpenDoor(){
+      isClosed = false;
+      Debug.Log("Door Open");
+   }
+
+   private void CloseDoor(){
+      isClosed = true;
+      Debug.Log("Door Closed");
+   }
+
+   private void LockDoor(){
+      CloseDoor();
+      isLocked = true;
+   }
+
+   private void UnlockDoor(){
+      isLocked = false;
+   }
 }
