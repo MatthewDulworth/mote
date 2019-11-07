@@ -55,15 +55,14 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
-   public void OnStart(List<Possessable> pos){
+   public void OnStart(){
       visiblePossessables = new List<PossessableContainer>();
       possessables = new List<PossessableContainer>();
-
+   
+      Possessable[] pos = FindObjectsOfType<Possessable>();
       foreach(Possessable p in pos){
          possessables.Add(new PossessableContainer(p));
       }
-
-
    }
    
    public void OnUpdate(Player player, InputController io){

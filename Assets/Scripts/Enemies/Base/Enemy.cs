@@ -29,6 +29,7 @@ public abstract class Enemy : MonoBehaviour
    public abstract void OnFixedUpdate();
    public abstract void OnUpdate();
    public virtual void OnStart(){}
+   public virtual void OnDeath(){}
 
    // ------------------------------------------------------
    // Targeting

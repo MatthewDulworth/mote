@@ -7,7 +7,6 @@ public class GameController : MonoBehaviour
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   private List<Possessable> possessables;
    private List<Enemy> enemies;
    private Player player;
 
@@ -26,20 +25,14 @@ public class GameController : MonoBehaviour
       io = FindObjectOfType<InputController>();
       healthController = FindObjectOfType<HealthController>();
 
-      possessables = new List<Possessable>();
       enemies = new List<Enemy>();
-
-      Possessable[] pos = FindObjectsOfType<Possessable>();
-      foreach(Possessable obj in pos){
-         possessables.Add(obj);
-      }
 
       Enemy[] enem = FindObjectsOfType<Enemy>();
       foreach(Enemy enemy in enem){
          enemies.Add(enemy);
       }
 
-      possessControl.OnStart(possessables);
+      possessControl.OnStart();
       healthController.OnStart();
    }
 
