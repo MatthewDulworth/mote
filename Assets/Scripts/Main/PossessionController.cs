@@ -69,7 +69,7 @@ public class PossessionController : MonoBehaviour
    public void OnUpdate(Player player, InputController io){
 
       if(!CurrentlyPossessing()){
-         GetVisiblePossessables(player);
+         GetVisiblePossessables(player.transform.position, player.Range);
          GetTargetedPossessable(io);
 
          OnPossessableVisible();
@@ -78,6 +78,13 @@ public class PossessionController : MonoBehaviour
          HandlePossessions(io, player);
       }
       else {
+         GetVisiblePossessables(possessedContainer.possessable.transform.position, player.Range);
+         GetTargetedPossessable(io);
+
+         OnPossessableVisible();
+         OnPossessableTargeted();
+
+         HandlePossessedPossession(io, player);
          HandleUnpossessions(io, player);
       }
    }
@@ -86,19 +93,19 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    // On Updates
    // ------------------------------------------------------
-   private void GetVisiblePossessables(Player player){
+   private void GetVisiblePossessables(Vector3 origin, float range){
       this.visiblePossessables.Clear();
-      Collider2D[] targetsInRange = Physics2D.OverlapCircleAll(player.transform.position, player.Range, targetLayer);
+      Collider2D[] targetsInRange = Physics2D.OverlapCircleAll(origin, range, targetLayer);
 
       foreach(Collider2D targetCollider in targetsInRange){
 
          Possessable pos = targetCollider.gameObject.GetComponent<Possessable>();
          if(pos != null){
 
-            Vector2 direction = (targetCollider.transform.position - player.transform.position).normalized;
-            float distance = Vector2.Distance(targetCollider.transform.position, player.transform.position);
+            Vector2 direction = (targetCollider.transform.position - origin).normalized;
+            float distance = Vector2.Distance(targetCollider.transform.position, origin);
            
-            if(!Physics2D.Raycast(player.transform.position, direction, distance, obstacleLayer)){
+            if(!Physics2D.Raycast(origin, direction, distance, obstacleLayer)){
                this.visiblePossessables.Add(GetPossessableContainer(pos));
             }
          }
@@ -150,6 +157,26 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    private void HandlePossessions(InputController io, Player player){
       if(io.PossessionKeyPressed && currentTarget != null){
+         PossessObject(currentTarget);
+         player.gameObject.SetActive(false);
+
+         foreach(PossessableContainer p in possessables){
+            if(p.IsVisible){
+               p.IsVisible = false;
+               p.Possessable.OnExitRange();
+            }
+            if(p.IsTargeted){
+               p.IsTargeted = false;
+               p.Possessable.OnTargetExit();
+            }
+         }
+      }
+   }
+
+   private void HandlePossessedPossession(InputController io, Player player){
+      if(io.PossessionKeyPressed && currentTarget != null){
+         UnpossessObject();
+         player.gameObject.SetActive(true);
          PossessObject(currentTarget);
          player.gameObject.SetActive(false);
 

@@ -60,19 +60,6 @@ public class InputController : MonoBehaviour
       GetMovementKeyValues();
       GetActionKeyValues();
       GetMouseKeyValues();
-
-      if(ActionKeyPressed){
-         Debug.Log("action down");
-      }
-      if(ActionKeyReleased){
-         Debug.Log("action up");
-      }
-      if(PossessionKeyPressed){
-         Debug.Log("possession down");
-      }
-      if(PossessionKeyReleased){
-         Debug.Log("possession up");
-      }
    }
 
    public void GetMovementKeyValues(){
