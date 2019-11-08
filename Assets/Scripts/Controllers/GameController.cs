@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
    // Mono Methods
    // ------------------------------------------------------
    void Start() {
+        enemyController = FindObjectOfType<EnemyController>();
       player = FindObjectOfType<Player>();
       possessControl = FindObjectOfType<PossessionController>();
       healthController = FindObjectOfType<HealthController>();
