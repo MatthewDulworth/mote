@@ -37,13 +37,13 @@ public class EnemyHealth : MonoBehaviour
    // Collisions
    // ------------------------------------------------------
    void OnTriggerEnter2D(Collider2D collider){
-      if(collider.tag == "Player"){
+      if(collider.CompareTag("Player")){
          collidingWithPlayer = true;
       }
    }
 
    void OnTriggerExit2D(Collider2D collider){
-      if(collider.tag == "Player"){
+      if(collider.CompareTag("Player")){
          collidingWithPlayer = false;
       }
    }
