@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class EnemyWall : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   // ------------------------------------------------------
+   // Member Vars
+   // ------------------------------------------------------
+   private List<Enemy> enemies;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   // ------------------------------------------------------
+   // Public Methods
+   // ------------------------------------------------------
+   public void Init(List<Enemy> enemies)
+   {
+      this.enemies = enemies;
+   }
+
+   public List<Enemy> Enemies
+   {
+      get { return enemies; }
+   }
 }
