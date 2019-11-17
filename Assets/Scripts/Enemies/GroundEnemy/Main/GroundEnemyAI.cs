@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(GroundDetector))]
+[RequireComponent(typeof(WallAndEdgeDetector))]
 public class GroundEnemyAI : Enemy
 {
    // ------------------------------------------------------

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class EnemyHealth : MonoBehaviour
 {
    private float health;
    private Enemy parentEnemy;
-   private BoxCollider2D EnemyCollider;
+   private BoxCollider2D hitBox;
    private bool collidingWithPlayer;
 
    [SerializeField] private float maxHealth = 1;
@@ -14,6 +15,10 @@ public class EnemyHealth : MonoBehaviour
    void Start(){
       parentEnemy = GetComponentInParent<Enemy>();
       health = maxHealth;
+
+      if(hitBox.isTrigger == false){
+         hitBox.isTrigger = true;
+      }
 
       if(parentEnemy == null){
          Debug.LogError("This enemy health does not have a parent");
