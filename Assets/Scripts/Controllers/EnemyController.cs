@@ -80,13 +80,14 @@ public class EnemyController : MonoBehaviour
    // ------------------------------------------------------
    // Spawners
    // ------------------------------------------------------
-   public Enemy SpawnEnemy(GameObject enemyPrefab, float x, float y)
+   public Enemy SpawnEnemy(GameObject enemyPrefab, Vector3 position)
    {
       if (enemyPrefab.GetComponent<Enemy>())
       {
          Enemy enemy = Instantiate(enemyPrefab.GetComponent<Enemy>());
          enemies.Add(enemy);
-         enemy.transform.position = new Vector3(x, y, 0);
+         Debug.Log(Enemies.Count);
+         enemy.transform.position = position;
          return enemy;
       }
       else
@@ -96,13 +97,14 @@ public class EnemyController : MonoBehaviour
       }
    }
 
-   public void SpawnEnemyWall(GameObject enemyWallPrefab, List<Enemy> enemies, float x, float y)
+   public void SpawnEnemyWall(GameObject enemyWallPrefab, List<Enemy> enemies, Vector3 position, Vector3 scale)
    {
       if (enemyWallPrefab.GetComponent<EnemyWall>())
       {
          EnemyWall enemyWall =  Instantiate(enemyWallPrefab).GetComponent<EnemyWall>();
          enemyWalls.Add(enemyWall);
-         enemyWall.transform.position = new Vector3(x, y, 0);
+         enemyWall.transform.position = position;
+         enemyWall.transform.localScale = scale;
          enemyWall.GetComponent<EnemyWall>().Init(enemies);
       }
       else
@@ -113,8 +115,12 @@ public class EnemyController : MonoBehaviour
 
    public void DestroyEnemy(Enemy enemy)
    {
+      Debug.Log(Enemies.Count);
+      if(Enemies.Contains(enemy)){
+         Debug.Log("uh oh");
+      }
       enemies.Remove(enemy);
-      Destroy(enemy);
+      Destroy(enemy.gameObject);
    }
 
    public void DestroyEnemyWall(EnemyWall wall)
@@ -122,8 +128,7 @@ public class EnemyController : MonoBehaviour
       enemyWalls.Remove(wall);
       Destroy(wall.gameObject);
    }
-
-
+   
    // ------------------------------------------------------
    // Private Methods
    // ------------------------------------------------------
