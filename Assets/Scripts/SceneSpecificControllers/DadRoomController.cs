@@ -32,8 +32,8 @@ public class DadRoomController : SceneSpecificController
 
    private void BeginEnemyEncounter(EnemyController enemyControl)
    {
-      Enemy enemy1 = enemyControl.SpawnEnemy(groundEnemyPrefab, enemy1SpawnPosition);
-      Enemy enemy2 = enemyControl.SpawnEnemy(groundEnemyPrefab, enemy2SpawnPosition);
+      enemy1 = enemyControl.SpawnEnemy(groundEnemyPrefab, enemy1SpawnPosition);
+      enemy2 = enemyControl.SpawnEnemy(groundEnemyPrefab, enemy2SpawnPosition);
 
       List<Enemy> list = new List<Enemy>();
       list.Add(enemy1);

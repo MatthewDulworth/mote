@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
    // enemy prefabs
    public GameObject GroundEnemy;
 
+
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
@@ -86,7 +87,6 @@ public class EnemyController : MonoBehaviour
       {
          Enemy enemy = Instantiate(enemyPrefab.GetComponent<Enemy>());
          enemies.Add(enemy);
-         Debug.Log(Enemies.Count);
          enemy.transform.position = position;
          return enemy;
       }
@@ -115,10 +115,6 @@ public class EnemyController : MonoBehaviour
 
    public void DestroyEnemy(Enemy enemy)
    {
-      Debug.Log(Enemies.Count);
-      if(Enemies.Contains(enemy)){
-         Debug.Log("uh oh");
-      }
       enemies.Remove(enemy);
       Destroy(enemy.gameObject);
    }
@@ -128,7 +124,8 @@ public class EnemyController : MonoBehaviour
       enemyWalls.Remove(wall);
       Destroy(wall.gameObject);
    }
-   
+
+
    // ------------------------------------------------------
    // Private Methods
    // ------------------------------------------------------
@@ -144,6 +141,7 @@ public class EnemyController : MonoBehaviour
 
       return true;
    }
+
 
    // ------------------------------------------------------
    // Getters
