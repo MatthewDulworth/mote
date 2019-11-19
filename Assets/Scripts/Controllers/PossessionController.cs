@@ -39,16 +39,19 @@ public class PossessionController : MonoBehaviour
          get { return possessable; }
          set { possessable = value; }
       }
+
       public bool IsVisible
       {
          get { return isVisible; }
          set { isVisible = value; }
       }
+
       public bool IsPossessed
       {
          get { return isPossessed; }
          set { isPossessed = value; }
       }
+
       public bool IsTargeted
       {
          get { return isTargeted; }
@@ -74,6 +77,14 @@ public class PossessionController : MonoBehaviour
 
    public void OnUpdate(Player player, InputController io)
    {
+
+      foreach (PossessableContainer pc in possessables)
+      {
+         if (pc != possessedContainer)
+         {
+            pc.Possessable.NotPossessedUpdate();
+         }
+      }
 
       if (!CurrentlyPossessing())
       {

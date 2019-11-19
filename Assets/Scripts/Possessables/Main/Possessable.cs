@@ -36,6 +36,7 @@ public abstract class Possessable : MonoBehaviour
    // ------------------------------------------------------
    public abstract void OnFixedUpdate(InputController io);
    public abstract void OnUpdate(InputController io);
+   public virtual void NotPossessedUpdate(){}
 
    // ------------------------------------------------------
    // Enter/Exit
