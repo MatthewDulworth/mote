@@ -575,7 +575,7 @@ MonoBehaviour:
   enemyWallPrefab: {fileID: 1546894811651445340, guid: a529486c704154dd584a2a36c3538419,
     type: 3}
   drunkDad: {fileID: 1833315160}
-  dadSpeed: 7
+  dadSpeed: 3
   enemy1SpawnPosition: {x: 0, y: -4, z: 0}
   enemy2SpawnPosition: {x: 0, y: 4, z: 0}
   wallSpawnPosition: {x: 4, y: 0, z: 0}
@@ -756,12 +756,12 @@ PrefabInstance:
     - target: {fileID: 5761213803373236846, guid: c94782db7268b4b74819af651a6b05e5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.34
+      value: 8.15
       objectReference: {fileID: 0}
     - target: {fileID: 5761213803373236846, guid: c94782db7268b4b74819af651a6b05e5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.33
+      value: -4.37
       objectReference: {fileID: 0}
     - target: {fileID: 5761213803373236846, guid: c94782db7268b4b74819af651a6b05e5,
         type: 3}
@@ -957,5 +957,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2809769934207582140, guid: eb9607a89a5d441958b171a1ae0a1981,
+        type: 3}
+      propertyPath: onSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e15d2ed01b12547e3a5628bb5b193b9e,
+        type: 3}
+    - target: {fileID: 2809769934207582140, guid: eb9607a89a5d441958b171a1ae0a1981,
+        type: 3}
+      propertyPath: offSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b798a5a6097184f12ac805a8f3bb1027,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb9607a89a5d441958b171a1ae0a1981, type: 3}

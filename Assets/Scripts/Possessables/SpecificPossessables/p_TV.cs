@@ -71,4 +71,8 @@ public class p_TV : Possessable
          return false;
       }
    }
+
+   public bool IsOn{
+      get{return powerOn;}
+   }
 }

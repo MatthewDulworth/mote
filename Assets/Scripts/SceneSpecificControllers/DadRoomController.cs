@@ -18,6 +18,8 @@ public class DadRoomController : SceneSpecificController
    private Enemy enemy1;
    private Enemy enemy2;
    private p_FrontFacingDoor exit;
+   private p_TV tv;
+   private MonoBehaviour target;
 
    private bool dadMoveTrigger = false;
    private bool yeet = true;
@@ -28,15 +30,12 @@ public class DadRoomController : SceneSpecificController
    public override void OnStart(EnemyController enemyController)
    {
       exit = FindObjectOfType<p_FrontFacingDoor>();
+      tv = FindObjectOfType<p_TV>();
    }
 
    public override void OnUpdate(EnemyController enemyController)
    {
       // Debugging
-      if (Input.GetKeyDown(KeyCode.Space))
-      {
-         dadMoveTrigger = true;
-      }
       if (Input.GetKeyDown(KeyCode.LeftCommand))
       {
          if (yeet)
@@ -49,34 +48,39 @@ public class DadRoomController : SceneSpecificController
             enemyController.DestroyEnemy(enemy2);
          }
       }
+
       HandleDadEncounter(enemyController);
    }
 
    // ------------------------------------------------------
-   // Private Methods
+   // Dad Encounter
    // ------------------------------------------------------
-   private void BeginEnemyEncounter(EnemyController enemyController)
-   {
-      enemy1 = enemyController.SpawnEnemy(groundEnemyPrefab, enemy1SpawnPosition);
-      enemy2 = enemyController.SpawnEnemy(groundEnemyPrefab, enemy2SpawnPosition);
-
-      List<Enemy> list = new List<Enemy>();
-      list.Add(enemy1);
-      list.Add(enemy2);
-
-      enemyController.SpawnEnemyWall(enemyWallPrefab, list, wallSpawnPosition, new Vector3(2, 29, 1));
-   }
-
    private void HandleDadEncounter(EnemyController enemyController)
    {
+      if (tv.IsOn)
+      {
+         if(!dadMoveTrigger){
+            dadMoveTrigger = true;
+         }
+
+         target = tv;
+      }
+      else
+      {
+         target = exit;
+      }
+
       if (dadMoveTrigger == true && drunkDad != null)
       {
-         Vector3 target = new Vector3(exit.transform.position.x, drunkDad.transform.position.y, 0);
-         drunkDad.transform.position = Vector2.MoveTowards(drunkDad.transform.position, target, dadSpeed * Time.deltaTime);
+         drunkDad.transform.position = Vector2.MoveTowards(drunkDad.transform.position, GetHorizontalTarget(target), dadSpeed * Time.deltaTime);
 
-         if (drunkDad.transform.position == target)
+         if (drunkDad.transform.position == GetHorizontalTarget(exit) && target == exit)
          {
             DadExit(enemyController);
+         }
+         else if (drunkDad.transform.position == GetHorizontalTarget(tv) && target == tv)
+         {
+            tv.PowerOff();
          }
       }
    }
@@ -92,5 +96,25 @@ public class DadRoomController : SceneSpecificController
       // TODO: add a wait time here
       exit.Close();
       BeginEnemyEncounter(enemyController);
+   }
+
+   private void BeginEnemyEncounter(EnemyController enemyController)
+   {
+      enemy1 = enemyController.SpawnEnemy(groundEnemyPrefab, enemy1SpawnPosition);
+      enemy2 = enemyController.SpawnEnemy(groundEnemyPrefab, enemy2SpawnPosition);
+
+      List<Enemy> list = new List<Enemy>();
+      list.Add(enemy1);
+      list.Add(enemy2);
+
+      enemyController.SpawnEnemyWall(enemyWallPrefab, list, wallSpawnPosition, new Vector3(2, 29, 1));
+   }
+
+   // ------------------------------------------------------
+   // Private methods
+   // ------------------------------------------------------
+   private Vector3 GetHorizontalTarget(MonoBehaviour target)
+   {
+      return new Vector3(target.transform.position.x, drunkDad.transform.position.y, 0);
    }
 }

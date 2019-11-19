@@ -143,8 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae5ae669fc9a4f68aeafe80ee3d6426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSprite: {fileID: 21300000, guid: b798a5a6097184f12ac805a8f3bb1027, type: 3}
-  offSprite: {fileID: 21300000, guid: e15d2ed01b12547e3a5628bb5b193b9e, type: 3}
+  onSprite: {fileID: 21300000, guid: e15d2ed01b12547e3a5628bb5b193b9e, type: 3}
+  offSprite: {fileID: 21300000, guid: b798a5a6097184f12ac805a8f3bb1027, type: 3}
 --- !u!1001 &2809769933968582445
 PrefabInstance:
   m_ObjectHideFlags: 0
