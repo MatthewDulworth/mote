@@ -8,26 +8,20 @@ public class HitBox : MonoBehaviour
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   private new BoxCollider2D collider;
-   private List<string> tags;
-   private List<GameObject> objectsColliding;
+   private BoxCollider2D boxCollider;
+   private List<GameObject> collidingObjects;
 
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
    void Start()
    {
-      collider = GetComponent<BoxCollider2D>();
-      objectsColliding = new List<GameObject>();
+      boxCollider = GetComponent<BoxCollider2D>();
+      collidingObjects = new List<GameObject>();
 
-      if (tags == null)
+      if (!boxCollider.isTrigger)
       {
-         tags = new List<string>();
-      }
-
-      if (!collider.isTrigger)
-      {
-         collider.isTrigger = true;
+         boxCollider.isTrigger = true;
       }
    }
 
@@ -36,40 +30,64 @@ public class HitBox : MonoBehaviour
    // ------------------------------------------------------
    public void OnTriggerEnter2D(Collider2D collider)
    {
-      foreach (string tag in tags)
-      {
-         if (tag == collider.tag)
-         {
-            objectsColliding.Add(collider.gameObject);
-         }
-      }
+      collidingObjects.Add(collider.gameObject);
    }
 
    public void OnTriggerExit2D(Collider2D collider)
    {
-      objectsColliding.Remove(collider.gameObject);
+      collidingObjects.Remove(collider.gameObject);
    }
 
    // ------------------------------------------------------
-   // Getters/Setters
+   // Checks
    // ------------------------------------------------------
-   public void SetCollisionTags(List<string> tags)
-   {
-      this.tags = tags;
-   }
-
    public bool IsColliding()
    {
-      return (objectsColliding.Count > 0);
+      return collidingObjects.Count > 0;
    }
 
-   public List<GameObject> ObjectsColliding
+   public bool IsCollidingWith(string tag)
    {
-      get { return objectsColliding; }
+      foreach (GameObject obj in collidingObjects)
+      {
+         if (obj.tag == tag)
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
+   public bool IsCollidingWith(List<string> tags)
+   {
+      foreach (GameObject obj in collidingObjects)
+      {
+         foreach (string tag in tags)
+         {
+            if (obj.tag == tag)
+            {
+               return true;
+            }
+         }
+      }
+      return false;
+   }
+
+   public bool IsCollidingWith(GameObject obj)
+   {
+      return collidingObjects.Contains(obj);
+   }
+
+   // ------------------------------------------------------
+   // Getters
+   // ------------------------------------------------------
+   public List<GameObject> CollidingObjects
+   {
+      get { return collidingObjects; }
    }
 
    public BoxCollider2D Collider
    {
-      get { return collider; }
+      get { return boxCollider; }
    }
 }

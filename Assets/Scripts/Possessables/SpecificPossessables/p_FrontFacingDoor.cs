@@ -28,15 +28,11 @@ public class p_FrontFacingDoor : Possessable
       {
          boxCollider2D.isTrigger = true;
       }
-
-      List<string> blockTags = new List<string>();
-      blockTags.Add("Block");
-      hitBox.SetCollisionTags(blockTags);
    }
 
    public override void OnUpdate(InputController io)
    {
-      isBlocked = hitBox.IsColliding();
+      isBlocked = hitBox.IsCollidingWith("Block");
 
       if (io.ActionKeyPressed)
       {

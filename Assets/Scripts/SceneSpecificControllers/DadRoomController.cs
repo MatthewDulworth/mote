@@ -50,9 +50,11 @@ public class DadRoomController : SceneSpecificController
          }
       }
 
-      if(!enemySpawnTrigger){
+      if (!enemySpawnTrigger)
+      {
 
-         if(!exit.IsClosed){
+         if (!exit.IsClosed)
+         {
             enemySpawnTrigger = true;
             BeginEnemyEncounter(enemyController);
          }
@@ -68,7 +70,8 @@ public class DadRoomController : SceneSpecificController
    {
       if (tv.IsOn)
       {
-         if(!dadMoveTrigger){
+         if (!dadMoveTrigger)
+         {
             dadMoveTrigger = true;
          }
 

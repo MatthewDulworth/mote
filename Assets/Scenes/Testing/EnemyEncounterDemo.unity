@@ -166,6 +166,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1011223334}
     m_Modifications:
+    - target: {fileID: 7811020845305833847, guid: 39f47a49fc66f4a71a60a90b5a48934b,
+        type: 3}
+      propertyPath: m_Name
+      value: HitBox
+      objectReference: {fileID: 0}
     - target: {fileID: 2840244502734578568, guid: 39f47a49fc66f4a71a60a90b5a48934b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -220,11 +225,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7811020845305833847, guid: 39f47a49fc66f4a71a60a90b5a48934b,
-        type: 3}
-      propertyPath: m_Name
-      value: HitBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39f47a49fc66f4a71a60a90b5a48934b, type: 3}
@@ -756,12 +756,12 @@ PrefabInstance:
     - target: {fileID: 5761213803373236846, guid: c94782db7268b4b74819af651a6b05e5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.15
+      value: 8.05
       objectReference: {fileID: 0}
     - target: {fileID: 5761213803373236846, guid: c94782db7268b4b74819af651a6b05e5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.37
+      value: -4.24
       objectReference: {fileID: 0}
     - target: {fileID: 5761213803373236846, guid: c94782db7268b4b74819af651a6b05e5,
         type: 3}
