@@ -22,6 +22,7 @@ public class DadRoomController : SceneSpecificController
    private MonoBehaviour target;
 
    private bool dadMoveTrigger = false;
+   private bool enemySpawnTrigger = false;
    private bool yeet = true;
 
    // ------------------------------------------------------
@@ -49,13 +50,21 @@ public class DadRoomController : SceneSpecificController
          }
       }
 
-      HandleDadEncounter(enemyController);
+      if(!enemySpawnTrigger){
+
+         if(!exit.IsClosed){
+            enemySpawnTrigger = true;
+            BeginEnemyEncounter(enemyController);
+         }
+
+         HandleDadEncounter();
+      }
    }
 
    // ------------------------------------------------------
    // Dad Encounter
    // ------------------------------------------------------
-   private void HandleDadEncounter(EnemyController enemyController)
+   private void HandleDadEncounter()
    {
       if (tv.IsOn)
       {
@@ -76,7 +85,7 @@ public class DadRoomController : SceneSpecificController
 
          if (drunkDad.transform.position == GetHorizontalTarget(exit) && target == exit)
          {
-            DadExit(enemyController);
+            DadExit();
          }
          else if (drunkDad.transform.position == GetHorizontalTarget(tv) && target == tv)
          {
@@ -85,7 +94,7 @@ public class DadRoomController : SceneSpecificController
       }
    }
 
-   private void DadExit(EnemyController enemyController)
+   private void DadExit()
    {
       exit.Unlock();
       exit.Open();
@@ -95,7 +104,6 @@ public class DadRoomController : SceneSpecificController
 
       // TODO: add a wait time here
       exit.Close();
-      BeginEnemyEncounter(enemyController);
    }
 
    private void BeginEnemyEncounter(EnemyController enemyController)

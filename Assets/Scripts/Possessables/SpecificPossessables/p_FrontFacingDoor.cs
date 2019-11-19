@@ -117,4 +117,9 @@ public class p_FrontFacingDoor : Possessable
          return false;
       }
    }
+
+   public bool IsClosed
+   {
+      get { return isClosed; }
+   }
 }

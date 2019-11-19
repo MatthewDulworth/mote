@@ -14,7 +14,8 @@ public class p_TV : Possessable
    // ------------------------------------------------------
    // Updates
    // ------------------------------------------------------
-   public override void Start(){
+   public override void Start()
+   {
       base.Start();
       PowerOff();
    }
@@ -72,7 +73,8 @@ public class p_TV : Possessable
       }
    }
 
-   public bool IsOn{
-      get{return powerOn;}
+   public bool IsOn
+   {
+      get { return powerOn; }
    }
 }
