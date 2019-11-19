@@ -14,7 +14,7 @@ public class p_FrontFacingDoor : Possessable
    [SerializeField] private Sprite closedSprite;
    [SerializeField] private bool isLocked;
    private bool isClosed = true;
-   private bool isBlocked;
+   private bool isBlocked = false;
 
 
    // ------------------------------------------------------
@@ -56,7 +56,7 @@ public class p_FrontFacingDoor : Possessable
 
    public bool Open()
    {
-      if (!isLocked && isClosed)
+      if (!isLocked && !isBlocked && isClosed)
       {
          isClosed = false;
          sr.sprite = openSprite;
@@ -64,6 +64,7 @@ public class p_FrontFacingDoor : Possessable
       }
       else
       {
+         Debug.Log("Door is locked, blocked, or already open");
          return false;
       }
    }
@@ -72,6 +73,7 @@ public class p_FrontFacingDoor : Possessable
    {
       if (!isClosed)
       {
+
          isClosed = true;
          sr.sprite = closedSprite;
          return true;

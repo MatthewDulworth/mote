@@ -14,14 +14,15 @@ public abstract class Possessable : MonoBehaviour
    protected SpriteRenderer sr;
    protected BoxCollider2D boxCollider2D;
    protected HitBox hitbox;
-   
+
    private LayerMask initialLayer;
    private string initialTag;
-   
+
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
-   public virtual void Start() {
+   public virtual void Start()
+   {
       initialLayer = gameObject.layer;
       initialTag = gameObject.tag;
       rb = GetComponent<Rigidbody2D>();
@@ -39,28 +40,34 @@ public abstract class Possessable : MonoBehaviour
    // ------------------------------------------------------
    // Enter/Exit
    // ------------------------------------------------------
-   public virtual void OnEnterRange(){
-      sr.color = new Color(1f,1f,1f,0.5f);
+   public virtual void OnEnterRange()
+   {
+      sr.color = new Color(1f, 1f, 1f, 0.5f);
    }
 
-   public virtual void OnExitRange(){
-      sr.color = new Color(1f,1f,1f,1f);
+   public virtual void OnExitRange()
+   {
+      sr.color = new Color(1f, 1f, 1f, 1f);
    }
 
-   public virtual void OnTargetEnter(){
+   public virtual void OnTargetEnter()
+   {
       transform.localScale += new Vector3(0.5f, 0.5f, 0);
    }
 
-   public virtual void OnTargetExit(){
+   public virtual void OnTargetExit()
+   {
       transform.localScale -= new Vector3(0.5f, 0.5f, 0);
    }
 
-   public virtual void OnPossessionEnter(){
+   public virtual void OnPossessionEnter()
+   {
       gameObject.layer = LayerMask.NameToLayer("Player");
       transform.GetChild(0).tag = "Player";
    }
 
-   public virtual void OnPossessionExit(){
+   public virtual void OnPossessionExit()
+   {
       gameObject.layer = initialLayer;
       rb.velocity = Vector2.zero;
       hitbox.tag = initialTag;
