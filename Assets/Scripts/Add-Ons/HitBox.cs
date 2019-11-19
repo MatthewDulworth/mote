@@ -18,8 +18,12 @@ public class HitBox : MonoBehaviour
    void Start()
    {
       collider = GetComponent<BoxCollider2D>();
-      tags = new List<string>();
       objectsColliding = new List<GameObject>();
+
+      if(tags == null)
+      {
+         tags = new List<string>();
+      }
 
       if (!collider.isTrigger)
       {

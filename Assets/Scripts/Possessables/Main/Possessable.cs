@@ -13,7 +13,7 @@ public abstract class Possessable : MonoBehaviour
    protected Rigidbody2D rb;
    protected SpriteRenderer sr;
    protected BoxCollider2D boxCollider2D;
-   protected HitBox hitbox;
+   protected HitBox hitBox;
 
    private LayerMask initialLayer;
    private string initialTag;
@@ -28,7 +28,7 @@ public abstract class Possessable : MonoBehaviour
       rb = GetComponent<Rigidbody2D>();
       sr = GetComponent<SpriteRenderer>();
       boxCollider2D = GetComponent<BoxCollider2D>();
-      hitbox = GetComponentInChildren<HitBox>();
+      hitBox = GetComponentInChildren<HitBox>();
    }
 
    // ------------------------------------------------------
@@ -70,6 +70,6 @@ public abstract class Possessable : MonoBehaviour
    {
       gameObject.layer = initialLayer;
       rb.velocity = Vector2.zero;
-      hitbox.tag = initialTag;
+      hitBox.tag = initialTag;
    }
 }

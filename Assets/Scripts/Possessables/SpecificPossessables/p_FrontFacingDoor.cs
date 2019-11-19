@@ -13,6 +13,7 @@ public class p_FrontFacingDoor : Possessable
    [SerializeField] private Sprite openSprite;
    [SerializeField] private Sprite closedSprite;
    [SerializeField] private bool isLocked;
+
    private bool isClosed = true;
    private bool isBlocked = false;
 
@@ -27,10 +28,16 @@ public class p_FrontFacingDoor : Possessable
       {
          boxCollider2D.isTrigger = true;
       }
+
+      List<string> blockTags = new List<string>();
+      blockTags.Add("Block");
+      hitBox.SetCollisionTags(blockTags);
    }
 
    public override void OnUpdate(InputController io)
    {
+      isBlocked = hitBox.IsColliding();
+
       if (io.ActionKeyPressed)
       {
          ToggleOpen();
