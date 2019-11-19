@@ -15,25 +15,30 @@ public abstract class StateMachine<OwnerType>
    // ------------------------------------------------------
    // Update
    // ------------------------------------------------------
-   public void OnStateUpdate(){
+   public void OnStateUpdate()
+   {
       currentState.OnUpdate();
       currentState.HandleStateChanges();
    }
 
-   public void OnStateFixedUpdate(){
+   public void OnStateFixedUpdate()
+   {
       currentState.OnFixedUpdate();
    }
 
    // ------------------------------------------------------
    // Change State
    // ------------------------------------------------------
-   public void ChangeState(int index){
+   public void ChangeState(int index)
+   {
 
-      if(index >= states.Count || index < 0){
+      if (index >= states.Count || index < 0)
+      {
          Debug.LogErrorFormat("cannot change states, invalid index: {0}", index);
       }
 
-      if(currentState != null){
+      if (currentState != null)
+      {
          currentState.OnExit();
       }
       previousState = currentState;
@@ -45,19 +50,23 @@ public abstract class StateMachine<OwnerType>
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public string GetStateName(){
+   public string GetStateName()
+   {
       return currentState.GetType().Name;
    }
 
-   public State<OwnerType> GetState(int index){
+   public State<OwnerType> GetState(int index)
+   {
       return states[index];
    }
 
-   public State<OwnerType> PreviousState{
-      get{return previousState;}
+   public State<OwnerType> PreviousState
+   {
+      get { return previousState; }
    }
 
-   public State<OwnerType> CurrentState{
-      get{return currentState;}
+   public State<OwnerType> CurrentState
+   {
+      get { return currentState; }
    }
 }

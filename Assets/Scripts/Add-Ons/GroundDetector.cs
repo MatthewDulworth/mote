@@ -23,12 +23,14 @@ public class GroundDetector : MonoBehaviour
    // ------------------------------------------------------
    // Init Methods
    // ------------------------------------------------------
-   void Start(){
+   void Start()
+   {
       SetCollider();
       FindOrigins();
    }
 
-   public void SetCollider(){
+   public void SetCollider()
+   {
       boxCollider2D = GetComponent<BoxCollider2D>();
    }
 
@@ -36,8 +38,10 @@ public class GroundDetector : MonoBehaviour
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public void DetectGround(){
-      if(DebugMode){
+   public void DetectGround()
+   {
+      if (DebugMode)
+      {
          Debug.LogFormat("On Ground: {0}", onGround);
       }
 
@@ -49,9 +53,11 @@ public class GroundDetector : MonoBehaviour
       onGround = (leftDetector.collider != null || rightDetector.collider != null);
    }
 
-   public void FindOrigins(){
+   public void FindOrigins()
+   {
 
-      if(objectWidthAsOffset){
+      if (objectWidthAsOffset)
+      {
          float offset = boxCollider2D.size.x;
 
          leftOffset = offset;
@@ -66,19 +72,23 @@ public class GroundDetector : MonoBehaviour
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
-   public bool OnGround{
-      get{return onGround;}
+   public bool OnGround
+   {
+      get { return onGround; }
    }
 
-   public Vector3 LeftOrigin{
-      get{return leftOrigin;}
+   public Vector3 LeftOrigin
+   {
+      get { return leftOrigin; }
    }
 
-   public Vector3 RightOrigin{
-      get{return rightOrigin;}
+   public Vector3 RightOrigin
+   {
+      get { return rightOrigin; }
    }
 
-   public float DetectionDistance{
-      get{return detectionRange;}
+   public float DetectionDistance
+   {
+      get { return detectionRange; }
    }
 }

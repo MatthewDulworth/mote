@@ -26,28 +26,33 @@ public class PossessionController : MonoBehaviour
       public bool isPossessed;
       public bool isTargeted;
 
-      public PossessableContainer(Possessable p){
+      public PossessableContainer(Possessable p)
+      {
          this.Possessable = p;
          this.IsVisible = false;
          this.IsPossessed = false;
          this.IsTargeted = false;
       }
 
-      public Possessable Possessable {
-         get{return possessable;}
-         set{possessable = value;}
+      public Possessable Possessable
+      {
+         get { return possessable; }
+         set { possessable = value; }
       }
-      public bool IsVisible {
-         get{return isVisible;}
-         set{isVisible = value;}
+      public bool IsVisible
+      {
+         get { return isVisible; }
+         set { isVisible = value; }
       }
-      public bool IsPossessed {
-         get{return isPossessed;}
-         set{isPossessed = value;}
+      public bool IsPossessed
+      {
+         get { return isPossessed; }
+         set { isPossessed = value; }
       }
-      public bool IsTargeted {
-         get{return isTargeted;}
-         set{isTargeted = value;}
+      public bool IsTargeted
+      {
+         get { return isTargeted; }
+         set { isTargeted = value; }
       }
    }
 
@@ -55,19 +60,23 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
-   public void OnStart(){
+   public void OnStart()
+   {
       visiblePossessables = new List<PossessableContainer>();
       possessables = new List<PossessableContainer>();
-   
+
       Possessable[] pos = FindObjectsOfType<Possessable>();
-      foreach(Possessable p in pos){
+      foreach (Possessable p in pos)
+      {
          possessables.Add(new PossessableContainer(p));
       }
    }
-   
-   public void OnUpdate(Player player, InputController io){
 
-      if(!CurrentlyPossessing()){
+   public void OnUpdate(Player player, InputController io)
+   {
+
+      if (!CurrentlyPossessing())
+      {
          GetVisiblePossessables(player.transform.position, player.Range);
          GetTargetedPossessable(io);
 
@@ -76,7 +85,8 @@ public class PossessionController : MonoBehaviour
 
          HandlePossessions(io, player);
       }
-      else {
+      else
+      {
          GetVisiblePossessables(possessedContainer.possessable.transform.position, player.Range);
          GetTargetedPossessable(io);
 
@@ -92,29 +102,35 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    // On Updates
    // ------------------------------------------------------
-   private void GetVisiblePossessables(Vector3 origin, float range){
+   private void GetVisiblePossessables(Vector3 origin, float range)
+   {
       this.visiblePossessables.Clear();
       Collider2D[] targetsInRange = Physics2D.OverlapCircleAll(origin, range, targetLayer);
 
-      foreach(Collider2D targetCollider in targetsInRange){
+      foreach (Collider2D targetCollider in targetsInRange)
+      {
 
          Possessable pos = targetCollider.gameObject.GetComponent<Possessable>();
-         if(pos != null){
+         if (pos != null)
+         {
 
             Vector2 direction = (targetCollider.transform.position - origin).normalized;
             float distance = Vector2.Distance(targetCollider.transform.position, origin);
-           
-            if(!Physics2D.Raycast(origin, direction, distance, obstacleLayer)){
+
+            if (!Physics2D.Raycast(origin, direction, distance, obstacleLayer))
+            {
                this.visiblePossessables.Add(GetPossessableContainer(pos));
             }
          }
       }
    }
 
-   private void GetTargetedPossessable(InputController io){
+   private void GetTargetedPossessable(InputController io)
+   {
 
       List<Transform> t = new List<Transform>();
-      foreach(PossessableContainer p in visiblePossessables){
+      foreach (PossessableContainer p in visiblePossessables)
+      {
          t.Add(p.Possessable.transform);
       }
       Transform[] targets = t.ToArray();
@@ -124,29 +140,37 @@ public class PossessionController : MonoBehaviour
       currentTarget = (possess != null) ? GetPossessableContainer(possess) : null;
    }
 
-   private void OnPossessableVisible(){
-      foreach(PossessableContainer p in possessables){
-        if(IsVisible(p) && !p.IsVisible){
-           p.IsVisible = true;
-           p.Possessable.OnEnterRange();
-        }
-        else if(!IsVisible(p) && p.IsVisible){
-           p.IsVisible = false;
-           p.Possessable.OnExitRange();
-        }
+   private void OnPossessableVisible()
+   {
+      foreach (PossessableContainer p in possessables)
+      {
+         if (IsVisible(p) && !p.IsVisible)
+         {
+            p.IsVisible = true;
+            p.Possessable.OnEnterRange();
+         }
+         else if (!IsVisible(p) && p.IsVisible)
+         {
+            p.IsVisible = false;
+            p.Possessable.OnExitRange();
+         }
       }
    }
 
-   private void OnPossessableTargeted(){
-      foreach(PossessableContainer p in possessables){
-        if(IsTargeted(p) && !p.IsTargeted){
-           p.IsTargeted = true;
-           p.Possessable.OnTargetEnter();
-        }
-        else if(!IsTargeted(p) && p.IsTargeted){
-           p.IsTargeted = false;
-           p.Possessable.OnTargetExit();
-        }
+   private void OnPossessableTargeted()
+   {
+      foreach (PossessableContainer p in possessables)
+      {
+         if (IsTargeted(p) && !p.IsTargeted)
+         {
+            p.IsTargeted = true;
+            p.Possessable.OnTargetEnter();
+         }
+         else if (!IsTargeted(p) && p.IsTargeted)
+         {
+            p.IsTargeted = false;
+            p.Possessable.OnTargetExit();
+         }
       }
    }
 
@@ -154,17 +178,22 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    // Possession
    // ------------------------------------------------------
-   private void HandlePossessions(InputController io, Player player){
-      if(io.PossessionKeyPressed && currentTarget != null){
+   private void HandlePossessions(InputController io, Player player)
+   {
+      if (io.PossessionKeyPressed && currentTarget != null)
+      {
          PossessObject(currentTarget);
          player.gameObject.SetActive(false);
 
-         foreach(PossessableContainer p in possessables){
-            if(p.IsVisible){
+         foreach (PossessableContainer p in possessables)
+         {
+            if (p.IsVisible)
+            {
                p.IsVisible = false;
                p.Possessable.OnExitRange();
             }
-            if(p.IsTargeted){
+            if (p.IsTargeted)
+            {
                p.IsTargeted = false;
                p.Possessable.OnTargetExit();
             }
@@ -172,19 +201,24 @@ public class PossessionController : MonoBehaviour
       }
    }
 
-   private void HandlePossessedPossession(InputController io, Player player){
-      if(io.PossessionKeyPressed && currentTarget != null){
+   private void HandlePossessedPossession(InputController io, Player player)
+   {
+      if (io.PossessionKeyPressed && currentTarget != null)
+      {
          UnpossessObject();
          player.gameObject.SetActive(true);
          PossessObject(currentTarget);
          player.gameObject.SetActive(false);
 
-         foreach(PossessableContainer p in possessables){
-            if(p.IsVisible){
+         foreach (PossessableContainer p in possessables)
+         {
+            if (p.IsVisible)
+            {
                p.IsVisible = false;
                p.Possessable.OnExitRange();
             }
-            if(p.IsTargeted){
+            if (p.IsTargeted)
+            {
                p.IsTargeted = false;
                p.Possessable.OnTargetExit();
             }
@@ -192,21 +226,25 @@ public class PossessionController : MonoBehaviour
       }
    }
 
-   private void HandleUnpossessions(InputController io, Player player){
-       if(io.UnpossessionKeyPressed){
+   private void HandleUnpossessions(InputController io, Player player)
+   {
+      if (io.UnpossessionKeyPressed)
+      {
          player.gameObject.SetActive(true);
          player.transform.position = possessedContainer.Possessable.transform.position;
          UnpossessObject();
       }
    }
 
-   private void PossessObject(PossessableContainer posContainer){
+   private void PossessObject(PossessableContainer posContainer)
+   {
       possessedContainer = posContainer;
       possessedContainer.IsPossessed = true;
       possessedContainer.Possessable.OnPossessionEnter();
    }
 
-   private void UnpossessObject(){
+   private void UnpossessObject()
+   {
       possessedContainer.IsPossessed = false;
       possessedContainer.Possessable.OnPossessionExit();
       possessedContainer = null;
@@ -216,11 +254,14 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    // Private Methods
    // ------------------------------------------------------
-   private PossessableContainer GetPossessableContainer(Possessable pos){
+   private PossessableContainer GetPossessableContainer(Possessable pos)
+   {
       PossessableContainer posCon = null;
 
-      foreach(PossessableContainer p in possessables){
-         if(pos == p.Possessable){
+      foreach (PossessableContainer p in possessables)
+      {
+         if (pos == p.Possessable)
+         {
             posCon = p;
          }
       }
@@ -228,15 +269,18 @@ public class PossessionController : MonoBehaviour
       return posCon;
    }
 
-   private bool IsVisible(PossessableContainer p){
+   private bool IsVisible(PossessableContainer p)
+   {
       return (visiblePossessables.Contains(p));
    }
 
-   private bool IsTargeted(PossessableContainer p){
+   private bool IsTargeted(PossessableContainer p)
+   {
       return (p == currentTarget);
    }
 
-   private bool IsPossessed(PossessableContainer p){
+   private bool IsPossessed(PossessableContainer p)
+   {
       return (p == possessedContainer);
    }
 
@@ -244,11 +288,13 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public bool CurrentlyPossessing(){
+   public bool CurrentlyPossessing()
+   {
       return (possessedContainer != null);
    }
 
-   public void ForcedUnpossession(Player player){
+   public void ForcedUnpossession(Player player)
+   {
       player.gameObject.SetActive(true);
       player.transform.position = possessedContainer.Possessable.transform.position;
 
@@ -260,11 +306,14 @@ public class PossessionController : MonoBehaviour
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
-   public Possessable PossessedObject(){
-      if(possessedContainer == null){
+   public Possessable PossessedObject()
+   {
+      if (possessedContainer == null)
+      {
          return null;
       }
-      else{
+      else
+      {
          return possessedContainer.Possessable;
       }
    }

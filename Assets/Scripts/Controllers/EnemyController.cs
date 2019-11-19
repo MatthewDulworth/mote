@@ -101,7 +101,7 @@ public class EnemyController : MonoBehaviour
    {
       if (enemyWallPrefab.GetComponent<EnemyWall>())
       {
-         EnemyWall enemyWall =  Instantiate(enemyWallPrefab).GetComponent<EnemyWall>();
+         EnemyWall enemyWall = Instantiate(enemyWallPrefab).GetComponent<EnemyWall>();
          enemyWalls.Add(enemyWall);
          enemyWall.transform.position = position;
          enemyWall.transform.localScale = scale;

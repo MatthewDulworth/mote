@@ -81,7 +81,8 @@ public class DadRoomController : SceneSpecificController
       }
    }
 
-   private void DadExit(EnemyController enemyController){
+   private void DadExit(EnemyController enemyController)
+   {
       exit.Unlock();
       exit.Open();
 

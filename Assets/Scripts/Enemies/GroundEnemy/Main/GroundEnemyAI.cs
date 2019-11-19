@@ -22,18 +22,21 @@ public class GroundEnemyAI : Enemy
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
-   public override void OnStart(){
+   public override void OnStart()
+   {
       wallAndEdgeDetector = GetComponent<WallAndEdgeDetector>();
       groundDetector = GetComponent<GroundDetector>();
       machine = new GE_StateMachine(this);
       facingLeft = false;
 
-      if(movementDirection == -1){
+      if (movementDirection == -1)
+      {
          FlipHorizontal();
       }
    }
 
-   public override void OnFixedUpdate(){
+   public override void OnFixedUpdate()
+   {
       groundDetector.DetectGround();
       wallAndEdgeDetector.DetectWalls();
       wallAndEdgeDetector.DetectEdges();
@@ -41,7 +44,8 @@ public class GroundEnemyAI : Enemy
       machine.OnStateFixedUpdate();
    }
 
-   public override void OnUpdate(){
+   public override void OnUpdate()
+   {
       HandleTargeting();
       machine.OnStateUpdate();
    }
@@ -50,7 +54,8 @@ public class GroundEnemyAI : Enemy
    // ------------------------------------------------------
    // Movement 
    // ------------------------------------------------------
-   public void FlipHorizontal(){
+   public void FlipHorizontal()
+   {
       movementDirection *= -1;
 
       Vector3 newScale = transform.localScale;
@@ -62,21 +67,26 @@ public class GroundEnemyAI : Enemy
       wallAndEdgeDetector.ReflectOverXAxis(facingLeft);
    }
 
-   public void StopMoving(){
+   public void StopMoving()
+   {
       rb.velocity = Vector3.zero;
    }
 
-   public void ChangeVelocityScaled(float x, float y){
+   public void ChangeVelocityScaled(float x, float y)
+   {
       rb.velocity = new Vector2(x * movementDirection * speed, y * jumpForce);
    }
 
-   public void MoveToTargetX(){
-      if(currentTarget != null){
-         
+   public void MoveToTargetX()
+   {
+      if (currentTarget != null)
+      {
+
          Vector3 targetPosition = new Vector3(currentTarget.position.x, transform.position.y, transform.position.z);
-         transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed*Time.deltaTime);
+         transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
       }
-      else{
+      else
+      {
          Debug.LogError("There is something wrong with your code, this shouldn't happen big boy.");
       }
    }
@@ -85,23 +95,29 @@ public class GroundEnemyAI : Enemy
    // ------------------------------------------------------
    // Checks
    // ------------------------------------------------------
-   public bool OnGround(){
+   public bool OnGround()
+   {
       return groundDetector.OnGround;
    }
 
-   public bool WallDetected(){
+   public bool WallDetected()
+   {
       return wallAndEdgeDetector.WallDetected;
    }
 
-   public bool EdgeDetected(){
+   public bool EdgeDetected()
+   {
       return wallAndEdgeDetector.EdgeDetected;
    }
 
-   public int TargetOnLeftOrRight(){
-      if(TargetSighted()){
+   public int TargetOnLeftOrRight()
+   {
+      if (TargetSighted())
+      {
          return fov.TargetOnLeftOrRight(currentTarget);
       }
-      else{
+      else
+      {
          return -100;
       }
    }
@@ -110,28 +126,34 @@ public class GroundEnemyAI : Enemy
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
-   public override string GetCurrentStateName(){
+   public override string GetCurrentStateName()
+   {
       return machine.GetStateName();
    }
 
-   public float JumpAttackCoolDown{
-      get{return jumpAttackCoolDown;}
+   public float JumpAttackCoolDown
+   {
+      get { return jumpAttackCoolDown; }
    }
 
-   public bool FacingLeft{
-      get{return facingLeft;}
+   public bool FacingLeft
+   {
+      get { return facingLeft; }
    }
 
-   public float JumpSpeed{
-      get{return jumpForce;}
+   public float JumpSpeed
+   {
+      get { return jumpForce; }
    }
 
-   public int MovementDirection{
-      get{return movementDirection;}
+   public int MovementDirection
+   {
+      get { return movementDirection; }
    }
 
-   public Transform CurrentTarget{
-      get{return currentTarget;}
+   public Transform CurrentTarget
+   {
+      get { return currentTarget; }
    }
 }
 

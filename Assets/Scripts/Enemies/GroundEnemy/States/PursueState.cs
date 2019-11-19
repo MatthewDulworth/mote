@@ -13,7 +13,8 @@ public class PursueState : State<GroundEnemyAI>
    // ------------------------------------------------------
    // Constructor
    // ------------------------------------------------------
-   public PursueState(GroundEnemyAI owner, GE_StateMachine machine){
+   public PursueState(GroundEnemyAI owner, GE_StateMachine machine)
+   {
       this.machine = machine;
       this.owner = owner;
    }
@@ -22,10 +23,12 @@ public class PursueState : State<GroundEnemyAI>
    // ------------------------------------------------------
    // Updates
    // ------------------------------------------------------
-   public override void OnUpdate(){
+   public override void OnUpdate()
+   {
       HandleJumpAttackCoolDown();
    }
-   public override void OnFixedUpdate(){
+   public override void OnFixedUpdate()
+   {
       HandleMovement();
       HandleAttacks();
    }
@@ -34,64 +37,80 @@ public class PursueState : State<GroundEnemyAI>
    // ------------------------------------------------------
    // Private Methods
    // ------------------------------------------------------
-   private void HandleMovement(){
+   private void HandleMovement()
+   {
 
       // if the enemy is facing to the left, but the target is on the right, or vice versa
-      if((owner.FacingLeft && owner.TargetOnLeftOrRight() == 1) || (!owner.FacingLeft && owner.TargetOnLeftOrRight() == -1)){
+      if ((owner.FacingLeft && owner.TargetOnLeftOrRight() == 1) || (!owner.FacingLeft && owner.TargetOnLeftOrRight() == -1))
+      {
          owner.FlipHorizontal();
       }
 
       // handle moving
-      if(owner.TargetSighted() && !owner.TargetInRange()){
-         owner.ChangeVelocityScaled(1,0);
+      if (owner.TargetSighted() && !owner.TargetInRange())
+      {
+         owner.ChangeVelocityScaled(1, 0);
       }
-      else if(owner.TargetInRange() || UnderneathTarget()){
+      else if (owner.TargetInRange() || UnderneathTarget())
+      {
          owner.StopMoving();
       }
    }
 
-   private void HandleAttacks(){
-      if(owner.TargetInRange() && jumpAttackCoolDownLeft <= 0){
+   private void HandleAttacks()
+   {
+      if (owner.TargetInRange() && jumpAttackCoolDownLeft <= 0)
+      {
          JumpAttack();
       }
-      else if(UnderneathTarget() && jumpAttackCoolDownLeft <=0){
+      else if (UnderneathTarget() && jumpAttackCoolDownLeft <= 0)
+      {
          JumpUpAttack();
       }
    }
 
-   private void JumpAttack(){
+   private void JumpAttack()
+   {
       jumpAttackCoolDownLeft = jumpAttackCoolDown;
       owner.ChangeVelocityRaw(owner.JumpSpeed * owner.MovementDirection / 2.0f, owner.JumpSpeed);
    }
 
-   private void JumpUpAttack(){
+   private void JumpUpAttack()
+   {
       jumpAttackCoolDownLeft = jumpAttackCoolDown;
       owner.ChangeVelocityRaw(0, owner.JumpSpeed);
    }
 
-   private void HandleJumpAttackCoolDown(){
-      if(jumpAttackCoolDownLeft > 0.0f){
+   private void HandleJumpAttackCoolDown()
+   {
+      if (jumpAttackCoolDownLeft > 0.0f)
+      {
          jumpAttackCoolDownLeft -= Time.deltaTime;
       }
    }
 
-   private bool UnderneathTarget(){
+   private bool UnderneathTarget()
+   {
       return Mathf.Abs(owner.transform.position.x - owner.CurrentTarget.transform.position.x) <= 0.5;
    }
 
    // ------------------------------------------------------
    // State Changes
    // ------------------------------------------------------
-   public override void HandleStateChanges(){
-      if(!owner.OnGround()){
+   public override void HandleStateChanges()
+   {
+      if (!owner.OnGround())
+      {
          machine.ChangeState(GE_StateMachine.FALL);
       }
-      else if(!owner.TargetSighted()){
+      else if (!owner.TargetSighted())
+      {
          machine.ChangeState(GE_StateMachine.PATROL);
       }
    }
 
-   public override void OnEnter(){
+   public override void OnEnter()
+   {
       owner.StopMoving();
       jumpAttackCoolDown = owner.JumpAttackCoolDown;
    }

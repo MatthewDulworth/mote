@@ -6,20 +6,25 @@ public class DoorCollider : MonoBehaviour
 {
    private new BoxCollider2D collider;
 
-   void Start(){
+   void Start()
+   {
       collider = GetComponent<BoxCollider2D>();
    }
 
-   public void SetActive(bool active){
-      if(active){
+   public void SetActive(bool active)
+   {
+      if (active)
+      {
          collider.isTrigger = true;
       }
-      else{
+      else
+      {
          collider.isTrigger = false;
       }
    }
 
-   public BoxCollider2D Collider{
-      get{return collider;}
+   public BoxCollider2D Collider
+   {
+      get { return collider; }
    }
 }

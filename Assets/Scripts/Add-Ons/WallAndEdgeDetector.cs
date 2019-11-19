@@ -21,15 +21,18 @@ public class WallAndEdgeDetector : MonoBehaviour
    // ------------------------------------------------------
    // Init Methods
    // ------------------------------------------------------
-   public void FindOrigins(){
+   public void FindOrigins()
+   {
       edgeDetectorOrigin = new Vector3(transform.position.x + edgeDetectionOffset * x_reflection, transform.position.y, transform.position.z);
    }
 
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-    public void DetectWalls(){
-      if(debugMode){
+   public void DetectWalls()
+   {
+      if (debugMode)
+      {
          Debug.LogFormat("Wall Detected: {0}", wallDetected);
       }
 
@@ -37,8 +40,10 @@ public class WallAndEdgeDetector : MonoBehaviour
       wallDetected = (wallDetector.collider != null);
    }
 
-   public void DetectEdges(){
-      if(debugMode){
+   public void DetectEdges()
+   {
+      if (debugMode)
+      {
          Debug.LogFormat("Edge Detected: {0}", edgeDetected);
       }
 
@@ -48,30 +53,36 @@ public class WallAndEdgeDetector : MonoBehaviour
       edgeDetected = (edgeDetector.collider == null);
    }
 
-   public void ReflectOverXAxis(bool yes) {
+   public void ReflectOverXAxis(bool yes)
+   {
       x_reflection = (yes) ? -1 : 1;
    }
-  
+
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
-   public float WallDetectionRange{
-      get{return wallDetectionRange*x_reflection;}
+   public float WallDetectionRange
+   {
+      get { return wallDetectionRange * x_reflection; }
    }
 
-   public float EdgeDetectionRange{
-      get{return edgeDetectionRange;}
+   public float EdgeDetectionRange
+   {
+      get { return edgeDetectionRange; }
    }
 
-   public Vector3 EdgeDetectorOrigin{
-      get{return edgeDetectorOrigin;}
+   public Vector3 EdgeDetectorOrigin
+   {
+      get { return edgeDetectorOrigin; }
    }
 
-   public bool EdgeDetected{
-      get{return edgeDetected;}
+   public bool EdgeDetected
+   {
+      get { return edgeDetected; }
    }
 
-   public bool WallDetected{
-      get{return wallDetected;}
+   public bool WallDetected
+   {
+      get { return wallDetected; }
    }
 }

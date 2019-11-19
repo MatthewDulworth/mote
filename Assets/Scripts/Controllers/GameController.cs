@@ -78,8 +78,10 @@ public class GameController : MonoBehaviour
       }
    }
 
-   private void UpdateSceneSpecificControllers(){
-      foreach(SceneSpecificController spc in sceneSpecificControllers){
+   private void UpdateSceneSpecificControllers()
+   {
+      foreach (SceneSpecificController spc in sceneSpecificControllers)
+      {
          spc.OnUpdate(enemyController);
       }
    }

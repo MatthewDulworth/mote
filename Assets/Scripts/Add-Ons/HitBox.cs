@@ -20,7 +20,7 @@ public class HitBox : MonoBehaviour
       collider = GetComponent<BoxCollider2D>();
       objectsColliding = new List<GameObject>();
 
-      if(tags == null)
+      if (tags == null)
       {
          tags = new List<string>();
       }
@@ -36,8 +36,10 @@ public class HitBox : MonoBehaviour
    // ------------------------------------------------------
    public void OnTriggerEnter2D(Collider2D collider)
    {
-      foreach(string tag in tags){
-         if(tag == collider.tag){
+      foreach (string tag in tags)
+      {
+         if (tag == collider.tag)
+         {
             objectsColliding.Add(collider.gameObject);
          }
       }
@@ -58,7 +60,7 @@ public class HitBox : MonoBehaviour
 
    public bool IsColliding()
    {
-     return (objectsColliding.Count > 0);
+      return (objectsColliding.Count > 0);
    }
 
    public List<GameObject> ObjectsColliding
