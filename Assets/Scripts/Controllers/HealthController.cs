@@ -23,35 +23,30 @@ public class HealthController : MonoBehaviour
 
    public void OnUpdate(Player player, Possessable possessedObject, List<Enemy> enemies)
    {
-      HandleEnemyContactDamage(possessedObject, enemies);
+      HandleEnemyContactDamage(possessedObject, player);
       HandlePlayerRecovery();
    }
 
    // ------------------------------------------------------
    // Damage 
    // ------------------------------------------------------
-   private void HandleEnemyContactDamage(Possessable possessedObject, List<Enemy> enemies)
+   private void HandleEnemyContactDamage(Possessable possessedObject, Player player)
    {
-      foreach (Enemy enemy in enemies)
+      if (player.HitBox.IsCollidingWith("Enemy") && !IsRecovering())
       {
-         if (enemy.Health.CollidingWithPlayer && !IsRecovering())
+         if (possessedObject != null)
          {
-
-            if (possessedObject != null)
-            {
-               OnPossessedHit(possessedObject);
-            }
-            else
-            {
-               PlayerDeath();
-            }
-
-            StartRecovery();
+            OnPossessedHit(possessedObject);
          }
-         if (IsRecovering())
+         else
          {
-            Debug.Log("recovering");
+            PlayerDeath();
          }
+         StartRecovery();
+      }
+      if (IsRecovering())
+      {
+         Debug.Log("recovering");
       }
    }
 

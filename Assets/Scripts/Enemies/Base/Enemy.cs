@@ -13,17 +13,20 @@ public abstract class Enemy : MonoBehaviour
    protected Rigidbody2D rb;
    protected FieldOfView fov;
    protected Transform currentTarget;
-   protected EnemyHealth enemyHealth;
+   protected HitBox hitBox;
 
    [SerializeField] protected float speed;
-   [SerializeField] protected float damage;
 
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
+   public virtual void OnValidate()
+   {
+      speed = Mathf.Max(0, speed);
+   }
+
    void Start()
    {
-      enemyHealth = GetComponentInChildren<EnemyHealth>();
       rb = GetComponent<Rigidbody2D>();
       fov = GetComponent<FieldOfView>();
 
@@ -67,28 +70,36 @@ public abstract class Enemy : MonoBehaviour
       rb.transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
    }
 
-   public IEnumerator AddImpulseIE(Vector2 impulse, float rateOfSlow){
+   public IEnumerator AddImpulseIE(Vector2 impulse, float rateOfSlow)
+   {
       yield return null;
 
       rb.AddForce(impulse, ForceMode2D.Impulse);
       Debug.Log("yeeteroni");
 
-      while(rb.velocity != Vector2.zero){
+      while (rb.velocity != Vector2.zero)
+      {
          rb.AddForce(-impulse * rateOfSlow, ForceMode2D.Impulse);
          yield return null;
       }
    }
 
-   public void AddImpulse(Vector2 impulse, float rateOfSlow){
+   public void AddImpulse(Vector2 impulse, float rateOfSlow)
+   {
       StartCoroutine(AddImpulseIE(impulse, rateOfSlow));
    }
 
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
-   public EnemyHealth Health
+   public Transform CurrentTarget
    {
-      get { return enemyHealth; }
+      get { return currentTarget; }
+   }
+
+   public HitBox HitBox
+   {
+      get { return hitBox; }
    }
 
    public abstract string GetCurrentStateName();
