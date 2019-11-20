@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    private Rigidbody2D rb;
    private HitBox hitbox;
+   private bool hasControl = true;
 
    [SerializeField] private float range;
    [SerializeField] private float movementSpeed;
@@ -43,16 +44,18 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    public void HandleMovement(InputController io)
    {
-      float horizontal = io.GetHorizontalDirection();
-      float vertical = io.GetVerticalDirection();
-
-      if (horizontal != 0 && vertical != 0)
+      if (hasControl)
       {
-         horizontal *= diagonalLimiter;
-         vertical *= diagonalLimiter;
-      }
+         float horizontal = io.GetHorizontalDirection();
+         float vertical = io.GetVerticalDirection();
 
-      rb.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
+         if (horizontal != 0 && vertical != 0)
+         {
+            horizontal *= diagonalLimiter;
+            vertical *= diagonalLimiter;
+         }
+         rb.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
+      }
    }
 
    public void StopMoving()
@@ -63,6 +66,41 @@ public class Player : MonoBehaviour
    public void SetPosition(Vector3 pos)
    {
       transform.position = pos;
+   }
+
+   // ------------------------------------------------------
+   // Impulse
+   // ------------------------------------------------------
+   public void AddImpulse(Vector2 impulse){
+      rb.AddForce(impulse, ForceMode2D.Impulse);
+   }
+
+   public IEnumerator AddImpulse(Vector2 impulse, float rateOfSlow){
+      RemoveControl();
+      rb.AddForce(impulse, ForceMode2D.Impulse);
+
+      while(rb.velocity != Vector2.zero){
+         rb.AddForce(-impulse * rateOfSlow, ForceMode2D.Impulse);
+         yield return null;
+      }
+
+      GiveControl();
+   }
+
+   // ------------------------------------------------------
+   // Control
+   // ------------------------------------------------------
+   public void RemoveControl(){
+      if(hasControl){
+         hasControl = false;
+         rb.velocity = Vector2.zero;
+      }
+   }
+
+   public void GiveControl(){
+      if(!hasControl){
+         hasControl = true;
+      }
    }
 
    // ------------------------------------------------------
