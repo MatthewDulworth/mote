@@ -67,6 +67,22 @@ public abstract class Enemy : MonoBehaviour
       rb.transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
    }
 
+   public IEnumerator AddImpulseIE(Vector2 impulse, float rateOfSlow){
+      yield return null;
+
+      rb.AddForce(impulse, ForceMode2D.Impulse);
+      Debug.Log("yeeteroni");
+
+      while(rb.velocity != Vector2.zero){
+         rb.AddForce(-impulse * rateOfSlow, ForceMode2D.Impulse);
+         yield return null;
+      }
+   }
+
+   public void AddImpulse(Vector2 impulse, float rateOfSlow){
+      StartCoroutine(AddImpulseIE(impulse, rateOfSlow));
+   }
+
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------

@@ -57,18 +57,19 @@ public class DadRoomController : SceneSpecificController
       if(Input.GetKeyDown(KeyCode.Space)){
          BeginEnemyEncounter(enemyController, control);
       }
+      if(Input.GetKeyDown(KeyCode.J)){
+         
+      }
 
-
+      
 
       if (!enemySpawnTrigger)
       {
-
          if (!exit.IsClosed)
          {
             enemySpawnTrigger = true;
             BeginEnemyEncounter(enemyController, control);
          }
-
          HandleDadEncounter();
       }
    }
@@ -125,6 +126,9 @@ public class DadRoomController : SceneSpecificController
 
       enemy1 = enemyController.SpawnEnemy(groundEnemyPrefab, enemy1SpawnPosition);
       enemy2 = enemyController.SpawnEnemy(groundEnemyPrefab, enemy2SpawnPosition);
+
+      enemy1.AddImpulse(new Vector2(-10, 10), 0.05f);
+      enemy2.AddImpulse(new Vector2(-10, 10), 0.05f);
 
       List<Enemy> list = new List<Enemy>();
       list.Add(enemy1);
