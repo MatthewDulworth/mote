@@ -83,7 +83,7 @@ public class HealthController : MonoBehaviour
    private void OnPossessedHit(Possessable possessedObject)
    {
       Debug.Log("hit");
-      control.ForceUnpossession();
+      control.PossessionController.ForcedUnpossession(control.Player);
    }
 
    private void PlayerDeath()

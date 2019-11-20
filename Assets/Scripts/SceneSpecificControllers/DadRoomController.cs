@@ -10,10 +10,15 @@ public class DadRoomController : SceneSpecificController
    [SerializeField] private GameObject groundEnemyPrefab;
    [SerializeField] private GameObject enemyWallPrefab;
    [SerializeField] private GameObject drunkDad;
+
    [SerializeField] private float dadSpeed;
+
    [SerializeField] private Vector3 enemy1SpawnPosition;
    [SerializeField] private Vector3 enemy2SpawnPosition;
    [SerializeField] private Vector3 wallSpawnPosition;
+
+   [SerializeField] private Vector2 throwPlayerBack;
+   [SerializeField] private float rateOfSlow;
 
    private Enemy enemy1;
    private Enemy enemy2;
@@ -34,7 +39,7 @@ public class DadRoomController : SceneSpecificController
       tv = FindObjectOfType<p_TV>();
    }
 
-   public override void OnUpdate(EnemyController enemyController)
+   public override void OnUpdate(EnemyController enemyController, GameController control)
    {
       // Debugging
       if (Input.GetKeyDown(KeyCode.LeftCommand))
@@ -49,6 +54,11 @@ public class DadRoomController : SceneSpecificController
             enemyController.DestroyEnemy(enemy2);
          }
       }
+      if(Input.GetKeyDown(KeyCode.Space)){
+         BeginEnemyEncounter(enemyController, control);
+      }
+
+
 
       if (!enemySpawnTrigger)
       {
@@ -56,7 +66,7 @@ public class DadRoomController : SceneSpecificController
          if (!exit.IsClosed)
          {
             enemySpawnTrigger = true;
-            BeginEnemyEncounter(enemyController);
+            BeginEnemyEncounter(enemyController, control);
          }
 
          HandleDadEncounter();
@@ -109,8 +119,10 @@ public class DadRoomController : SceneSpecificController
       exit.Close();
    }
 
-   private void BeginEnemyEncounter(EnemyController enemyController)
+   private void BeginEnemyEncounter(EnemyController enemyController, GameController control)
    {
+      control.PossessionController.ForcedUnpossession(control.Player, throwPlayerBack, rateOfSlow);
+
       enemy1 = enemyController.SpawnEnemy(groundEnemyPrefab, enemy1SpawnPosition);
       enemy2 = enemyController.SpawnEnemy(groundEnemyPrefab, enemy2SpawnPosition);
 

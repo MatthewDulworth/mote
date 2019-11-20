@@ -314,6 +314,12 @@ public class PossessionController : MonoBehaviour
       possessedContainer = null;
    }
 
+   public void ForcedUnpossession(Player player, Vector2 impulse, float rateOfSlow)
+   {
+      ForcedUnpossession(player);
+      StartCoroutine(player.AddImpulse(impulse, rateOfSlow));
+   }
+
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------

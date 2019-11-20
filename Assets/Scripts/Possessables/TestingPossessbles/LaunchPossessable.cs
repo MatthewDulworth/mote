@@ -42,7 +42,7 @@ public class LaunchPossessable : Possessable
       {
          dragFlag = false;
          LaunchCan(io.MousePosition);
-         control.ForceUnpossession();
+         control.PossessionController.ForcedUnpossession(control.Player);
       }
    }
 

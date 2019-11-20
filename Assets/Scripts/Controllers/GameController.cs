@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
    {
       foreach (SceneSpecificController spc in sceneSpecificControllers)
       {
-         spc.OnUpdate(enemyController);
+         spc.OnUpdate(enemyController, this);
       }
    }
 
@@ -90,8 +90,28 @@ public class GameController : MonoBehaviour
    // ------------------------------------------------------
    // Public Methods
    // ------------------------------------------------------
-   public void ForceUnpossession()
+   public PossessionController PossessionController
    {
-      possessControl.ForcedUnpossession(player);
+      get { return possessControl; }
+   }
+
+   public EnemyController EnemyController
+   {
+      get { return enemyController; }
+   }
+
+   public InputController InputController
+   {
+      get { return io; }
+   }
+
+   public HealthController HealthController
+   {
+      get { return healthController; }
+   }
+
+   public Player Player
+   {
+      get { return player; }
    }
 }
