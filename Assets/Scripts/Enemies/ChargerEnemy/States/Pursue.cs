@@ -29,7 +29,9 @@ namespace ChargerEnemy
 
       public override void OnFixedUpdate()
       {
-
+         Vector2 direction = owner.CurrentTarget.position - owner.transform.position;
+         direction.Normalize();
+         owner.ChangeVelocity(direction * owner.Speed);
       }
 
       // ------------------------------------------------------

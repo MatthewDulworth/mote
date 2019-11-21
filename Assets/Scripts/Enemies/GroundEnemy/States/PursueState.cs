@@ -72,13 +72,13 @@ public class PursueState : State<GroundEnemyAI>
    private void JumpAttack()
    {
       jumpAttackCoolDownLeft = jumpAttackCoolDown;
-      owner.ChangeVelocityRaw(owner.JumpSpeed * owner.MovementDirection / 2.0f, owner.JumpSpeed);
+      owner.ChangeVelocity(owner.JumpSpeed * owner.MovementDirection / 2.0f, owner.JumpSpeed);
    }
 
    private void JumpUpAttack()
    {
       jumpAttackCoolDownLeft = jumpAttackCoolDown;
-      owner.ChangeVelocityRaw(0, owner.JumpSpeed);
+      owner.ChangeVelocity(0, owner.JumpSpeed);
    }
 
    private void HandleJumpAttackCoolDown()

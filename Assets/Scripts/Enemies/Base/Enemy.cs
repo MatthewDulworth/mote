@@ -60,9 +60,14 @@ public abstract class Enemy : MonoBehaviour
    // ------------------------------------------------------
    // Movement
    // ------------------------------------------------------
-   public virtual void ChangeVelocityRaw(float x, float y)
+   public void ChangeVelocity(float x, float y)
    {
       rb.velocity = new Vector2(x, y);
+   }
+
+   public void ChangeVelocity(Vector2 v)
+   {
+      rb.velocity = v;
    }
 
    public virtual void MoveToPoint(Vector3 target)
@@ -75,7 +80,6 @@ public abstract class Enemy : MonoBehaviour
       yield return null;
 
       rb.AddForce(impulse, ForceMode2D.Impulse);
-      Debug.Log("yeeteroni");
 
       while (rb.velocity != Vector2.zero)
       {
@@ -95,6 +99,11 @@ public abstract class Enemy : MonoBehaviour
    public Transform CurrentTarget
    {
       get { return currentTarget; }
+   }
+
+   public float Speed
+   {
+      get { return speed; }
    }
 
    public HitBox HitBox
