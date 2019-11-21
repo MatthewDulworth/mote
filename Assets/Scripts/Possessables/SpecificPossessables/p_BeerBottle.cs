@@ -37,6 +37,18 @@ public class p_BeerBottle : Possessable
    // ------------------------------------------------------
    public override void OnUpdate(InputController io)
    {
+      HandleLaunches(io);
+   }
+
+   public override void OnNotPossessedUpdate(InputController io) { }
+
+   public override void OnFixedUpdate(InputController io) { }
+
+   // ------------------------------------------------------
+   // Launch
+   // ------------------------------------------------------
+   private void HandleLaunches(InputController io)
+   {
       if (io.GetMouseDistanceFrom(this.transform) < clickRadius && !dragFlag)
       {
          if (io.ActionKeyPressed)
@@ -48,22 +60,12 @@ public class p_BeerBottle : Possessable
       else if (io.ActionKeyReleased && dragFlag)
       {
          dragFlag = false;
-         LaunchCan(io.MousePosition);
+         Launch(io.MousePosition);
          control.PossessionController.ForcedUnpossession(control.Player);
       }
-
    }
 
-   public override void OnNotPossessedUpdate(InputController io){
-      Debug.Log(AtDamageSpeed());
-   }
-
-   public override void OnFixedUpdate(InputController io) { }
-
-   // ------------------------------------------------------
-   // Launch
-   // ------------------------------------------------------
-   private void LaunchCan(Vector3 mousePos)
+   private void Launch(Vector3 mousePos)
    {
       Vector2 launch = Vector2.ClampMagnitude(startPos - mousePos, maxDragLength);
       rb.AddForceAtPosition(launch * launchForce, startPos);
