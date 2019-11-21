@@ -24,7 +24,7 @@ namespace ChargerEnemy
       // ------------------------------------------------------
       public override void OnUpdate()
       {
-         HandleStateChanges();
+      
       }
 
       public override void OnFixedUpdate()

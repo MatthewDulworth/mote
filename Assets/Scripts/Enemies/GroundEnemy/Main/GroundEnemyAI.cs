@@ -150,10 +150,5 @@ public class GroundEnemyAI : Enemy
    {
       get { return movementDirection; }
    }
-
-   public Transform CurrentTarget
-   {
-      get { return currentTarget; }
-   }
 }
 
