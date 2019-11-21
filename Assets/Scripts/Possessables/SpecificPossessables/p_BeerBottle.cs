@@ -14,6 +14,8 @@ public class p_BeerBottle : Possessable
    [SerializeField] private float clickRadius;
    [SerializeField] private float launchForce;
    [SerializeField] private float maxDragLength;
+   [SerializeField] private float damageSpeed;
+
    // ------------------------------------------------------
    // Start
    // ------------------------------------------------------
@@ -35,7 +37,6 @@ public class p_BeerBottle : Possessable
    // ------------------------------------------------------
    public override void OnUpdate(InputController io)
    {
-
       if (io.GetMouseDistanceFrom(this.transform) < clickRadius && !dragFlag)
       {
          if (io.ActionKeyPressed)
@@ -53,6 +54,10 @@ public class p_BeerBottle : Possessable
 
    }
 
+   public override void OnNotPossessedUpdate(InputController io){
+      Debug.Log(AtDamageSpeed());
+   }
+
    public override void OnFixedUpdate(InputController io) { }
 
    // ------------------------------------------------------
@@ -62,5 +67,13 @@ public class p_BeerBottle : Possessable
    {
       Vector2 launch = Vector2.ClampMagnitude(startPos - mousePos, maxDragLength);
       rb.AddForceAtPosition(launch * launchForce, startPos);
+   }
+
+   // ------------------------------------------------------
+   // Checks
+   // ------------------------------------------------------
+   public bool AtDamageSpeed()
+   {
+      return rb.velocity.magnitude >= damageSpeed;
    }
 }

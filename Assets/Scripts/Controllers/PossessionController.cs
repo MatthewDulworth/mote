@@ -82,7 +82,7 @@ public class PossessionController : MonoBehaviour
       {
          if (pc != possessedContainer)
          {
-            pc.Possessable.NotPossessedUpdate(io);
+            pc.Possessable.OnNotPossessedUpdate(io);
          }
       }
 

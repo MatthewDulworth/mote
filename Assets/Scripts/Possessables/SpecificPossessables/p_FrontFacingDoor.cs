@@ -42,7 +42,7 @@ public class p_FrontFacingDoor : Possessable
 
    public override void OnFixedUpdate(InputController io) { }
 
-   public override void NotPossessedUpdate(InputController io){
+   public override void OnNotPossessedUpdate(InputController io){
       if(hitBox.IsCollidingWith("Player") && io.ActionKeyPressed && !isClosed){
          UseDoor();
       }
