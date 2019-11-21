@@ -9,6 +9,7 @@ TagManager:
   - Possessable
   - Wall
   - RedThing
+  - BeerBottle
   layers:
   - Default
   - TransparentFX

@@ -81,6 +81,18 @@ public class HitBox : MonoBehaviour
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
+   public GameObject GetCollidingObject(string tag)
+   {
+      foreach(GameObject obj in collidingObjects)
+      {
+         if(obj.tag == tag)
+         {
+            return obj;
+         }
+      }
+      return null;
+   }
+   
    public List<GameObject> CollidingObjects
    {
       get { return collidingObjects; }
