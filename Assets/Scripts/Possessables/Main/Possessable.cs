@@ -36,7 +36,7 @@ public abstract class Possessable : MonoBehaviour
    // ------------------------------------------------------
    public abstract void OnFixedUpdate(InputController io);
    public abstract void OnUpdate(InputController io);
-   public virtual void NotPossessedUpdate(InputController io){}
+   public virtual void NotPossessedUpdate(InputController io) { }
 
    // ------------------------------------------------------
    // Enter/Exit
@@ -72,5 +72,13 @@ public abstract class Possessable : MonoBehaviour
       gameObject.layer = initialLayer;
       rb.velocity = Vector2.zero;
       hitBox.tag = initialTag;
+   }
+
+   // ------------------------------------------------------
+   // Getters
+   // ------------------------------------------------------
+   public HitBox HitBox
+   {
+      get { return hitBox; }
    }
 }

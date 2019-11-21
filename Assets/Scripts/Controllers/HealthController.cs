@@ -32,21 +32,24 @@ public class HealthController : MonoBehaviour
    // ------------------------------------------------------
    private void HandleEnemyContactDamage(Possessable possessedObject, Player player)
    {
-      if (player.HitBox.IsCollidingWith("Enemy") && !IsRecovering())
+      if (!IsRecovering())
       {
+         // if possessing 
          if (possessedObject != null)
          {
-            OnPossessedHit(possessedObject);
+            if (possessedObject.HitBox.IsCollidingWith("Enemy"))
+            {
+               OnPossessedHit(possessedObject);
+               StartRecovery();
+            }
          }
-         else
+
+         // if not possessing 
+         else if (player.HitBox.IsCollidingWith("Enemy"))
          {
             PlayerDeath();
+            StartRecovery();
          }
-         StartRecovery();
-      }
-      if (IsRecovering())
-      {
-         Debug.Log("recovering");
       }
    }
 
