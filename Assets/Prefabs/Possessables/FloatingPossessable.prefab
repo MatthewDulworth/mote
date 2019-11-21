@@ -143,8 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 565fdfb95ec69479b9c94f012a01112f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
+  targetedSprite: {fileID: 3577356111438331807, guid: 2434263985c204005b3def81c7ec0fde,
+    type: 3}
   diagonalLimiter: 0.75
+  movementSpeed: 10
 --- !u!1001 &1930413017519824187
 PrefabInstance:
   m_ObjectHideFlags: 0

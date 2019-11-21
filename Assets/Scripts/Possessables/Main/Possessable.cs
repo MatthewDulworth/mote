@@ -18,6 +18,9 @@ public abstract class Possessable : MonoBehaviour
    private LayerMask initialLayer;
    private string initialTag;
 
+   [SerializeField] private GameObject targetedSprite;
+   private GameObject target;
+
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
@@ -53,12 +56,14 @@ public abstract class Possessable : MonoBehaviour
 
    public virtual void OnTargetEnter()
    {
-      transform.localScale += new Vector3(0.5f, 0.5f, 0);
+      target = Instantiate(targetedSprite);
+      target.transform.position = this.transform.position;
+      target.transform.parent = this.transform;
    }
 
    public virtual void OnTargetExit()
    {
-      transform.localScale -= new Vector3(0.5f, 0.5f, 0);
+      Destroy(target);
    }
 
    public virtual void OnPossessionEnter()

@@ -61,8 +61,6 @@ public class DadRoomController : SceneSpecificController
          
       }
 
-      
-
       if (!enemySpawnTrigger)
       {
          if (!exit.IsClosed)

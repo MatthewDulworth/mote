@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83e12531a3bd46f9b0c87d1f344bf55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetedSprite: {fileID: 3577356111438331807, guid: 2434263985c204005b3def81c7ec0fde,
+    type: 3}
   movementSpeed: 5
   JumpCheckRadius: 0.1
   JumpForce: 5

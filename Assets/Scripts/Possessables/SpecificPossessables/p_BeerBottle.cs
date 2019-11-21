@@ -2,17 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class p_BeerBottle : MonoBehaviour
+public class p_BeerBottle : Possessable
 {
-   // Start is called before the first frame update
-   void Start()
+   // ------------------------------------------------------
+   // Member Vars
+   // ------------------------------------------------------
+   private Vector3 startPos;
+   private bool dragFlag = false;
+   private GameController control;
+
+   [SerializeField] private float clickRadius;
+   [SerializeField] private float launchForce;
+   [SerializeField] private float maxDragLength;
+   // ------------------------------------------------------
+   // Start
+   // ------------------------------------------------------
+   public void OnValidate()
    {
+      clickRadius = Mathf.Max(0, clickRadius);
+      launchForce = Mathf.Max(0, launchForce);
+      maxDragLength = Mathf.Max(0, maxDragLength);
+   }
+
+   public override void Start()
+   {
+      base.Start();
+      control = FindObjectOfType<GameController>();
+   }
+
+   // ------------------------------------------------------
+   // Updates
+   // ------------------------------------------------------
+   public override void OnUpdate(InputController io)
+   {
+
+      if (io.GetMouseDistanceFrom(this.transform) < clickRadius && !dragFlag)
+      {
+         if (io.ActionKeyPressed)
+         {
+            dragFlag = true;
+            startPos = io.MousePosition;
+         }
+      }
+      else if (io.ActionKeyReleased && dragFlag)
+      {
+         dragFlag = false;
+         LaunchCan(io.MousePosition);
+         control.PossessionController.ForcedUnpossession(control.Player);
+      }
 
    }
 
-   // Update is called once per frame
-   void Update()
-   {
+   public override void OnFixedUpdate(InputController io) { }
 
+   // ------------------------------------------------------
+   // Launch
+   // ------------------------------------------------------
+   private void LaunchCan(Vector3 mousePos)
+   {
+      Vector2 launch = Vector2.ClampMagnitude(startPos - mousePos, maxDragLength);
+      rb.AddForceAtPosition(launch * launchForce, startPos);
    }
 }
