@@ -38,7 +38,6 @@ namespace ChargerEnemy
          HandleCooldown();
          HandleTargeting();
          machine.OnStateUpdate();
-         Debug.Log(GetCurrentStateName());
       }
 
       public override void OnFixedUpdate()
