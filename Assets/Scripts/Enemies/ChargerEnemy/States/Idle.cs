@@ -9,7 +9,8 @@ namespace ChargerEnemy
       // ------------------------------------------------------
       // Member Vars
       // ------------------------------------------------------
-
+      private float idleTime = 1;
+      private float idleTimeLeft;
 
       // ------------------------------------------------------
       // Constructor
@@ -25,7 +26,7 @@ namespace ChargerEnemy
       // ------------------------------------------------------
       public override void OnUpdate()
       {
-         
+         idleTimeLeft -= Time.deltaTime;
       }
 
       public override void OnFixedUpdate()
@@ -34,11 +35,25 @@ namespace ChargerEnemy
       }
 
       // ------------------------------------------------------
+      // Enter/Exit
+      // ------------------------------------------------------
+      public override void OnEnter()
+      {
+         owner.StopMoving();
+         idleTimeLeft = idleTime;
+      }
+
+      public override void OnExit()
+      {
+          
+      }
+
+      // ------------------------------------------------------
       // HandleStateChanges
       // ------------------------------------------------------
       public override void HandleStateChanges()
       {
-         if (owner.TargetSighted())
+         if (owner.TargetSighted() && idleTimeLeft <= 0)
          {
             machine.ChangeState(StateMachine.PURSUE);
          }

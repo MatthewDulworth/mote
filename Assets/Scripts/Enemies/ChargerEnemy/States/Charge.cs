@@ -10,12 +10,14 @@ namespace ChargerEnemy
       // Member Vars
       // ------------------------------------------------------
       private bool chargeDone;
-      private Vector3 target;
+      private Vector3 targetPosition;
+      private Vector2 direction;
 
       // ------------------------------------------------------
       // Constructor
       // ------------------------------------------------------
-      public Charge(AI owner, StateMachine machine){
+      public Charge(AI owner, StateMachine machine)
+      {
          this.owner = owner;
          this.machine = machine;
       }
@@ -25,7 +27,17 @@ namespace ChargerEnemy
       // ------------------------------------------------------
       public override void OnUpdate()
       {
+         List<string> stopChargeTags = new List<string>() { "Player", "Wall" };
 
+         if (owner.HitBox.IsCollidingWith(stopChargeTags))
+         {
+            owner.StopMoving();
+            chargeDone = true;
+         }
+         else
+         {
+            owner.ChangeVelocity(direction * owner.ChargeForce);
+         }
       }
 
       public override void OnFixedUpdate()
@@ -38,12 +50,17 @@ namespace ChargerEnemy
       // ------------------------------------------------------
       public override void OnEnter()
       {
-         target = owner.CurrentTarget.position;
+         owner.StopMoving();
+         chargeDone = false;
+
+         targetPosition = owner.CurrentTarget.position;
+         direction = targetPosition - owner.transform.position;
+         direction.Normalize();
       }
 
       public override void OnExit()
       {
-
+         owner.StartCooldown();
       }
 
 
@@ -52,7 +69,7 @@ namespace ChargerEnemy
       // ------------------------------------------------------
       public override void HandleStateChanges()
       {
-         if(chargeDone)
+         if (chargeDone)
          {
             machine.ChangeState(StateMachine.IDLE);
          }

@@ -39,7 +39,7 @@ namespace ChargerEnemy
       // ------------------------------------------------------
       public override void HandleStateChanges()
       {
-         if(owner.TargetInRange())
+         if(owner.TargetInRange() && !owner.OnCooldown())
          {
             machine.ChangeState(StateMachine.CHARGE);
          }

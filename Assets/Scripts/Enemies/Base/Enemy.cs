@@ -29,6 +29,7 @@ public abstract class Enemy : MonoBehaviour
    {
       rb = GetComponent<Rigidbody2D>();
       fov = GetComponent<FieldOfView>();
+      hitBox = GetComponentInChildren<HitBox>();
 
       OnStart();
    }
@@ -68,6 +69,10 @@ public abstract class Enemy : MonoBehaviour
    public void ChangeVelocity(Vector2 v)
    {
       rb.velocity = v;
+   }
+
+   public void StopMoving(){
+      rb.velocity = Vector2.zero;
    }
 
    public virtual void MoveToPoint(Vector3 target)

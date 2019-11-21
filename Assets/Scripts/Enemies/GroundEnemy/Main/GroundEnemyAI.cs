@@ -67,11 +67,6 @@ public class GroundEnemyAI : Enemy
       wallAndEdgeDetector.ReflectOverXAxis(facingLeft);
    }
 
-   public void StopMoving()
-   {
-      rb.velocity = Vector3.zero;
-   }
-
    public void ChangeVelocityScaled(float x, float y)
    {
       rb.velocity = new Vector2(x * movementDirection * speed, y * jumpForce);
