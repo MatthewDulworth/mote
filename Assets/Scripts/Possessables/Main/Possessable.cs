@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public abstract class Possessable : MonoBehaviour
 {
    // ------------------------------------------------------
@@ -10,20 +12,26 @@ public abstract class Possessable : MonoBehaviour
    // ------------------------------------------------------
    protected Rigidbody2D rb;
    protected SpriteRenderer sr;
-   protected HitBox hitbox;
-   
+   protected BoxCollider2D boxCollider2D;
+   protected HitBox hitBox;
+
    private LayerMask initialLayer;
    private string initialTag;
-   
+
+   [SerializeField] private GameObject targetedSprite;
+   private GameObject target;
+
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
-   public virtual void Start() {
+   public virtual void Start()
+   {
       initialLayer = gameObject.layer;
       initialTag = gameObject.tag;
       rb = GetComponent<Rigidbody2D>();
       sr = GetComponent<SpriteRenderer>();
-      hitbox = GetComponentInChildren<HitBox>();
+      boxCollider2D = GetComponent<BoxCollider2D>();
+      hitBox = GetComponentInChildren<HitBox>();
    }
 
    // ------------------------------------------------------
@@ -31,34 +39,51 @@ public abstract class Possessable : MonoBehaviour
    // ------------------------------------------------------
    public abstract void OnFixedUpdate(InputController io);
    public abstract void OnUpdate(InputController io);
+   public virtual void OnNotPossessedUpdate(InputController io) { }
 
    // ------------------------------------------------------
    // Enter/Exit
    // ------------------------------------------------------
-   public virtual void OnEnterRange(){
-      sr.color = new Color(1f,1f,1f,0.5f);
+   public virtual void OnEnterRange()
+   {
+      sr.color = new Color(1f, 1f, 1f, 0.5f);
    }
 
-   public virtual void OnExitRange(){
-      sr.color = new Color(1f,1f,1f,1f);
+   public virtual void OnExitRange()
+   {
+      sr.color = new Color(1f, 1f, 1f, 1f);
    }
 
-   public virtual void OnTargetEnter(){
-      transform.localScale += new Vector3(0.5f, 0.5f, 0);
+   public virtual void OnTargetEnter()
+   {
+      target = Instantiate(targetedSprite);
+      target.transform.position = this.transform.position;
+      target.transform.parent = this.transform;
    }
 
-   public virtual void OnTargetExit(){
-      transform.localScale -= new Vector3(0.5f, 0.5f, 0);
+   public virtual void OnTargetExit()
+   {
+      Destroy(target);
    }
 
-   public virtual void OnPossessionEnter(){
+   public virtual void OnPossessionEnter()
+   {
       gameObject.layer = LayerMask.NameToLayer("Player");
       transform.GetChild(0).tag = "Player";
    }
 
-   public virtual void OnPossessionExit(){
+   public virtual void OnPossessionExit()
+   {
       gameObject.layer = initialLayer;
       rb.velocity = Vector2.zero;
-      hitbox.tag = initialTag;
+      hitBox.tag = initialTag;
+   }
+
+   // ------------------------------------------------------
+   // Getters
+   // ------------------------------------------------------
+   public HitBox HitBox
+   {
+      get { return hitBox; }
    }
 }

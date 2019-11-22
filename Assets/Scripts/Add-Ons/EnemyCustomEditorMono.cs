@@ -6,12 +6,14 @@ public class EnemyCustomEditorMono : MonoBehaviour
 {
    private Enemy enemy;
 
-   public bool FindEnemy(){
+   public bool FindEnemy()
+   {
       enemy = GetComponent<Enemy>();
       return (enemy != null);
    }
 
-   public Enemy GetEnemy(){
+   public Enemy GetEnemy()
+   {
       return enemy;
    }
 }

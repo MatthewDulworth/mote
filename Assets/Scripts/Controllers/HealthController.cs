@@ -15,34 +15,40 @@ public class HealthController : MonoBehaviour
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
-   public void OnStart(){
+   public void OnStart()
+   {
       recoveryTimeLeft = 0.0f;
       control = FindObjectOfType<GameController>();
    }
 
-   public void OnUpdate(Player player, Possessable possessedObject, List<Enemy> enemies){
-      HandleEnemyContactDamage(possessedObject, enemies);
+   public void OnUpdate(Player player, Possessable possessedObject, List<Enemy> enemies)
+   {
+      HandleEnemyContactDamage(possessedObject, player);
       HandlePlayerRecovery();
    }
 
    // ------------------------------------------------------
    // Damage 
    // ------------------------------------------------------
-   private void HandleEnemyContactDamage(Possessable possessedObject, List<Enemy> enemies){
-      foreach(Enemy enemy in enemies){
-         if(enemy.Health.CollidingWithPlayer && !IsRecovering()){
-
-            if(possessedObject != null){
+   private void HandleEnemyContactDamage(Possessable possessedObject, Player player)
+   {
+      if (!IsRecovering())
+      {
+         // if possessing 
+         if (possessedObject != null)
+         {
+            if (possessedObject.HitBox.IsCollidingWith("Enemy"))
+            {
                OnPossessedHit(possessedObject);
-            } 
-            else{
-               PlayerDeath();
+               StartRecovery();
             }
-
-            StartRecovery();
          }
-         if(IsRecovering()){
-            Debug.Log("recovering");
+
+         // if not possessing 
+         else if (player.HitBox.IsCollidingWith("Enemy"))
+         {
+            PlayerDeath();
+            StartRecovery();
          }
       }
    }
@@ -50,17 +56,21 @@ public class HealthController : MonoBehaviour
    // ------------------------------------------------------
    // Recovery
    // ------------------------------------------------------
-   private void HandlePlayerRecovery(){
-      if(IsRecovering()){
+   private void HandlePlayerRecovery()
+   {
+      if (IsRecovering())
+      {
          recoveryTimeLeft -= Time.deltaTime;
       }
    }
 
-   private void StartRecovery(){
+   private void StartRecovery()
+   {
       recoveryTimeLeft = recoveryTime;
    }
 
-   private bool IsRecovering(){
+   private bool IsRecovering()
+   {
       return (recoveryTimeLeft > 0.0f);
    }
 
@@ -68,17 +78,20 @@ public class HealthController : MonoBehaviour
    // ------------------------------------------------------
    // OnHit
    // ------------------------------------------------------
-   private void OnPossessedHit(Possessable possessedObject){
+   private void OnPossessedHit(Possessable possessedObject)
+   {
       Debug.Log("hit");
-      control.ForceUnpossession();
+      control.PossessionController.ForcedUnpossession(control.Player);
    }
 
-   private void PlayerDeath(){
+   private void PlayerDeath()
+   {
       Debug.Log("Player Killed");
       StartCoroutine(ReloadLevel());
    }
 
-   private IEnumerator ReloadLevel(){
+   private IEnumerator ReloadLevel()
+   {
       Debug.Log("restarting level in 1 second");
       yield return new WaitForSeconds(1);
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);

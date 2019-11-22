@@ -12,16 +12,18 @@ public class p_Lamp : Possessable
    // ------------------------------------------------------
    // Updates
    // ------------------------------------------------------
-   public override void OnUpdate(InputController io){
-      
+   public override void OnUpdate(InputController io)
+   {
+
    }
 
-   public override void OnFixedUpdate(InputController io){
+   public override void OnFixedUpdate(InputController io)
+   {
 
    }
 
    // ------------------------------------------------------
    // Private Methods
    // ------------------------------------------------------
-   
+
 }

@@ -14,51 +14,63 @@ public class PossessableDoor : Possessable
    // ------------------------------------------------------
    // Mono Methods
    // ------------------------------------------------------
-   public override void Start(){
+   public override void Start()
+   {
       base.Start();
       doorCollider = GetComponentInChildren<DoorCollider>();
 
 
    }
 
-   public override void OnUpdate(InputController io){
-      if(io.ActionKeyPressed && !isLocked){
+   public override void OnUpdate(InputController io)
+   {
+      if (io.ActionKeyPressed && !isLocked)
+      {
          ToggleDoorOpen();
       }
    }
 
-   public override void OnFixedUpdate(InputController io){
+   public override void OnFixedUpdate(InputController io)
+   {
       // nada
    }
-   
+
 
    // ------------------------------------------------------
    // Private Methods
    // ------------------------------------------------------
-   private void ToggleDoorOpen(){
-      if(isClosed) {
+   private void ToggleDoorOpen()
+   {
+      if (isClosed)
+      {
          OpenDoor();
-      } else { 
+      }
+      else
+      {
          CloseDoor();
       }
    }
 
-   private void OpenDoor(){
+   private void OpenDoor()
+   {
       isClosed = false;
       doorCollider.SetActive(false);
    }
 
-   private void CloseDoor(){
+   private void CloseDoor()
+   {
       isClosed = true;
       doorCollider.SetActive(true);
    }
 
-   private void LockDoor(){
+   private void LockDoor()
+   {
       CloseDoor();
       isLocked = true;
    }
 
-   private void UnlockDoor(){
+   private void UnlockDoor()
+   {
       isLocked = false;
    }
 }

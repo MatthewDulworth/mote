@@ -14,7 +14,8 @@ public class GE_StateMachine : StateMachine<GroundEnemyAI>
    // ------------------------------------------------------
    // constructor
    // ------------------------------------------------------
-   public GE_StateMachine(GroundEnemyAI owner){
+   public GE_StateMachine(GroundEnemyAI owner)
+   {
       states = new List<State<GroundEnemyAI>>();
 
       this.owner = owner;

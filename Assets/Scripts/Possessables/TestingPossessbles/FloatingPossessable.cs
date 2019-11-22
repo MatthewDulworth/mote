@@ -6,12 +6,14 @@ public class FloatingPossessable : Possessable
 {
    [SerializeField] private float diagonalLimiter;
    [SerializeField] protected float movementSpeed;
-   
-   public override void OnFixedUpdate(InputController io){
+
+   public override void OnFixedUpdate(InputController io)
+   {
       float horizontal = io.GetHorizontalDirection();
       float vertical = io.GetVerticalDirection();
 
-      if(horizontal != 0 && vertical !=0){
+      if (horizontal != 0 && vertical != 0)
+      {
          horizontal *= diagonalLimiter;
          vertical *= diagonalLimiter;
       }
@@ -19,7 +21,8 @@ public class FloatingPossessable : Possessable
       rb.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
    }
 
-   public override void OnUpdate(InputController io){
-      
+   public override void OnUpdate(InputController io)
+   {
+
    }
 }

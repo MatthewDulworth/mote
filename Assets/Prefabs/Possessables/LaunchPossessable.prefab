@@ -143,7 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1ce003bb734441f9488c29658e6669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0
+  targetedSprite: {fileID: 3577356111438331807, guid: 2434263985c204005b3def81c7ec0fde,
+    type: 3}
   ClickRadius: 2
   LaunchForce: 400
   MaxLength: 2

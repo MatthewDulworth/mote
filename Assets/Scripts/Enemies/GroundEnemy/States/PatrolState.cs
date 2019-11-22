@@ -7,7 +7,8 @@ public class PatrolState : State<GroundEnemyAI>
    // ------------------------------------------------------
    // Constructor
    // ------------------------------------------------------
-   public PatrolState(GroundEnemyAI owner, GE_StateMachine machine){
+   public PatrolState(GroundEnemyAI owner, GE_StateMachine machine)
+   {
       this.machine = machine;
       this.owner = owner;
    }
@@ -15,17 +16,21 @@ public class PatrolState : State<GroundEnemyAI>
    // ------------------------------------------------------
    // Updates
    // ------------------------------------------------------
-   public override void OnUpdate(){
+   public override void OnUpdate()
+   {
       // nada
    }
-   public override void OnFixedUpdate(){
+   public override void OnFixedUpdate()
+   {
       HandleMovement();
    }
 
-   private void HandleMovement(){
-      owner.ChangeVelocityScaled(1,0);
+   private void HandleMovement()
+   {
+      owner.ChangeVelocityScaled(1, 0);
 
-      if(owner.WallDetected() || owner.EdgeDetected()){
+      if (owner.WallDetected() || owner.EdgeDetected())
+      {
          owner.FlipHorizontal();
       }
    }
@@ -33,11 +38,14 @@ public class PatrolState : State<GroundEnemyAI>
    // ------------------------------------------------------
    // State Changes
    // ------------------------------------------------------
-   public override void HandleStateChanges(){
-      if(!owner.OnGround()){
+   public override void HandleStateChanges()
+   {
+      if (!owner.OnGround())
+      {
          machine.ChangeState(GE_StateMachine.FALL);
       }
-      else if(owner.TargetSighted()){
+      else if (owner.TargetSighted())
+      {
          machine.ChangeState(GE_StateMachine.PURSUE);
       }
    }

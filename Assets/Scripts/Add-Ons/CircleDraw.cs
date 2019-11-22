@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
- 
+
 public class CircleDraw : MonoBehaviour
 {
    float theta_scale = 0.01f;        //Set lower to add more points
@@ -20,7 +20,7 @@ public class CircleDraw : MonoBehaviour
       lineRenderer.endWidth = 0.1f;
       lineRenderer.positionCount = size;
    }
- 
+
    void Update()
    {
       Vector3 pos;
