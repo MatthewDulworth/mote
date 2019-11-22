@@ -69,11 +69,11 @@ public class EnemyController : MonoBehaviour
 
    private void HandleEnemyWalls()
    {
-      foreach (EnemyWall wall in enemyWalls)
+      for (int i=0; i<enemyWalls.Count; i++)
       {
-         if (WallEnemiesAreDead(wall))
+         if (WallEnemiesAreDead(enemyWalls[i]))
          {
-            DestroyEnemyWall(wall);
+            DestroyEnemyWall(enemyWalls[i]);
          }
       }
    }
