@@ -468,6 +468,11 @@ PrefabInstance:
       propertyPath: possesionRange
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4872807864475639972, guid: 2311cd1e15b0542dbb0e38969336e7c5,
+        type: 3}
+      propertyPath: LaunchForce
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4872807864475639971, guid: 2311cd1e15b0542dbb0e38969336e7c5,
         type: 3}
       propertyPath: m_Sprite
@@ -1772,12 +1777,12 @@ PrefabInstance:
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.82
+      value: -4.94
       objectReference: {fileID: 0}
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.43
+      value: 0.92
       objectReference: {fileID: 0}
     - target: {fileID: 7457585026418973325, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
