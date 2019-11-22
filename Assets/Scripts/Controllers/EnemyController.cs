@@ -135,7 +135,13 @@ public class EnemyController : MonoBehaviour
       {
          if (enemies[i].HitBox.IsCollidingWith("BeerBottle"))
          {
+            foreach(GameObject obj in enemies[i].HitBox.CollidingObjects){
+               Debug.LogFormat("obj: {0}, tag:  {1}", obj, obj.tag);
+            }
+            Debug.LogFormat("CollidingObj: {0}", enemies[i].HitBox.GetCollidingObject("BeerBottle"));
             p_BeerBottle bottle = enemies[i].HitBox.GetCollidingObject("BeerBottle").GetComponent<p_BeerBottle>();
+            Debug.LogFormat("Bottle: {0}",bottle);
+   
             if(bottle.AtDamageSpeed())
             {
                DestroyEnemy(enemies[i]);
