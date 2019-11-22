@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
    // Member Vars
    // ------------------------------------------------------
    private Rigidbody2D rb;
-   private HitBox hitbox;
+   private HitBox hitBox;
    private bool hasControl = true;
 
    [SerializeField] private float range;
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
    void Start()
    {
-      hitbox = gameObject.GetComponentInChildren<HitBox>();
+      hitBox = gameObject.GetComponentInChildren<HitBox>();
       rb = GetComponent<Rigidbody2D>();
    }
 
@@ -71,15 +71,24 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    // Impulse
    // ------------------------------------------------------
-   public void AddImpulse(Vector2 impulse){
+   public void AddImpulse(Vector2 impulse)
+   {
       rb.AddForce(impulse, ForceMode2D.Impulse);
    }
 
-   public IEnumerator AddImpulse(Vector2 impulse, float rateOfSlow){
+   public IEnumerator AddImpulse(Vector2 impulse, float rateOfSlow)
+   {
       RemoveControl();
       rb.AddForce(impulse, ForceMode2D.Impulse);
 
-      while(rb.velocity != Vector2.zero){
+      while (rb.velocity != Vector2.zero)
+      {
+         if (hitBox.IsCollidingWith("Wall"))
+         {
+            StopMoving();
+            GiveControl();
+            yield break;
+         }
          rb.AddForce(-impulse * rateOfSlow, ForceMode2D.Impulse);
          yield return null;
       }
@@ -90,15 +99,19 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    // Control
    // ------------------------------------------------------
-   public void RemoveControl(){
-      if(hasControl){
+   public void RemoveControl()
+   {
+      if (hasControl)
+      {
          hasControl = false;
          rb.velocity = Vector2.zero;
       }
    }
 
-   public void GiveControl(){
-      if(!hasControl){
+   public void GiveControl()
+   {
+      if (!hasControl)
+      {
          hasControl = true;
       }
    }
@@ -118,6 +131,6 @@ public class Player : MonoBehaviour
 
    public HitBox HitBox
    {
-      get { return hitbox; }
+      get { return hitBox; }
    }
 }

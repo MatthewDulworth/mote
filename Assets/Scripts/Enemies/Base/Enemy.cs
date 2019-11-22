@@ -71,7 +71,8 @@ public abstract class Enemy : MonoBehaviour
       rb.velocity = v;
    }
 
-   public void StopMoving(){
+   public void StopMoving()
+   {
       rb.velocity = Vector2.zero;
    }
 
@@ -88,6 +89,11 @@ public abstract class Enemy : MonoBehaviour
 
       while (rb.velocity != Vector2.zero)
       {
+         if (hitBox.IsCollidingWith("Wall"))
+         {
+            StopMoving();
+            yield break;
+         }
          rb.AddForce(-impulse * rateOfSlow, ForceMode2D.Impulse);
          yield return null;
       }
