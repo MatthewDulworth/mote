@@ -49,9 +49,9 @@ public class GameController : MonoBehaviour
 
    void Update()
    {
-      UpdateSceneSpecificControllers();
       possessControl.OnUpdate(player, io);
       enemyController.OnUpdate();
+      UpdateSceneSpecificControllers();
       healthController.OnUpdate(player, possessControl.PossessedObject(), enemyController.Enemies);
 
       if (possessControl.CurrentlyPossessing())

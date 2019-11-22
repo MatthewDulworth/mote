@@ -166,6 +166,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1011223334}
     m_Modifications:
+    - target: {fileID: 7811020845305833847, guid: 39f47a49fc66f4a71a60a90b5a48934b,
+        type: 3}
+      propertyPath: m_Name
+      value: HitBox
+      objectReference: {fileID: 0}
     - target: {fileID: 2840244502734578568, guid: 39f47a49fc66f4a71a60a90b5a48934b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -220,11 +225,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7811020845305833847, guid: 39f47a49fc66f4a71a60a90b5a48934b,
-        type: 3}
-      propertyPath: m_Name
-      value: HitBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39f47a49fc66f4a71a60a90b5a48934b, type: 3}
@@ -382,12 +382,12 @@ PrefabInstance:
     - target: {fileID: 2563342835304010790, guid: 1ea08a6a8f3994d13b9ada7ad7b278f2,
         type: 3}
       propertyPath: PossessionKey
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2563342835304010790, guid: 1ea08a6a8f3994d13b9ada7ad7b278f2,
         type: 3}
       propertyPath: ActionKey
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ea08a6a8f3994d13b9ada7ad7b278f2, type: 3}
@@ -438,7 +438,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e91868f99404f63b7f3bed06169058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetedSprite: {fileID: 0}
+  targetedSprite: {fileID: 3577356111438331807, guid: 2434263985c204005b3def81c7ec0fde,
+    type: 3}
   openSprite: {fileID: 21300000, guid: e15d2ed01b12547e3a5628bb5b193b9e, type: 3}
   closedSprite: {fileID: 21300000, guid: 6032ab2ce39104fc2a17bfe1b834a98b, type: 3}
   isLocked: 1
@@ -581,7 +582,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bb0f2bb42fd4fce843618d6aa3e252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundEnemyPrefab: {fileID: 2235721800824023485, guid: 4e5c8cd7a8c2c40579e7ef2c16c08a63,
+  enemy1Prefab: {fileID: 9036755201697288952, guid: 6444aef30729c490984f54c9d24d881a,
+    type: 3}
+  enemy2Prefab: {fileID: 9036755201697288952, guid: 6444aef30729c490984f54c9d24d881a,
     type: 3}
   enemyWallPrefab: {fileID: 1546894811651445340, guid: a529486c704154dd584a2a36c3538419,
     type: 3}

@@ -131,13 +131,13 @@ public class EnemyController : MonoBehaviour
    // ------------------------------------------------------
    private void HandleBottleDamage()
    {
-      for(int i=0; i<enemies.Count; i++)
+      for (int i = 0; i < enemies.Count; i++)
       {
          if (enemies[i].HitBox.IsCollidingWith("BeerBottle"))
          {
             p_BeerBottle bottle = enemies[i].HitBox.GetCollidingObject("BeerBottle").GetComponent<p_BeerBottle>();
-   
-            if(bottle.AtDamageSpeed())
+
+            if (bottle.AtDamageSpeed())
             {
                DestroyEnemy(enemies[i]);
             }

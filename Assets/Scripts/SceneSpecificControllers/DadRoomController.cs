@@ -7,7 +7,8 @@ public class DadRoomController : SceneSpecificController
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   [SerializeField] private GameObject groundEnemyPrefab;
+   [SerializeField] private GameObject enemy1Prefab;
+   [SerializeField] private GameObject enemy2Prefab;
    [SerializeField] private GameObject enemyWallPrefab;
    [SerializeField] private GameObject drunkDad;
 
@@ -54,13 +55,11 @@ public class DadRoomController : SceneSpecificController
             enemyController.DestroyEnemy(enemy2);
          }
       }
+      
       if(Input.GetKeyDown(KeyCode.Space)){
          BeginEnemyEncounter(enemyController, control);
       }
-      if(Input.GetKeyDown(KeyCode.J)){
-         
-      }
-
+      
       if (!enemySpawnTrigger)
       {
          if (!exit.IsClosed)
@@ -122,8 +121,8 @@ public class DadRoomController : SceneSpecificController
    {
       control.PossessionController.ForcedUnpossession(control.Player, throwPlayerBack, rateOfSlow);
 
-      enemy1 = enemyController.SpawnEnemy(groundEnemyPrefab, enemy1SpawnPosition);
-      enemy2 = enemyController.SpawnEnemy(groundEnemyPrefab, enemy2SpawnPosition);
+      enemy1 = enemyController.SpawnEnemy(enemy1Prefab, enemy1SpawnPosition);
+      enemy2 = enemyController.SpawnEnemy(enemy2Prefab, enemy2SpawnPosition);
 
       enemy1.AddImpulse(new Vector2(-10, 10), 0.05f);
       enemy2.AddImpulse(new Vector2(-10, 10), 0.05f);
