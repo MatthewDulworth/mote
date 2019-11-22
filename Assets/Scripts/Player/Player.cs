@@ -78,7 +78,6 @@ public class Player : MonoBehaviour
    public IEnumerator AddImpulse(Vector2 impulse, float rateOfSlow){
       RemoveControl();
       rb.AddForce(impulse, ForceMode2D.Impulse);
-      Debug.Log("yeet");
 
       while(rb.velocity != Vector2.zero){
          rb.AddForce(-impulse * rateOfSlow, ForceMode2D.Impulse);
