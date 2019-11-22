@@ -166,11 +166,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1011223334}
     m_Modifications:
-    - target: {fileID: 7811020845305833847, guid: 39f47a49fc66f4a71a60a90b5a48934b,
-        type: 3}
-      propertyPath: m_Name
-      value: HitBox
-      objectReference: {fileID: 0}
     - target: {fileID: 2840244502734578568, guid: 39f47a49fc66f4a71a60a90b5a48934b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -225,6 +220,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7811020845305833847, guid: 39f47a49fc66f4a71a60a90b5a48934b,
+        type: 3}
+      propertyPath: m_Name
+      value: HitBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39f47a49fc66f4a71a60a90b5a48934b, type: 3}
@@ -295,6 +295,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7457585026418973322, guid: f1d523785f8c14bcd9a1d63c14b115be,
+        type: 3}
+      propertyPath: range
+      value: 1.85
+      objectReference: {fileID: 0}
     - target: {fileID: 7457585026418973324, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: m_SortingLayerID
@@ -304,11 +309,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7457585026418973322, guid: f1d523785f8c14bcd9a1d63c14b115be,
-        type: 3}
-      propertyPath: range
-      value: 1.85
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1d523785f8c14bcd9a1d63c14b115be, type: 3}
@@ -379,6 +379,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2563342835304010790, guid: 1ea08a6a8f3994d13b9ada7ad7b278f2,
+        type: 3}
+      propertyPath: PossessionKey
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2563342835304010790, guid: 1ea08a6a8f3994d13b9ada7ad7b278f2,
+        type: 3}
+      propertyPath: ActionKey
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ea08a6a8f3994d13b9ada7ad7b278f2, type: 3}
 --- !u!1 &1011223333
@@ -428,6 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e91868f99404f63b7f3bed06169058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetedSprite: {fileID: 0}
   openSprite: {fileID: 21300000, guid: e15d2ed01b12547e3a5628bb5b193b9e, type: 3}
   closedSprite: {fileID: 21300000, guid: 6032ab2ce39104fc2a17bfe1b834a98b, type: 3}
   isLocked: 1
