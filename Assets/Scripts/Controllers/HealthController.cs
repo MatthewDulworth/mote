@@ -32,7 +32,7 @@ public class HealthController : MonoBehaviour
    // ------------------------------------------------------
    private void HandleEnemyContactDamage(Possessable possessedObject, Player player)
    {
-      if (!IsRecovering())
+      if (!IsRecovering() && player.HasControl)
       {
          // if possessing 
          if (possessedObject != null)

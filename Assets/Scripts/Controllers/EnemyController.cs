@@ -82,6 +82,21 @@ public class EnemyController : MonoBehaviour
    // ------------------------------------------------------
    // Spawners
    // ------------------------------------------------------
+   public Enemy SpawnEnemy(GameObject enemyPrefab)
+   {
+      if (enemyPrefab.GetComponent<Enemy>())
+      {
+         Enemy enemy = Instantiate(enemyPrefab.GetComponent<Enemy>());
+         enemies.Add(enemy);
+         return enemy;
+      }
+      else
+      {
+         Debug.LogError("Enemy controller cannot spawn non-enemy prefabs");
+         return null;
+      }
+   }
+
    public Enemy SpawnEnemy(GameObject enemyPrefab, Vector3 position)
    {
       if (enemyPrefab.GetComponent<Enemy>())
@@ -98,7 +113,23 @@ public class EnemyController : MonoBehaviour
       }
    }
 
-   public void SpawnEnemyWall(GameObject enemyWallPrefab, List<Enemy> enemies, Vector3 position, Vector3 scale)
+   public EnemyWall SpawnEnemyWall(GameObject enemyWallPrefab, List<Enemy> enemies)
+   {
+      if (enemyWallPrefab.GetComponent<EnemyWall>())
+      {
+         EnemyWall enemyWall = Instantiate(enemyWallPrefab).GetComponent<EnemyWall>();
+         enemyWalls.Add(enemyWall);
+         enemyWall.GetComponent<EnemyWall>().Init(enemies);
+         return enemyWall;
+      }
+      else
+      {
+         Debug.LogError("Enemy controller cannot spawn non-enemy prefabs");
+         return null;
+      }
+   }
+
+   public EnemyWall SpawnEnemyWall(GameObject enemyWallPrefab, List<Enemy> enemies, Vector3 position, Vector3 scale)
    {
       if (enemyWallPrefab.GetComponent<EnemyWall>())
       {
@@ -107,10 +138,12 @@ public class EnemyController : MonoBehaviour
          enemyWall.transform.position = position;
          enemyWall.transform.localScale = scale;
          enemyWall.GetComponent<EnemyWall>().Init(enemies);
+         return enemyWall;
       }
       else
       {
          Debug.LogError("Enemy controller cannot spawn non-enemy prefabs");
+         return null;
       }
    }
 

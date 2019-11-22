@@ -119,6 +119,11 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
+   public bool HasControl
+   {
+      get { return hasControl; }
+   }
+
    public Rigidbody2D RB
    {
       get { return rb; }

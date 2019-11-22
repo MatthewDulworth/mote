@@ -11,15 +11,11 @@ public class DadRoomController : SceneSpecificController
    [SerializeField] private GameObject enemy2Prefab;
    [SerializeField] private GameObject enemyWallPrefab;
    [SerializeField] private GameObject drunkDad;
+   [SerializeField] private GameObject fallWall;
 
    [SerializeField] private float dadSpeed;
-
-   [SerializeField] private Vector3 enemy1SpawnPosition;
-   [SerializeField] private Vector3 enemy2SpawnPosition;
-   [SerializeField] private Vector3 wallSpawnPosition;
-
-   [SerializeField] private Vector2 throwPlayerBack;
    [SerializeField] private float rateOfSlow;
+   [SerializeField] private Vector2 throwPlayerBack;
 
    private Enemy enemy1;
    private Enemy enemy2;
@@ -55,11 +51,12 @@ public class DadRoomController : SceneSpecificController
             enemyController.DestroyEnemy(enemy2);
          }
       }
-      
-      if(Input.GetKeyDown(KeyCode.Space)){
+
+      if (Input.GetKeyDown(KeyCode.Space))
+      {
          BeginEnemyEncounter(enemyController, control);
       }
-      
+
       if (!enemySpawnTrigger)
       {
          if (!exit.IsClosed)
@@ -76,19 +73,7 @@ public class DadRoomController : SceneSpecificController
    // ------------------------------------------------------
    private void HandleDadEncounter()
    {
-      if (tv.IsOn)
-      {
-         if (!dadMoveTrigger)
-         {
-            dadMoveTrigger = true;
-         }
-
-         target = tv;
-      }
-      else
-      {
-         target = exit;
-      }
+      target = GetDadTarget();
 
       if (dadMoveTrigger == true && drunkDad != null)
       {
@@ -105,6 +90,24 @@ public class DadRoomController : SceneSpecificController
       }
    }
 
+   private MonoBehaviour GetDadTarget()
+   {
+      MonoBehaviour target = null;
+      if (tv.IsOn)
+      {
+         if (!dadMoveTrigger)
+         {
+            dadMoveTrigger = true;
+         }
+         target = tv;
+      }
+      else
+      {
+         target = exit;
+      }
+      return target;
+   }
+
    private void DadExit()
    {
       exit.Unlock();
@@ -115,23 +118,34 @@ public class DadRoomController : SceneSpecificController
 
       // TODO: add a wait time here
       exit.Close();
+      Destroy(fallWall);
    }
 
    private void BeginEnemyEncounter(EnemyController enemyController, GameController control)
    {
       control.PossessionController.ForcedUnpossession(control.Player, throwPlayerBack, rateOfSlow);
 
-      enemy1 = enemyController.SpawnEnemy(enemy1Prefab, enemy1SpawnPosition);
-      enemy2 = enemyController.SpawnEnemy(enemy2Prefab, enemy2SpawnPosition);
+      Vector3 enemy1Spawn = new Vector3(exit.transform.position.x + 5, exit.transform.position.y, 0);
+      Vector3 enemy2Spawn = new Vector3(exit.transform.position.x, exit.transform.position.y - 1, 0);
 
-      enemy1.AddImpulse(new Vector2(-10, 10), 0.05f);
-      enemy2.AddImpulse(new Vector2(-10, 10), 0.05f);
+      enemy1 = enemyController.SpawnEnemy(enemy1Prefab, enemy1Spawn);
+      enemy2 = enemyController.SpawnEnemy(enemy2Prefab, enemy2Spawn);
+
+      enemy1.AddImpulse(new Vector2(5, 20), 0.05f);
+      enemy2.AddImpulse(new Vector2(0, 20), 0.05f);
+
+      StartCoroutine(SpawnWall(enemyController));
+   }
+
+   private IEnumerator SpawnWall(EnemyController enemyController){
+
+      yield return new WaitForSeconds(0.5f);
 
       List<Enemy> list = new List<Enemy>();
       list.Add(enemy1);
       list.Add(enemy2);
 
-      enemyController.SpawnEnemyWall(enemyWallPrefab, list, wallSpawnPosition, new Vector3(2, 29, 1));
+      EnemyWall wall = enemyController.SpawnEnemyWall(enemyWallPrefab, list, exit.transform.position, exit.transform.localScale);
    }
 
    // ------------------------------------------------------
