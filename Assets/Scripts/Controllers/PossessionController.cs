@@ -40,6 +40,11 @@ public class PossessionController : MonoBehaviour
          set { possessable = value; }
       }
 
+      public Vector3 Position
+      {
+         get { return possessable.transform.position; }
+      }
+
       public bool IsVisible
       {
          get { return isVisible; }
@@ -187,14 +192,13 @@ public class PossessionController : MonoBehaviour
 
 
    // ------------------------------------------------------
-   // Possession
+   // Handle Possession
    // ------------------------------------------------------
    private void HandlePossessions(InputController io, Player player)
    {
       if (io.PossessionKeyPressed && currentTarget != null)
       {
-         PossessObject(currentTarget);
-         player.gameObject.SetActive(false);
+         StartCoroutine(BeginPossession(player, currentTarget));
 
          foreach (PossessableContainer p in possessables)
          {
@@ -216,10 +220,8 @@ public class PossessionController : MonoBehaviour
    {
       if (io.PossessionKeyPressed && currentTarget != null)
       {
-         UnpossessObject();
-         player.gameObject.SetActive(true);
-         PossessObject(currentTarget);
-         player.gameObject.SetActive(false);
+         UnpossessObject(player);
+         StartCoroutine(BeginPossession(player, currentTarget));
 
          foreach (PossessableContainer p in possessables)
          {
@@ -241,21 +243,48 @@ public class PossessionController : MonoBehaviour
    {
       if (io.UnpossessionKeyPressed)
       {
-         player.gameObject.SetActive(true);
-         player.transform.position = possessedContainer.Possessable.transform.position;
-         UnpossessObject();
+         UnpossessObject(player);
       }
    }
 
-   private void PossessObject(PossessableContainer posContainer)
+   private IEnumerator BeginPossession(Player player, PossessableContainer target)
    {
-      possessedContainer = posContainer;
-      possessedContainer.IsPossessed = true;
-      possessedContainer.Possessable.OnPossessionEnter();
+      player.RemoveControl();
+      player.PlayCurlAnimation();
+      // yield return new WaitForSeconds(1);
+
+      while (player.transform.position != target.Position)
+      {
+         player.ZipTo(target.Position);
+         float distance = Vector2.Distance(player.transform.position, target.Position);
+
+         if (distance < 0.5f)
+         {
+            PossessObject(player, target);
+            yield break;
+         }
+         yield return null;
+      }
    }
 
-   private void UnpossessObject()
+
+   // ------------------------------------------------------
+   // Possession
+   // ------------------------------------------------------
+   private void PossessObject(Player player, PossessableContainer target)
    {
+      player.GiveControl();
+      possessedContainer = target;
+      possessedContainer.IsPossessed = true;
+      possessedContainer.Possessable.OnPossessionEnter();
+      player.gameObject.SetActive(false);
+   }
+
+   private void UnpossessObject(Player player)
+   {
+      player.gameObject.SetActive(true);
+      player.transform.position = possessedContainer.Possessable.transform.position;
+
       possessedContainer.IsPossessed = false;
       possessedContainer.Possessable.OnPossessionExit();
       possessedContainer = null;

@@ -12,10 +12,13 @@ public class Player : MonoBehaviour
    private Rigidbody2D rb;
    private HitBox hitBox;
    private bool hasControl = true;
+   private float diagonalLimiter = 0.75f;
+
+   [SerializeField] private Animation curlAnimation;
 
    [SerializeField] private float range;
    [SerializeField] private float movementSpeed;
-   [SerializeField] private float diagonalLimiter;
+   [SerializeField] private float zipSpeed;
 
 
    // ------------------------------------------------------
@@ -68,6 +71,11 @@ public class Player : MonoBehaviour
       transform.position = pos;
    }
 
+   public void ZipTo(Vector3 target)
+   {
+      this.transform.position = Vector2.MoveTowards(this.transform.position, target, this.zipSpeed * Time.deltaTime);
+   }
+
    // ------------------------------------------------------
    // Impulse
    // ------------------------------------------------------
@@ -114,6 +122,13 @@ public class Player : MonoBehaviour
       {
          hasControl = true;
       }
+   }
+
+   // ------------------------------------------------------
+   // Animations 
+   // ------------------------------------------------------
+   public void PlayCurlAnimation(){
+      // curlAnimation.Play();
    }
 
    // ------------------------------------------------------
