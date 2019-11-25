@@ -67,8 +67,9 @@ public class p_BeerBottle : Possessable
 
    private void Launch(Vector3 mousePos)
    {
-      Vector2 launch = Vector2.ClampMagnitude(startPos - mousePos, maxDragLength);
-      rb.AddForceAtPosition(launch * launchForce, startPos);
+      
+      Vector2 launch = Vector2.ClampMagnitude(startPos - mousePos, maxDragLength) * launchForce;
+      rb.AddForceAtPosition(launch, startPos);
    }
 
    // ------------------------------------------------------
