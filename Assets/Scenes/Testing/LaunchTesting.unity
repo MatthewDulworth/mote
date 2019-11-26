@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 206177304}
   - component: {fileID: 206177303}
   - component: {fileID: 206177308}
+  - component: {fileID: 206177309}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -359,8 +360,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acaf33eac10a48a0ae02902ba1242e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 10
+  resolution: 100
   maxFallDistance: 0
+--- !u!114 &206177309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206177302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5796827f286c475a81ccfd504013919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceModifier: 10
+  clickRadius: 1
+  k: 1
 --- !u!1001 &614420470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -376,12 +392,12 @@ PrefabInstance:
     - target: {fileID: 600484160791530497, guid: 9bc2dde6729f54e249423f4b04e61e75,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.95
+      value: 8.08
       objectReference: {fileID: 0}
     - target: {fileID: 600484160791530497, guid: 9bc2dde6729f54e249423f4b04e61e75,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.21
+      value: -3.26
       objectReference: {fileID: 0}
     - target: {fileID: 600484160791530497, guid: 9bc2dde6729f54e249423f4b04e61e75,
         type: 3}
