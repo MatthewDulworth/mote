@@ -12,7 +12,7 @@ public class TrajectoryTest : MonoBehaviour
 
    public float forceModifier = 10;
    public float clickRadius = 1f;
-   public float k = 5;
+   public float k = 22;
 
    public void Awake()
    {
