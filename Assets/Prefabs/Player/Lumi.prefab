@@ -96,9 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913f98f3304684e2fab0f0bef08ee804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curlAnimation: {fileID: 0}
   range: 2
   movementSpeed: 5
-  diagonalLimiter: 0.75
+  zipSpeed: 30
 --- !u!50 &7457585026418973320
 Rigidbody2D:
   serializedVersion: 4
@@ -153,6 +154,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7457585026418973325}
     m_Modifications:
+    - target: {fileID: 7811020845305833847, guid: 39f47a49fc66f4a71a60a90b5a48934b,
+        type: 3}
+      propertyPath: m_Name
+      value: HitBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 7811020845305833847, guid: 39f47a49fc66f4a71a60a90b5a48934b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2840244502734578568, guid: 39f47a49fc66f4a71a60a90b5a48934b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -207,16 +218,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7811020845305833847, guid: 39f47a49fc66f4a71a60a90b5a48934b,
-        type: 3}
-      propertyPath: m_Name
-      value: HitBox
-      objectReference: {fileID: 0}
-    - target: {fileID: 7811020845305833847, guid: 39f47a49fc66f4a71a60a90b5a48934b,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39f47a49fc66f4a71a60a90b5a48934b, type: 3}
