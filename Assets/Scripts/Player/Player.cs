@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
 
    }
 
+
    // ------------------------------------------------------
    // Movement
    // ------------------------------------------------------
@@ -72,6 +73,10 @@ public class Player : MonoBehaviour
       transform.position = pos;
    }
 
+
+   // ------------------------------------------------------
+   // Zip
+   // ------------------------------------------------------
    public void ZipTo(Vector3 target)
    {
       this.transform.position = Vector2.MoveTowards(this.transform.position, target, this.zipSpeed * Time.deltaTime);
@@ -81,7 +86,6 @@ public class Player : MonoBehaviour
    {
       Vector2 direction = this.transform.position - target;
       zipRotationAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-      Debug.Log(zipRotationAngle);
 
       this.rb.freezeRotation = false;
       this.transform.Rotate(0, 0, zipRotationAngle, Space.World);
@@ -92,6 +96,12 @@ public class Player : MonoBehaviour
       this.transform.Rotate(0, 0, -zipRotationAngle, Space.World);
       this.rb.freezeRotation = true;
    }
+
+   public void PlayCurlAnimation()
+   {
+      // curlAnimation.Play();
+   }
+
 
    // ------------------------------------------------------
    // Impulse
@@ -121,6 +131,7 @@ public class Player : MonoBehaviour
       GiveControl();
    }
 
+
    // ------------------------------------------------------
    // Control
    // ------------------------------------------------------
@@ -141,13 +152,6 @@ public class Player : MonoBehaviour
       }
    }
 
-   // ------------------------------------------------------
-   // Animations 
-   // ------------------------------------------------------
-   public void PlayCurlAnimation()
-   {
-      // curlAnimation.Play();
-   }
 
    // ------------------------------------------------------
    // Getters

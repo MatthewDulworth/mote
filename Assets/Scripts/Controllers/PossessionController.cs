@@ -351,6 +351,7 @@ public class PossessionController : MonoBehaviour
       StartCoroutine(player.AddImpulse(impulse, rateOfSlow));
    }
 
+
    // ------------------------------------------------------
    // Getters
    // ------------------------------------------------------
