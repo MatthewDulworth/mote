@@ -1562,7 +1562,17 @@ PrefabInstance:
     - target: {fileID: 7457585026418973322, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: zipSpeed
-      value: 10
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7457585026418973324, guid: f1d523785f8c14bcd9a1d63c14b115be,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 275923947
+      objectReference: {fileID: 0}
+    - target: {fileID: 7457585026418973324, guid: f1d523785f8c14bcd9a1d63c14b115be,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2413061026897856759, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
