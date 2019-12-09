@@ -50,6 +50,6 @@ public class ProjectileArc
       float x = VelocityX * time;
       float y = InitialHeight + VelocityY * time - Gravity * time * time / 2.0f;
 
-      return new Vector2(x, y);
+      return new Vector2(x, y) * -1;
    }
 }
