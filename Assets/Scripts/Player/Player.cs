@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    private Rigidbody2D rb;
    private HitBox hitBox;
+   private Transform eyes;
+
    private bool hasControl = true;
    private float diagonalLimiter = 0.75f;
    private float zipRotationAngle = 0;
@@ -20,6 +22,7 @@ public class Player : MonoBehaviour
    [SerializeField] private float range;
    [SerializeField] private float movementSpeed;
    [SerializeField] private float zipSpeed;
+   [SerializeField] private float eyeDistance = 0.08f;
 
 
    // ------------------------------------------------------
@@ -30,17 +33,20 @@ public class Player : MonoBehaviour
       range = Mathf.Max(range, 0);
       movementSpeed = Mathf.Max(movementSpeed, 0);
       diagonalLimiter = Mathf.Max(diagonalLimiter, 0);
+      eyeDistance = Mathf.Max(eyeDistance, 0);
    }
 
    void Start()
    {
       hitBox = gameObject.GetComponentInChildren<HitBox>();
       rb = GetComponent<Rigidbody2D>();
+
+      eyes = transform.Find("Eyes");
    }
 
    public void OnUpdate()
    {
-
+      TrackEyes();
    }
 
 
@@ -71,6 +77,20 @@ public class Player : MonoBehaviour
    public void SetPosition(Vector3 pos)
    {
       transform.position = pos;
+   }
+
+
+   // ------------------------------------------------------
+   // Eye Tracking
+   // ------------------------------------------------------
+   public void TrackEyes()
+   {
+      Vector3 mousePos = FindObjectOfType<InputController>().MousePosition;
+      Vector3 mouseRelative = transform.InverseTransformPoint(mousePos);
+
+      Vector3 dir = mouseRelative;
+      dir = Vector3.ClampMagnitude(dir, eyeDistance);
+      eyes.localPosition = dir;
    }
 
 
