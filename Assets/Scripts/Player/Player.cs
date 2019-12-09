@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
    private HitBox hitBox;
    private bool hasControl = true;
    private float diagonalLimiter = 0.75f;
+   private float zipRotationAngle = 0;
 
    [SerializeField] private Animation curlAnimation;
 
@@ -76,6 +77,22 @@ public class Player : MonoBehaviour
       this.transform.position = Vector2.MoveTowards(this.transform.position, target, this.zipSpeed * Time.deltaTime);
    }
 
+   public void RotateToPoint(Vector3 target)
+   {
+      Vector2 direction = this.transform.position - target;
+      zipRotationAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+      Debug.Log(zipRotationAngle);
+
+      this.rb.freezeRotation = false;
+      this.transform.Rotate(0, 0, zipRotationAngle, Space.World);
+   }
+
+   public void RotateBack()
+   {
+      this.transform.Rotate(0, 0, -zipRotationAngle, Space.World);
+      this.rb.freezeRotation = true;
+   }
+
    // ------------------------------------------------------
    // Impulse
    // ------------------------------------------------------
@@ -127,7 +144,8 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    // Animations 
    // ------------------------------------------------------
-   public void PlayCurlAnimation(){
+   public void PlayCurlAnimation()
+   {
       // curlAnimation.Play();
    }
 

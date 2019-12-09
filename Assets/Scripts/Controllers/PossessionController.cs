@@ -251,6 +251,7 @@ public class PossessionController : MonoBehaviour
    {
       player.RemoveControl();
       player.PlayCurlAnimation();
+      player.RotateToPoint(target.Position);
       // yield return new WaitForSeconds(1);
 
       while (player.transform.position != target.Position)
@@ -261,6 +262,7 @@ public class PossessionController : MonoBehaviour
          if (distance < 0.5f)
          {
             PossessObject(player, target);
+            player.RotateBack();
             yield break;
          }
          yield return null;
