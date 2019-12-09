@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
    private HealthController healthController;
    private InputController io;
    private List<SceneSpecificController> sceneSpecificControllers;
+   private new AudioManager audio;
 
    [SerializeField] private LayerMask playerLayer;
 
@@ -30,6 +31,7 @@ public class GameController : MonoBehaviour
       possessControl = FindObjectOfType<PossessionController>();
       healthController = FindObjectOfType<HealthController>();
       io = FindObjectOfType<InputController>();
+      audio = FindObjectOfType<AudioManager>();
 
       // on starts
       enemyController.OnStart();
