@@ -324,6 +324,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1d523785f8c14bcd9a1d63c14b115be, type: 3}
+--- !u!1 &672999067 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7457585026418973327, guid: f1d523785f8c14bcd9a1d63c14b115be,
+    type: 3}
+  m_PrefabInstance: {fileID: 672999066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &672999068
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672999067}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6d4e8a8dc10a2404cbee4b56e0b8246e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &901964911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1062,6 +1087,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833315162}
   - component: {fileID: 1833315161}
+  - component: {fileID: 1833315163}
   m_Layer: 0
   m_Name: DrunkDad
   m_TagString: Untagged
@@ -1132,6 +1158,25 @@ Transform:
   m_Father: {fileID: 44706167}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1833315163
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833315160}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1890459183
 PrefabInstance:
   m_ObjectHideFlags: 0
