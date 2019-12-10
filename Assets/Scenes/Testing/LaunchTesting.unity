@@ -362,6 +362,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resolution: 100
   maxFallDistance: 0
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 2304
 --- !u!114 &206177309
 MonoBehaviour:
   m_ObjectHideFlags: 0

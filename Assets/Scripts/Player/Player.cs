@@ -11,14 +11,18 @@ public class Player : MonoBehaviour
    // ------------------------------------------------------
    private Rigidbody2D rb;
    private HitBox hitBox;
+   private Transform eyes;
+
    private bool hasControl = true;
    private float diagonalLimiter = 0.75f;
+   private float zipRotationAngle = 0;
 
    [SerializeField] private Animation curlAnimation;
 
    [SerializeField] private float range;
    [SerializeField] private float movementSpeed;
    [SerializeField] private float zipSpeed;
+   [SerializeField] private float eyeDistance = 0.08f;
 
 
    // ------------------------------------------------------
@@ -29,18 +33,22 @@ public class Player : MonoBehaviour
       range = Mathf.Max(range, 0);
       movementSpeed = Mathf.Max(movementSpeed, 0);
       diagonalLimiter = Mathf.Max(diagonalLimiter, 0);
+      eyeDistance = Mathf.Max(eyeDistance, 0);
    }
 
    void Start()
    {
       hitBox = gameObject.GetComponentInChildren<HitBox>();
       rb = GetComponent<Rigidbody2D>();
+
+      eyes = transform.Find("Eyes");
    }
 
    public void OnUpdate()
    {
-
+      TrackEyes();
    }
+
 
    // ------------------------------------------------------
    // Movement
@@ -71,10 +79,49 @@ public class Player : MonoBehaviour
       transform.position = pos;
    }
 
+
+   // ------------------------------------------------------
+   // Eye Tracking
+   // ------------------------------------------------------
+   public void TrackEyes()
+   {
+      Vector3 mousePos = FindObjectOfType<InputController>().MousePosition;
+      Vector3 mouseRelative = transform.InverseTransformPoint(mousePos);
+
+      Vector3 dir = mouseRelative;
+      dir = Vector3.ClampMagnitude(dir, eyeDistance);
+      eyes.localPosition = dir;
+   }
+
+
+   // ------------------------------------------------------
+   // Zip
+   // ------------------------------------------------------
    public void ZipTo(Vector3 target)
    {
       this.transform.position = Vector2.MoveTowards(this.transform.position, target, this.zipSpeed * Time.deltaTime);
    }
+
+   public void RotateToPoint(Vector3 target)
+   {
+      Vector2 direction = this.transform.position - target;
+      zipRotationAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+      this.rb.freezeRotation = false;
+      this.transform.Rotate(0, 0, zipRotationAngle, Space.World);
+   }
+
+   public void RotateBack()
+   {
+      this.transform.Rotate(0, 0, -zipRotationAngle, Space.World);
+      this.rb.freezeRotation = true;
+   }
+
+   public void PlayCurlAnimation()
+   {
+      // curlAnimation.Play();
+   }
+
 
    // ------------------------------------------------------
    // Impulse
@@ -104,6 +151,7 @@ public class Player : MonoBehaviour
       GiveControl();
    }
 
+
    // ------------------------------------------------------
    // Control
    // ------------------------------------------------------
@@ -124,12 +172,6 @@ public class Player : MonoBehaviour
       }
    }
 
-   // ------------------------------------------------------
-   // Animations 
-   // ------------------------------------------------------
-   public void PlayCurlAnimation(){
-      // curlAnimation.Play();
-   }
 
    // ------------------------------------------------------
    // Getters
