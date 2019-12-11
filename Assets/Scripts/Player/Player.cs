@@ -12,17 +12,20 @@ public class Player : MonoBehaviour
    private Rigidbody2D rb;
    private HitBox hitBox;
    private Transform eyes;
+   private Animator animator;
 
    private bool hasControl = true;
    private float diagonalLimiter = 0.75f;
+
    private float zipRotationAngle = 0;
+   private Vector3 eyeCenter;
 
    [SerializeField] private Animation curlAnimation;
 
    [SerializeField] private float range;
    [SerializeField] private float movementSpeed;
    [SerializeField] private float zipSpeed;
-   [SerializeField] private float eyeDistance = 0.08f;
+   [SerializeField] private float eyeDistance = 0.5f;
 
 
    // ------------------------------------------------------
@@ -40,8 +43,10 @@ public class Player : MonoBehaviour
    {
       hitBox = gameObject.GetComponentInChildren<HitBox>();
       rb = GetComponent<Rigidbody2D>();
+      animator = GetComponent<Animator>();
 
       eyes = transform.Find("Eyes");
+      eyeCenter = eyes.localPosition;
    }
 
    public void OnUpdate()
@@ -57,6 +62,7 @@ public class Player : MonoBehaviour
    {
       if (hasControl)
       {
+         // movement 
          float horizontal = io.GetHorizontalDirection();
          float vertical = io.GetVerticalDirection();
 
@@ -66,6 +72,19 @@ public class Player : MonoBehaviour
             vertical *= diagonalLimiter;
          }
          rb.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
+
+         // animation 
+         animator.SetBool("MovingRight", false);
+         animator.SetBool("MovingLeft", false);
+
+         if (horizontal > 0)
+         {
+            animator.SetBool("MovingRight", true);
+         }
+         else if(horizontal < 0)
+         {
+            animator.SetBool("MovingLeft", true);
+         }
       }
    }
 
@@ -90,7 +109,7 @@ public class Player : MonoBehaviour
 
       Vector3 dir = mouseRelative;
       dir = Vector3.ClampMagnitude(dir, eyeDistance);
-      eyes.localPosition = dir;
+      eyes.localPosition = dir + eyeCenter;
    }
 
 
@@ -109,12 +128,18 @@ public class Player : MonoBehaviour
 
       this.rb.freezeRotation = false;
       this.transform.Rotate(0, 0, zipRotationAngle, Space.World);
+
+      eyes.gameObject.SetActive(false);
+      animator.SetBool("ZipFlag", true);
    }
 
    public void RotateBack()
    {
       this.transform.Rotate(0, 0, -zipRotationAngle, Space.World);
       this.rb.freezeRotation = true;
+
+      eyes.gameObject.SetActive(true);
+      animator.SetBool("ZipFlag", false);
    }
 
    public void PlayCurlAnimation()

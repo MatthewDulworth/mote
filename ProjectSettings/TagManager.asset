@@ -50,3 +50,6 @@ TagManager:
   - name: Player
     uniqueID: 275923947
     locked: 0
+  - name: PlayerEyes
+    uniqueID: 2474356045
+    locked: 0
