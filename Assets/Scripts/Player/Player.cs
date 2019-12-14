@@ -128,6 +128,7 @@ public class Player : MonoBehaviour
 
       this.rb.freezeRotation = false;
       this.transform.Rotate(0, 0, zipRotationAngle, Space.World);
+      this.rb.freezeRotation = true;
 
       eyes.gameObject.SetActive(false);
       animator.SetBool("ZipFlag", true);
@@ -135,6 +136,7 @@ public class Player : MonoBehaviour
 
    public void RotateBack()
    {
+      this.rb.freezeRotation = false;
       this.transform.Rotate(0, 0, -zipRotationAngle, Space.World);
       this.rb.freezeRotation = true;
 
