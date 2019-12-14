@@ -8,16 +8,16 @@ public class AudioManager : MonoBehaviour
    // Member Vars
    // ------------------------------------------------------
    [SerializeField] private Sound[] sounds;
-   public static AudioManager instance;
+   public static AudioManager Instance;
 
    // ------------------------------------------------------
    // Init
    // ------------------------------------------------------
    void Awake()
    {
-      if (instance == null)
+      if (Instance == null)
       {
-         instance = this;
+         Instance = this;
       }
       else
       {

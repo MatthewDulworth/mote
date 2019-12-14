@@ -22,10 +22,10 @@ public class DadRoomController : SceneSpecificController
    private p_FrontFacingDoor exit;
    private p_TV tv;
    private MonoBehaviour target;
+   private Animator dadAnimator;
 
    private bool dadMoveTrigger = false;
    private bool enemySpawnTrigger = false;
-   private bool yeet = true;
 
    // ------------------------------------------------------
    // Mono Methods
@@ -34,29 +34,11 @@ public class DadRoomController : SceneSpecificController
    {
       exit = FindObjectOfType<p_FrontFacingDoor>();
       tv = FindObjectOfType<p_TV>();
+      dadAnimator = drunkDad.GetComponent<Animator>();
    }
 
    public override void OnUpdate(EnemyController enemyController, GameController control)
    {
-      // Debugging
-      if (Input.GetKeyDown(KeyCode.LeftCommand))
-      {
-         if (yeet)
-         {
-            enemyController.DestroyEnemy(enemy1);
-            yeet = false;
-         }
-         else
-         {
-            enemyController.DestroyEnemy(enemy2);
-         }
-      }
-
-      if (Input.GetKeyDown(KeyCode.Space))
-      {
-         BeginEnemyEncounter(enemyController, control);
-      }
-
       if (!enemySpawnTrigger)
       {
          if (!exit.IsClosed)
@@ -78,6 +60,7 @@ public class DadRoomController : SceneSpecificController
       if (dadMoveTrigger == true && drunkDad != null)
       {
          drunkDad.transform.position = Vector2.MoveTowards(drunkDad.transform.position, GetHorizontalTarget(target), dadSpeed * Time.deltaTime);
+         dadAnimator.SetTrigger("Wake");
 
          if (drunkDad.transform.position == GetHorizontalTarget(exit) && target == exit)
          {
@@ -123,6 +106,7 @@ public class DadRoomController : SceneSpecificController
 
    private void BeginEnemyEncounter(EnemyController enemyController, GameController control)
    {
+      AudioManager.Instance.Play("Meglovania");
       control.PossessionController.ForcedUnpossession(control.Player, throwPlayerBack, rateOfSlow);
 
       Vector3 enemy1Spawn = new Vector3(exit.transform.position.x + 5, exit.transform.position.y, 0);
