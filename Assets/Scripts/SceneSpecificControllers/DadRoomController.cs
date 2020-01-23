@@ -87,7 +87,7 @@ public class DadRoomController : SceneSpecificController
 
    private IEnumerator SpawnWall(EnemyController enemyController)
    {
-      yield return new WaitForSeconds(0.5f);
+      yield return new WaitForSeconds(1f);
 
       List<Enemy> list = new List<Enemy>();
       list.Add(enemy1);
