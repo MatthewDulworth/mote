@@ -10,21 +10,17 @@ public class DadRoomController : SceneSpecificController
    [SerializeField] private GameObject enemy1Prefab;
    [SerializeField] private GameObject enemy2Prefab;
    [SerializeField] private GameObject enemyWallPrefab;
-   [SerializeField] private GameObject drunkDad;
    [SerializeField] private GameObject fallWall;
 
-   [SerializeField] private float dadSpeed;
    [SerializeField] private float rateOfSlow;
    [SerializeField] private Vector2 throwPlayerBack;
 
+   private Dad drunkDad;
    private Enemy enemy1;
    private Enemy enemy2;
    private p_FrontFacingDoor exit;
    private p_TV tv;
-   private MonoBehaviour target;
-   private Animator dadAnimator;
-
-   private bool dadMoveTrigger = false;
+  
    private bool enemySpawnTrigger = false;
 
    // ------------------------------------------------------
@@ -34,7 +30,8 @@ public class DadRoomController : SceneSpecificController
    {
       exit = FindObjectOfType<p_FrontFacingDoor>();
       tv = FindObjectOfType<p_TV>();
-      dadAnimator = drunkDad.GetComponent<Animator>();
+      drunkDad = FindObjectOfType<Dad>();
+      drunkDad.init(tv, exit);
    }
 
    public override void OnUpdate(EnemyController enemyController, GameController control)
@@ -55,51 +52,18 @@ public class DadRoomController : SceneSpecificController
    // ------------------------------------------------------
    private void HandleDadEncounter()
    {
-      target = GetDadTarget();
-
-      if (dadMoveTrigger == true && drunkDad != null)
-      {
-         drunkDad.transform.position = Vector2.MoveTowards(drunkDad.transform.position, GetHorizontalTarget(target), dadSpeed * Time.deltaTime);
-         dadAnimator.SetTrigger("Wake");
-
-         if (drunkDad.transform.position == GetHorizontalTarget(exit) && target == exit)
-         {
-            DadExit();
-         }
-         else if (drunkDad.transform.position == GetHorizontalTarget(tv) && target == tv)
-         {
-            tv.PowerOff();
-         }
-      }
+      drunkDad.move();
    }
 
-   private MonoBehaviour GetDadTarget()
-   {
-      MonoBehaviour target = null;
-      if (tv.IsOn)
-      {
-         if (!dadMoveTrigger)
-         {
-            dadMoveTrigger = true;
-         }
-         target = tv;
-      }
-      else
-      {
-         target = exit;
-      }
-      return target;
-   }
-
-   private void DadExit()
+   public void DadExit()
    {
       exit.Unlock();
       exit.Open();
-
-      // TODO: add a wait time here
       Destroy(drunkDad);
+   }
 
-      // TODO: add a wait time here
+   public void CloseDoor()
+   {
       exit.Close();
       Destroy(fallWall);
    }
@@ -121,8 +85,8 @@ public class DadRoomController : SceneSpecificController
       StartCoroutine(SpawnWall(enemyController));
    }
 
-   private IEnumerator SpawnWall(EnemyController enemyController){
-
+   private IEnumerator SpawnWall(EnemyController enemyController)
+   {
       yield return new WaitForSeconds(0.5f);
 
       List<Enemy> list = new List<Enemy>();

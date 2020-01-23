@@ -456,6 +456,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7457585026418973322, guid: f1d523785f8c14bcd9a1d63c14b115be,
+        type: 3}
+      propertyPath: zipSpeed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1d523785f8c14bcd9a1d63c14b115be, type: 3}
 --- !u!1001 &901964911
@@ -841,9 +846,7 @@ MonoBehaviour:
     type: 3}
   enemyWallPrefab: {fileID: 1546894811651445340, guid: a529486c704154dd584a2a36c3538419,
     type: 3}
-  drunkDad: {fileID: 1833315160}
   fallWall: {fileID: 1890459185}
-  dadSpeed: 3
   rateOfSlow: 0.05
   throwPlayerBack: {x: 80, y: 10}
 --- !u!1 &1156191128
@@ -1197,6 +1200,7 @@ GameObject:
   - component: {fileID: 1833315162}
   - component: {fileID: 1833315161}
   - component: {fileID: 1833315163}
+  - component: {fileID: 1833315164}
   m_Layer: 0
   m_Name: DrunkDad
   m_TagString: Untagged
@@ -1286,6 +1290,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1833315164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833315160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be935e44c8b2d4078a7568becad95e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
 --- !u!1001 &1890459183
 PrefabInstance:
   m_ObjectHideFlags: 0
