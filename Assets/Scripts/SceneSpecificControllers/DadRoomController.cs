@@ -20,7 +20,7 @@ public class DadRoomController : SceneSpecificController
    private Enemy enemy2;
    private p_FrontFacingDoor exit;
    private p_TV tv;
-  
+
    private bool enemySpawnTrigger = false;
 
    // ------------------------------------------------------
@@ -38,11 +38,18 @@ public class DadRoomController : SceneSpecificController
    {
       if (!enemySpawnTrigger)
       {
-         HandleDadEncounter();
-         if (!exit.IsClosed)
+         if (!drunkDad.Done)
+         {
+            HandleDadEncounter();
+         }
+         else if (!exit.IsClosed)
          {
             enemySpawnTrigger = true;
             BeginEnemyEncounter(enemyController, control);
+         }
+         else
+         {
+            fallWall.SetActive(false);
          }
       }
    }

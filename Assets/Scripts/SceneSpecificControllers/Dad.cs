@@ -10,6 +10,7 @@ public class Dad : MonoBehaviour
    private p_FrontFacingDoor exit;
    private bool moveTrigger = false;
    private MonoBehaviour target;
+   public bool Done { get; private set; }
 
    public void init(p_TV tv, p_FrontFacingDoor exit)
    {
@@ -47,6 +48,7 @@ public class Dad : MonoBehaviour
          if (!moveTrigger)
          {
             moveTrigger = true;
+            GetComponent<SpriteRenderer>().sortingOrder = 3;
          }
          target = tv;
       }
@@ -56,16 +58,19 @@ public class Dad : MonoBehaviour
       }
    }
 
-   public void DadExit() {
+   public void DadExit()
+   {
       exit.Unlock();
       exit.Open();
-      gameObject.SetActive(false);
+      transform.localScale = new Vector3(0, 0, 0);
+      StartCoroutine(DoorClose());
    }
 
-   private IEnumerator DoorClose() {
+   private IEnumerator DoorClose()
+   {
       yield return new WaitForSeconds(0.5f);
-
-   
+      exit.Close();
+      this.Done = true;
    }
 
    // gets the target coordinates 

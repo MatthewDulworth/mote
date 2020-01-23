@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d9c80a48c494793a64fa6746c4599f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 3.37
-  viewRadius: 6.5
+  range: 5
+  viewRadius: 20
   viewAngle: 360
   direction: 0
   facingRight: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fbc87367956e4ccdb0588fb8ce233b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 4
   attackCoolDown: 2
   chargeForce: 15
   redThingy: {fileID: 3577356111438331807, guid: 2434263985c204005b3def81c7ec0fde,
