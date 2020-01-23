@@ -11,7 +11,8 @@ public class Dad : MonoBehaviour
    private bool moveTrigger = false;
    private MonoBehaviour target;
 
-   public void init(p_TV tv, p_FrontFacingDoor exit) {
+   public void init(p_TV tv, p_FrontFacingDoor exit)
+   {
       this.animator = GetComponent<Animator>();
       this.tv = tv;
       this.exit = exit;
@@ -53,6 +54,18 @@ public class Dad : MonoBehaviour
       {
          target = exit;
       }
+   }
+
+   public void DadExit() {
+      exit.Unlock();
+      exit.Open();
+      gameObject.SetActive(false);
+   }
+
+   private IEnumerator DoorClose() {
+      yield return new WaitForSeconds(0.5f);
+
+   
    }
 
    // gets the target coordinates 

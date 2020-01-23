@@ -38,12 +38,12 @@ public class DadRoomController : SceneSpecificController
    {
       if (!enemySpawnTrigger)
       {
+         HandleDadEncounter();
          if (!exit.IsClosed)
          {
             enemySpawnTrigger = true;
             BeginEnemyEncounter(enemyController, control);
          }
-         HandleDadEncounter();
       }
    }
 
@@ -53,13 +53,6 @@ public class DadRoomController : SceneSpecificController
    private void HandleDadEncounter()
    {
       drunkDad.move();
-   }
-
-   public void DadExit()
-   {
-      exit.Unlock();
-      exit.Open();
-      Destroy(drunkDad);
    }
 
    public void CloseDoor()
