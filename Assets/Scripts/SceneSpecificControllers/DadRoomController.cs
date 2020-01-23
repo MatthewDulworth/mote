@@ -93,7 +93,9 @@ public class DadRoomController : SceneSpecificController
       list.Add(enemy1);
       list.Add(enemy2);
 
-      EnemyWall wall = enemyController.SpawnEnemyWall(enemyWallPrefab, list, exit.transform.position, exit.transform.localScale);
+      Vector3 size = new Vector3(6, 10, 0);
+      EnemyWall wall = enemyController.SpawnEnemyWall(enemyWallPrefab, list, exit.transform.position, size);
+      wall.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.5f);
    }
 
    // ------------------------------------------------------
