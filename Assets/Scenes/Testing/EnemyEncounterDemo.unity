@@ -384,7 +384,7 @@ PrefabInstance:
     - target: {fileID: 7457585026418973322, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: zipSpeed
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1d523785f8c14bcd9a1d63c14b115be, type: 3}
@@ -458,12 +458,12 @@ PrefabInstance:
     - target: {fileID: 2563342835304010790, guid: 1ea08a6a8f3994d13b9ada7ad7b278f2,
         type: 3}
       propertyPath: PossessionKey
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2563342835304010790, guid: 1ea08a6a8f3994d13b9ada7ad7b278f2,
         type: 3}
       propertyPath: ActionKey
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ea08a6a8f3994d13b9ada7ad7b278f2, type: 3}
