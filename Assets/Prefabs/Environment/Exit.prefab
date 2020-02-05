@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -145,8 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetedSprite: {fileID: 3577356111438331807, guid: 2434263985c204005b3def81c7ec0fde,
     type: 3}
-  openSprite: {fileID: 21300000, guid: 932a930f8e8264fc09fedb5776550080, type: 3}
-  closedSprite: {fileID: 21300000, guid: 075702927e537470585d28070180ee27, type: 3}
   isLocked: 1
 --- !u!1001 &7552871146729083378
 PrefabInstance:
