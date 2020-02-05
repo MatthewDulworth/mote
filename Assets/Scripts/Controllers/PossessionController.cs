@@ -254,6 +254,13 @@ public class PossessionController : MonoBehaviour
       player.RotateToPoint(target.Position);
       // yield return new WaitForSeconds(1);
 
+      if (player.transform.position == target.Position)
+      {
+         PossessObject(player, target);
+         player.RotateBack();
+         yield break;
+      }
+
       while (player.transform.position != target.Position)
       {
          player.ZipTo(target.Position);
@@ -286,7 +293,6 @@ public class PossessionController : MonoBehaviour
    {
       player.gameObject.SetActive(true);
       player.transform.position = possessedContainer.Possessable.transform.position;
-
       possessedContainer.IsPossessed = false;
       possessedContainer.Possessable.OnPossessionExit();
       possessedContainer = null;
