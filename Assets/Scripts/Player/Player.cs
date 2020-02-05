@@ -63,8 +63,7 @@ public class Player : MonoBehaviour
    {
       if (hasControl)
       {
-
-         // movement 
+         // ----- movement ----- //
          float horizontal = io.GetHorizontalDirection();
          float vertical = io.GetVerticalDirection();
 
@@ -77,7 +76,7 @@ public class Player : MonoBehaviour
             rb.velocity = rb.velocity * (1 - deceleration);
          }
 
-         // animation 
+         // ----- animation ----- //
          animator.SetBool("MovingRight", false);
          animator.SetBool("MovingLeft", false);
 

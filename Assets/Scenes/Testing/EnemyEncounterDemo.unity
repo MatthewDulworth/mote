@@ -458,7 +458,12 @@ PrefabInstance:
     - target: {fileID: 7457585026418973322, guid: f1d523785f8c14bcd9a1d63c14b115be,
         type: 3}
       propertyPath: deceleration
-      value: 0.01
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 7457585026418973322, guid: f1d523785f8c14bcd9a1d63c14b115be,
+        type: 3}
+      propertyPath: acceleration
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1d523785f8c14bcd9a1d63c14b115be, type: 3}
