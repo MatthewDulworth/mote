@@ -22,10 +22,11 @@ public class Player : MonoBehaviour
 
    [SerializeField] private Animation curlAnimation;
    [SerializeField] private float range;
-   [SerializeField] private float movementSpeed;
+   [SerializeField] private float acceleration;
    [SerializeField] private float zipSpeed;
    [SerializeField] private float eyeDistance = 0.5f;
    [SerializeField] private float maxMoveSpeed;
+   [SerializeField] private float deceleration;
 
 
    // ------------------------------------------------------
@@ -34,7 +35,7 @@ public class Player : MonoBehaviour
    void OnValidate()
    {
       range = Mathf.Max(range, 0);
-      movementSpeed = Mathf.Max(movementSpeed, 0);
+      acceleration = Mathf.Max(acceleration, 0);
       diagonalLimiter = Mathf.Max(diagonalLimiter, 0);
       eyeDistance = Mathf.Max(eyeDistance, 0);
    }
@@ -62,13 +63,19 @@ public class Player : MonoBehaviour
    {
       if (hasControl)
       {
+
          // movement 
          float horizontal = io.GetHorizontalDirection();
          float vertical = io.GetVerticalDirection();
 
          Vector2 direction = new Vector2(horizontal, vertical);
          rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxMoveSpeed);
-         rb.AddForce(direction * movementSpeed);
+         rb.AddForce(direction * acceleration);
+
+         if(horizontal == 0 && vertical == 0 && rb.velocity != Vector2.zero) 
+         {
+            rb.velocity = rb.velocity * (1 - deceleration);
+         }
 
          // animation 
          animator.SetBool("MovingRight", false);
