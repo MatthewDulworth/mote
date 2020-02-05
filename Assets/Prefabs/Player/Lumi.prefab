@@ -100,9 +100,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curlAnimation: {fileID: 0}
   range: 3
-  movementSpeed: 5
+  movementSpeed: 2
   zipSpeed: 30
   eyeDistance: 0.37
+  maxMoveSpeed: 5
 --- !u!50 &7457585026418973320
 Rigidbody2D:
   serializedVersion: 4
@@ -115,9 +116,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 0.1
+  m_LinearDrag: 3
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 9f0dc8f6afcfc45558593892a9138c8c, type: 2}
   m_Interpolate: 0

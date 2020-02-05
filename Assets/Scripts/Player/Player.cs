@@ -15,17 +15,17 @@ public class Player : MonoBehaviour
    private Animator animator;
 
    private bool hasControl = true;
-   private float diagonalLimiter = 0.75f;
+   private float diagonalLimiter = 0.70f;
 
    private float zipRotationAngle = 0;
    private Vector3 eyeCenter;
 
    [SerializeField] private Animation curlAnimation;
-
    [SerializeField] private float range;
    [SerializeField] private float movementSpeed;
    [SerializeField] private float zipSpeed;
    [SerializeField] private float eyeDistance = 0.5f;
+   [SerializeField] private float maxMoveSpeed;
 
 
    // ------------------------------------------------------
@@ -66,12 +66,9 @@ public class Player : MonoBehaviour
          float horizontal = io.GetHorizontalDirection();
          float vertical = io.GetVerticalDirection();
 
-         if (horizontal != 0 && vertical != 0)
-         {
-            horizontal *= diagonalLimiter;
-            vertical *= diagonalLimiter;
-         }
-         rb.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
+         Vector2 direction = new Vector2(horizontal, vertical);
+         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxMoveSpeed);
+         rb.AddForce(direction * movementSpeed);
 
          // animation 
          animator.SetBool("MovingRight", false);
@@ -81,7 +78,7 @@ public class Player : MonoBehaviour
          {
             animator.SetBool("MovingRight", true);
          }
-         else if(horizontal < 0)
+         else if (horizontal < 0)
          {
             animator.SetBool("MovingLeft", true);
          }

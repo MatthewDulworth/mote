@@ -11,6 +11,8 @@ public class Dad : MonoBehaviour
    private bool moveTrigger = false;
    private MonoBehaviour target;
    public bool Done { get; private set; }
+   private bool facingRight = true;
+   private bool unlocking = false;
 
    public void init(p_TV tv, p_FrontFacingDoor exit)
    {
@@ -31,6 +33,10 @@ public class Dad : MonoBehaviour
 
          if (transform.position == HorizontalTarget() && target == exit)
          {
+            if(!facingRight){
+               transform.Rotate(new Vector3(0,180,0));
+               facingRight = true;
+            }
             animator.SetTrigger("Unlock");
          }
          else if (transform.position == HorizontalTarget() && target == tv)
@@ -51,9 +57,18 @@ public class Dad : MonoBehaviour
             GetComponent<SpriteRenderer>().sortingOrder = 3;
          }
          target = tv;
+
+         if(!facingRight) {
+            transform.Rotate(new Vector3(0,180,0));
+            facingRight = true;
+         }
       }
       else
       {
+         if(facingRight && moveTrigger){
+            transform.Rotate(new Vector3(0,180,0));
+            facingRight = false;
+         }
          target = exit;
       }
    }
@@ -68,7 +83,7 @@ public class Dad : MonoBehaviour
 
    private IEnumerator DoorClose()
    {
-      yield return new WaitForSeconds(0.5f);
+      yield return new WaitForSeconds(1f);
       exit.Close();
       this.Done = true;
    }

@@ -10,12 +10,11 @@ public class p_FrontFacingDoor : Possessable
    // ------------------------------------------------------
    // Member Vars
    // ------------------------------------------------------
-   [SerializeField] private Sprite openSprite;
-   [SerializeField] private Sprite closedSprite;
    [SerializeField] private bool isLocked;
 
    private bool isClosed = true;
    private bool isBlocked = false;
+   private Animator animator;
 
 
    // ------------------------------------------------------
@@ -23,6 +22,7 @@ public class p_FrontFacingDoor : Possessable
    // ------------------------------------------------------
    public override void Start()
    {
+      animator = GetComponent<Animator>();
       base.Start();
       if (!boxCollider2D.isTrigger)
       {
@@ -75,11 +75,13 @@ public class p_FrontFacingDoor : Possessable
       if (!isLocked && !isBlocked && isClosed)
       {
          isClosed = false;
-         sr.sprite = openSprite;
+         Debug.Log("open");
+         GetComponent<Animator>().SetBool("open", true);
          return true;
       }
       else
       {
+         GetComponent<Animator>().SetTrigger("locked");
          Debug.Log("Door is locked, blocked, or already open");
          return false;
       }
@@ -89,9 +91,9 @@ public class p_FrontFacingDoor : Possessable
    {
       if (!isClosed)
       {
-
          isClosed = true;
-         sr.sprite = closedSprite;
+         Debug.Log("close");
+         GetComponent<Animator>().SetBool("open", false);
          return true;
       }
       else
